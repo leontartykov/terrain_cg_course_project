@@ -6,31 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/bmstu_cg_course_project_autogen/XBG7L5Z4V6/moc_mainwindow.cpp
-interface/mainwindow.h
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/bmstu_cg_course_project_autogen/XBG7L5Z4V6/interface/mainwindow.h
-QtCore/qbytearray.h
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.h
+
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.hpp
+driver/geometry/point.h
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/driver/geometry/point.h
+
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.h
+vector
 -
-QtCore/qmetatype.h
--
+driver/geometry/point.h
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/driver/geometry/point.h
 
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/bmstu_cg_course_project_autogen/mocs_compilation.cpp
-XBG7L5Z4V6/moc_mainwindow.cpp
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/bmstu_cg_course_project_autogen/XBG7L5Z4V6/moc_mainwindow.cpp
-
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.cpp
-
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.h
-
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.hpp
-point.h
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.h
-
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.cpp
-mainwindow.h
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.h
-./ui_mainwindow.h
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/ui_mainwindow.h
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.hpp
+driver/geometry/polygon.h
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/driver/geometry/polygon.h
 
 /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.h
 QMainWindow
@@ -43,14 +33,10 @@ iostream
 -
 interface/mainwindow.h
 /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.h
-geometry/point.hpp
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.hpp
-
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.cpp
-
-/usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant
-qvariant.h
-/usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h
+driver/geometry/point.hpp
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.hpp
+driver/geometry/polygon.hpp
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.hpp
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h
 QtCore/qglobal.h
@@ -1090,40 +1076,6 @@ qapplication.h
 qmainwindow.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
 
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMenuBar
-qmenubar.h
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenubar.h
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStatusBar
-qstatusbar.h
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstatusbar.h
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget
-qwidget.h
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qaction.h
-QtWidgets/qtwidgetsglobal.h
--
-QtGui/qkeysequence.h
--
-QtCore/qstring.h
--
-QtWidgets/qwidget.h
--
-QtCore/qvariant.h
--
-QtGui/qicon.h
--
-QtWidgets/qactiongroup.h
--
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qactiongroup.h
-QtWidgets/qtwidgetsglobal.h
--
-QtWidgets/qaction.h
--
-
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
 QtWidgets/qtwidgetsglobal.h
 -
@@ -1156,36 +1108,12 @@ QtWidgets/qwidget.h
 QtWidgets/qtabwidget.h
 -
 
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenu.h
-QtWidgets/qtwidgetsglobal.h
--
-QtWidgets/qwidget.h
--
-QtCore/qstring.h
--
-QtGui/qicon.h
--
-QtWidgets/qaction.h
--
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmenubar.h
-QtWidgets/qtwidgetsglobal.h
--
-QtWidgets/qmenu.h
--
-
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtCore/qobject.h
 -
 QtCore/qalgorithms.h
--
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstatusbar.h
-QtWidgets/qtwidgetsglobal.h
--
-QtWidgets/qwidget.h
 -
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h
@@ -1234,19 +1162,5 @@ QtGui/qcursor.h
 QtGui/qkeysequence.h
 -
 QtGui/qevent.h
--
-
-bmstu_cg_course_project_autogen/include/ui_mainwindow.h
-QtCore/QVariant
--
-QtWidgets/QApplication
--
-QtWidgets/QMainWindow
--
-QtWidgets/QMenuBar
--
-QtWidgets/QStatusBar
--
-QtWidgets/QWidget
 -
 

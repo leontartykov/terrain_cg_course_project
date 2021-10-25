@@ -96,39 +96,67 @@ CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.cpp" -o CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.s
 
-CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.o: CMakeFiles/bmstu_cg_course_project.dir/flags.make
-CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.o -c "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.cpp"
+CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.o: CMakeFiles/bmstu_cg_course_project.dir/flags.make
+CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.o -c "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.cpp"
 
-CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.cpp" > CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.i
+CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.cpp" > CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.i
 
-CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.cpp" -o CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.s
+CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.cpp" -o CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.s
 
-CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.o: CMakeFiles/bmstu_cg_course_project.dir/flags.make
-CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.o -c "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.cpp"
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o: CMakeFiles/bmstu_cg_course_project.dir/flags.make
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o -c "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp"
 
-CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.cpp" > CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.i
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp" > CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.i
 
-CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.cpp" -o CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.s
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp" -o CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.s
+
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o: CMakeFiles/bmstu_cg_course_project.dir/flags.make
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o -c "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp"
+
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp" > CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.i
+
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp" -o CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.s
+
+CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.o: CMakeFiles/bmstu_cg_course_project.dir/flags.make
+CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.o -c "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.cpp"
+
+CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.cpp" > CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.i
+
+CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.cpp" -o CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.s
 
 # Object files for target bmstu_cg_course_project
 bmstu_cg_course_project_OBJECTS = \
 "CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o" \
 "CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.o" \
-"CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.o" \
-"CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.o"
+"CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.o" \
+"CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o" \
+"CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o" \
+"CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.o"
 
 # External object files for target bmstu_cg_course_project
 bmstu_cg_course_project_EXTERNAL_OBJECTS =
@@ -136,14 +164,16 @@ bmstu_cg_course_project_EXTERNAL_OBJECTS =
 bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_compilation.cpp.o
 bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o
 bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.o
-bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.o
-bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.o
+bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.o
+bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o
+bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o
+bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.o
 bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/build.make
 bmstu_cg_course_project: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.12.8
 bmstu_cg_course_project: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.12.8
 bmstu_cg_course_project: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.12.8
 bmstu_cg_course_project: CMakeFiles/bmstu_cg_course_project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable bmstu_cg_course_project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable bmstu_cg_course_project"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bmstu_cg_course_project.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

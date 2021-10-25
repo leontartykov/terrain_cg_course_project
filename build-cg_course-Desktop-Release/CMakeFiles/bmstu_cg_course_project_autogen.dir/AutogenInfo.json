@@ -8,14 +8,39 @@
 	"HEADERS" : 
 	[
 		[
-			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.h",
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.h",
 			"MU",
-			"7ZYVOEMLRG/moc_point.cpp"
+			"TTKMO7R2QG/moc_point.cpp"
 		],
 		[
-			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.hpp",
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.hpp",
 			"MU",
-			"7ZYVOEMLRG/moc_point_1.cpp"
+			"TTKMO7R2QG/moc_point_1.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.h",
+			"MU",
+			"TTKMO7R2QG/moc_polygon.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.hpp",
+			"MU",
+			"TTKMO7R2QG/moc_polygon_1.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.hpp",
+			"MU",
+			"RZELCIN77F/moc_perlin.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.h",
+			"MU",
+			"JATXMETS7E/moc_request.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.hpp",
+			"MU",
+			"JATXMETS7E/moc_request_1.cpp"
 		],
 		[
 			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.h",
@@ -26,11 +51,6 @@
 			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/screen.hpp",
 			"MU",
 			"XBG7L5Z4V6/moc_screen.cpp"
-		],
-		[
-			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.hpp",
-			"MU",
-			"JE2R7L35CH/moc_perlin.cpp"
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -85,7 +105,19 @@
 	"SOURCES" : 
 	[
 		[
-			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.cpp",
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.cpp",
 			"MU"
 		],
 		[
@@ -94,10 +126,6 @@
 		],
 		[
 			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/main.cpp",
-			"MU"
-		],
-		[
-			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.cpp",
 			"MU"
 		]
 	],

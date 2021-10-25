@@ -119,13 +119,37 @@
 		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/bmstu_cg_course_project_autogen/mocs_compilation.cpp">
 			<Option target="bmstu_cg_course_project"/>
 		</Unit>
-		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.cpp">
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp">
 			<Option target="bmstu_cg_course_project"/>
 		</Unit>
-		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.h">
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.h">
 			<Option target="bmstu_cg_course_project"/>
 		</Unit>
-		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.hpp">
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.hpp">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.h">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.hpp">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.cpp">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.hpp">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.cpp">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.h">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.hpp">
 			<Option target="bmstu_cg_course_project"/>
 		</Unit>
 		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.cpp">
@@ -141,12 +165,6 @@
 			<Option target="bmstu_cg_course_project"/>
 		</Unit>
 		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/main.cpp">
-			<Option target="bmstu_cg_course_project"/>
-		</Unit>
-		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.cpp">
-			<Option target="bmstu_cg_course_project"/>
-		</Unit>
-		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.hpp">
 			<Option target="bmstu_cg_course_project"/>
 		</Unit>
 		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/CMakeLists.txt">

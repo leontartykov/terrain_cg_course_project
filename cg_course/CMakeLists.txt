@@ -21,11 +21,21 @@ add_executable(${PROJECT_NAME}
     interface/mainwindow.ui
     interface/screen.hpp
 
-    perlin/perlin.cpp
-    perlin/perlin.hpp
+    driver/perlin/perlin.cpp
+    driver/perlin/perlin.hpp
 
-    geometry/point.cpp
-    geometry/point.hpp
-    geometry/point.h)
+    driver/geometry/point.cpp
+    driver/geometry/point.hpp
+    driver/geometry/point.h
+
+    driver/geometry/polygon.h
+    driver/geometry/polygon.hpp
+    driver/geometry/polygon.cpp
+
+    driver/request/request.cpp
+    driver/request/request.hpp
+    driver/request/request.h
+
+    )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)

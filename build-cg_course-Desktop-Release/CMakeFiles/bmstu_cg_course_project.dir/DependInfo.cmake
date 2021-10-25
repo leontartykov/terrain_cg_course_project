@@ -5,10 +5,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/bmstu_cg_course_project_autogen/mocs_compilation.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_compilation.cpp.o"
-  "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/geometry/point.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.o"
+  "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o"
+  "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o"
+  "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.o"
+  "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.o"
   "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.o"
   "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/main.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o"
-  "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/perlin/perlin.cpp" "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

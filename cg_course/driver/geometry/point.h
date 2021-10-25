@@ -5,12 +5,13 @@ template <typename T>
 class Point
 {
 private:
-    T x;
-    T y;
-    T z;
+    T _x;
+    T _y;
+    T _z;
 
 public:
     Point();
+    Point(T x, T y, T z) noexcept;
     ~Point();
 
     void set_data_point(const T data_x, const T data_y, const T data_z);

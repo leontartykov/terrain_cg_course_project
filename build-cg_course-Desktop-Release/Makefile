@@ -163,32 +163,113 @@ bmstu_cg_course_project_autogen/mocs_compilation.cpp.s:
 	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_compilation.cpp.s
 .PHONY : bmstu_cg_course_project_autogen/mocs_compilation.cpp.s
 
-geometry/point.o: geometry/point.cpp.o
+driver/geometry/point.o: driver/geometry/point.cpp.o
 
-.PHONY : geometry/point.o
+.PHONY : driver/geometry/point.o
 
 # target to build an object file
-geometry/point.cpp.o:
-	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.o
-.PHONY : geometry/point.cpp.o
+driver/geometry/point.cpp.o:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o
+.PHONY : driver/geometry/point.cpp.o
 
-geometry/point.i: geometry/point.cpp.i
+driver/geometry/point.i: driver/geometry/point.cpp.i
 
-.PHONY : geometry/point.i
+.PHONY : driver/geometry/point.i
 
 # target to preprocess a source file
-geometry/point.cpp.i:
-	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.i
-.PHONY : geometry/point.cpp.i
+driver/geometry/point.cpp.i:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.i
+.PHONY : driver/geometry/point.cpp.i
 
-geometry/point.s: geometry/point.cpp.s
+driver/geometry/point.s: driver/geometry/point.cpp.s
 
-.PHONY : geometry/point.s
+.PHONY : driver/geometry/point.s
 
 # target to generate assembly for a file
-geometry/point.cpp.s:
-	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/geometry/point.cpp.s
-.PHONY : geometry/point.cpp.s
+driver/geometry/point.cpp.s:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.s
+.PHONY : driver/geometry/point.cpp.s
+
+driver/geometry/polygon.o: driver/geometry/polygon.cpp.o
+
+.PHONY : driver/geometry/polygon.o
+
+# target to build an object file
+driver/geometry/polygon.cpp.o:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o
+.PHONY : driver/geometry/polygon.cpp.o
+
+driver/geometry/polygon.i: driver/geometry/polygon.cpp.i
+
+.PHONY : driver/geometry/polygon.i
+
+# target to preprocess a source file
+driver/geometry/polygon.cpp.i:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.i
+.PHONY : driver/geometry/polygon.cpp.i
+
+driver/geometry/polygon.s: driver/geometry/polygon.cpp.s
+
+.PHONY : driver/geometry/polygon.s
+
+# target to generate assembly for a file
+driver/geometry/polygon.cpp.s:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.s
+.PHONY : driver/geometry/polygon.cpp.s
+
+driver/perlin/perlin.o: driver/perlin/perlin.cpp.o
+
+.PHONY : driver/perlin/perlin.o
+
+# target to build an object file
+driver/perlin/perlin.cpp.o:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.o
+.PHONY : driver/perlin/perlin.cpp.o
+
+driver/perlin/perlin.i: driver/perlin/perlin.cpp.i
+
+.PHONY : driver/perlin/perlin.i
+
+# target to preprocess a source file
+driver/perlin/perlin.cpp.i:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.i
+.PHONY : driver/perlin/perlin.cpp.i
+
+driver/perlin/perlin.s: driver/perlin/perlin.cpp.s
+
+.PHONY : driver/perlin/perlin.s
+
+# target to generate assembly for a file
+driver/perlin/perlin.cpp.s:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/perlin/perlin.cpp.s
+.PHONY : driver/perlin/perlin.cpp.s
+
+driver/request/request.o: driver/request/request.cpp.o
+
+.PHONY : driver/request/request.o
+
+# target to build an object file
+driver/request/request.cpp.o:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.o
+.PHONY : driver/request/request.cpp.o
+
+driver/request/request.i: driver/request/request.cpp.i
+
+.PHONY : driver/request/request.i
+
+# target to preprocess a source file
+driver/request/request.cpp.i:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.i
+.PHONY : driver/request/request.cpp.i
+
+driver/request/request.s: driver/request/request.cpp.s
+
+.PHONY : driver/request/request.s
+
+# target to generate assembly for a file
+driver/request/request.cpp.s:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/request/request.cpp.s
+.PHONY : driver/request/request.cpp.s
 
 interface/mainwindow.o: interface/mainwindow.cpp.o
 
@@ -244,33 +325,6 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-perlin/perlin.o: perlin/perlin.cpp.o
-
-.PHONY : perlin/perlin.o
-
-# target to build an object file
-perlin/perlin.cpp.o:
-	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.o
-.PHONY : perlin/perlin.cpp.o
-
-perlin/perlin.i: perlin/perlin.cpp.i
-
-.PHONY : perlin/perlin.i
-
-# target to preprocess a source file
-perlin/perlin.cpp.i:
-	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.i
-.PHONY : perlin/perlin.cpp.i
-
-perlin/perlin.s: perlin/perlin.cpp.s
-
-.PHONY : perlin/perlin.s
-
-# target to generate assembly for a file
-perlin/perlin.cpp.s:
-	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/perlin/perlin.cpp.s
-.PHONY : perlin/perlin.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -284,18 +338,24 @@ help:
 	@echo "... bmstu_cg_course_project_autogen/mocs_compilation.o"
 	@echo "... bmstu_cg_course_project_autogen/mocs_compilation.i"
 	@echo "... bmstu_cg_course_project_autogen/mocs_compilation.s"
-	@echo "... geometry/point.o"
-	@echo "... geometry/point.i"
-	@echo "... geometry/point.s"
+	@echo "... driver/geometry/point.o"
+	@echo "... driver/geometry/point.i"
+	@echo "... driver/geometry/point.s"
+	@echo "... driver/geometry/polygon.o"
+	@echo "... driver/geometry/polygon.i"
+	@echo "... driver/geometry/polygon.s"
+	@echo "... driver/perlin/perlin.o"
+	@echo "... driver/perlin/perlin.i"
+	@echo "... driver/perlin/perlin.s"
+	@echo "... driver/request/request.o"
+	@echo "... driver/request/request.i"
+	@echo "... driver/request/request.s"
 	@echo "... interface/mainwindow.o"
 	@echo "... interface/mainwindow.i"
 	@echo "... interface/mainwindow.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... perlin/perlin.o"
-	@echo "... perlin/perlin.i"
-	@echo "... perlin/perlin.s"
 .PHONY : help
 
 
