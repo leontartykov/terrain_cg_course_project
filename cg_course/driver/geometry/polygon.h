@@ -2,6 +2,7 @@
 #define _POLYGON_H_
 
 #include <vector>
+#include <iostream>
 
 #include "driver/geometry/point.h"
 
@@ -15,7 +16,8 @@ public:
     explicit Polygon(std::initializer_list<Point<double>> items);
     ~Polygon();
 
-    std::vector<Point<double>> &points();
+    int get_amount();
+    Point<double> operator[] (int index);
 };
 
 #endif
