@@ -111,6 +111,8 @@ CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_comp
 CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_compilation.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h
 CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_compilation.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
 
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/figure.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.cpp
+
 CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp
 
 CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp
@@ -263,6 +265,7 @@ CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.o: /usr/include/
 CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
 CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.o: bmstu_cg_course_project_autogen/include/ui_mainwindow.h
 
+CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.hpp
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /home/lev/Рабочий\ стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.h
@@ -359,6 +362,7 @@ CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qpaintdevice.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qpalette.h
+CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixelformat.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qpolygon.h
@@ -373,9 +377,11 @@ CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs_win.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication
+CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h
+CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h

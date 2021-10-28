@@ -1,0 +1,146 @@
+{
+	"BUILD_DIR" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo/bmstu_cg_course_project_autogen",
+	"CMAKE_BINARY_DIR" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_SOURCE_DIR" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course",
+	"HEADERS" : 
+	[
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.h",
+			"MU",
+			"TTKMO7R2QG/moc_figure.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.h",
+			"MU",
+			"TTKMO7R2QG/moc_point.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.hpp",
+			"MU",
+			"TTKMO7R2QG/moc_point_1.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.h",
+			"MU",
+			"TTKMO7R2QG/moc_polygon.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.hpp",
+			"MU",
+			"TTKMO7R2QG/moc_polygon_1.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.hpp",
+			"MU",
+			"RZELCIN77F/moc_perlin.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.h",
+			"MU",
+			"JATXMETS7E/moc_request.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.hpp",
+			"MU",
+			"JATXMETS7E/moc_request_1.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.h",
+			"MU",
+			"XBG7L5Z4V6/moc_mainwindow.cpp"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/screen.hpp",
+			"MU",
+			"XBG7L5Z4V6/moc_screen.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo/bmstu_cg_course_project_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo/bmstu_cg_course_project_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_NO_DEBUG", "QT_WIDGETS_LIB" ],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo",
+		"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course",
+		"/usr/include/x86_64-linux-gnu/qt5",
+		"/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
+		"/usr/include/x86_64-linux-gnu/qt5/QtGui",
+		"/usr/include/x86_64-linux-gnu/qt5/QtCore",
+		"/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++",
+		"/usr/include/c++/9",
+		"/usr/include/x86_64-linux-gnu/c++/9",
+		"/usr/include/c++/9/backward",
+		"/usr/lib/gcc/x86_64-linux-gnu/9/include",
+		"/usr/local/include",
+		"/usr/include/x86_64-linux-gnu",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/g++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo/bmstu_cg_course_project_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo/CMakeFiles/bmstu_cg_course_project_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib/qt5/bin/uic",
+	"QT_VERSION_MAJOR" : 5,
+	"SETTINGS_FILE" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-RelWithDebInfo/CMakeFiles/bmstu_cg_course_project_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/perlin/perlin.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/request/request.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/interface/mainwindow.cpp",
+			"MU"
+		],
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/main.cpp",
+			"MU"
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

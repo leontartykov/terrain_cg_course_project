@@ -111,6 +111,8 @@ CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_comp
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgets-config.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
+CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/figure.cpp.o
+ /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.cpp
 CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/point.cpp.o
  /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp
 CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/polygon.cpp.o
@@ -264,6 +266,7 @@ CMakeFiles/bmstu_cg_course_project.dir/interface/mainwindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h
  bmstu_cg_course_project_autogen/include/ui_mainwindow.h
 CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o
+ /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.h
  /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.h
  /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.hpp
  /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/polygon.h
@@ -360,6 +363,7 @@ CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpaintdevice.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpalette.h
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixelformat.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpolygon.h
@@ -374,9 +378,11 @@ CMakeFiles/bmstu_cg_course_project.dir/main.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs_win.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h

@@ -119,6 +119,12 @@
 		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/bmstu_cg_course_project_autogen/mocs_compilation.cpp">
 			<Option target="bmstu_cg_course_project"/>
 		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.cpp">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
+		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.h">
+			<Option target="bmstu_cg_course_project"/>
+		</Unit>
 		<Unit filename="/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp">
 			<Option target="bmstu_cg_course_project"/>
 		</Unit>

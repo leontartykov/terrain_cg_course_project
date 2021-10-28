@@ -4,9 +4,10 @@
 #include <vector>
 #include <iostream>
 
+#include "driver/geometry/figure.h"
 #include "driver/geometry/point.h"
 
-class Polygon
+class Polygon: public Figure
 {
 private:
     std::vector<Point<double>> _points;
@@ -18,6 +19,7 @@ public:
 
     int get_amount();
     Point<double> operator[] (int index);
+    void output_polygon();
 };
 
 #endif

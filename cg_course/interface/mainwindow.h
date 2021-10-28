@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
+
+#include "driver/geometry/polygon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -11,11 +14,12 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+    Ui::MainWindow *ui;
+    QGraphicsScene *scene;
+    QGraphicsView *view;
 public:
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-private:
-    Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

@@ -8,6 +8,11 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.h",
+			"MU",
+			"TTKMO7R2QG/moc_figure.cpp"
+		],
+		[
 			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.h",
 			"MU",
 			"TTKMO7R2QG/moc_point.cpp"
@@ -104,6 +109,10 @@
 	"SETTINGS_FILE" : "/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[
+			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.cpp",
+			"MU"
+		],
 		[
 			"/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.cpp",
 			"MU"

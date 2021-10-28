@@ -28,6 +28,9 @@ add_executable(${PROJECT_NAME}
     driver/geometry/point.hpp
     driver/geometry/point.h
 
+    driver/geometry/figure.h
+    driver/geometry/figure.cpp
+
     driver/geometry/polygon.h
     driver/geometry/polygon.hpp
     driver/geometry/polygon.cpp

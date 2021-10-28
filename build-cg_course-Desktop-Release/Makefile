@@ -163,6 +163,33 @@ bmstu_cg_course_project_autogen/mocs_compilation.cpp.s:
 	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/bmstu_cg_course_project_autogen/mocs_compilation.cpp.s
 .PHONY : bmstu_cg_course_project_autogen/mocs_compilation.cpp.s
 
+driver/geometry/figure.o: driver/geometry/figure.cpp.o
+
+.PHONY : driver/geometry/figure.o
+
+# target to build an object file
+driver/geometry/figure.cpp.o:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/figure.cpp.o
+.PHONY : driver/geometry/figure.cpp.o
+
+driver/geometry/figure.i: driver/geometry/figure.cpp.i
+
+.PHONY : driver/geometry/figure.i
+
+# target to preprocess a source file
+driver/geometry/figure.cpp.i:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/figure.cpp.i
+.PHONY : driver/geometry/figure.cpp.i
+
+driver/geometry/figure.s: driver/geometry/figure.cpp.s
+
+.PHONY : driver/geometry/figure.s
+
+# target to generate assembly for a file
+driver/geometry/figure.cpp.s:
+	$(MAKE) -f CMakeFiles/bmstu_cg_course_project.dir/build.make CMakeFiles/bmstu_cg_course_project.dir/driver/geometry/figure.cpp.s
+.PHONY : driver/geometry/figure.cpp.s
+
 driver/geometry/point.o: driver/geometry/point.cpp.o
 
 .PHONY : driver/geometry/point.o
@@ -338,6 +365,9 @@ help:
 	@echo "... bmstu_cg_course_project_autogen/mocs_compilation.o"
 	@echo "... bmstu_cg_course_project_autogen/mocs_compilation.i"
 	@echo "... bmstu_cg_course_project_autogen/mocs_compilation.s"
+	@echo "... driver/geometry/figure.o"
+	@echo "... driver/geometry/figure.i"
+	@echo "... driver/geometry/figure.s"
 	@echo "... driver/geometry/point.o"
 	@echo "... driver/geometry/point.i"
 	@echo "... driver/geometry/point.s"

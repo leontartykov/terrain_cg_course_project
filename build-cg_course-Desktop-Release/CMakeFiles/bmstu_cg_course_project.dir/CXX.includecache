@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/figure.h
+iostream
+-
+
 /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.h
 
 /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/point.hpp
@@ -17,6 +21,8 @@ vector
 -
 iostream
 -
+driver/geometry/figure.h
+/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/driver/geometry/figure.h
 driver/geometry/point.h
 /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/driver/geometry/driver/geometry/point.h
 
@@ -30,6 +36,8 @@ QMainWindow
 
 /home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/cg_course/main.cpp
 QApplication
+-
+QGraphicsScene
 -
 iostream
 -
@@ -958,6 +966,14 @@ QtGui/qcolor.h
 QtGui/qbrush.h
 -
 
+/usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h
+QtGui/qtguiglobal.h
+-
+QtGui/qcolor.h
+-
+QtGui/qbrush.h
+-
+
 /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixelformat.h
 QtGui/qtguiglobal.h
 -
@@ -1074,6 +1090,10 @@ QtGui/qtguiglobal.h
 qapplication.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene
+qgraphicsscene.h
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h
+
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
 qmainwindow.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
@@ -1100,6 +1120,26 @@ QtGui/qguiapplication.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtWidgets/qwidget.h
+-
+
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h
+QtWidgets/qtwidgetsglobal.h
+-
+QtCore/qobject.h
+-
+QtCore/qpoint.h
+-
+QtCore/qrect.h
+-
+QtGui/qbrush.h
+-
+QtGui/qfont.h
+-
+QtGui/qtransform.h
+-
+QtGui/qmatrix.h
+-
+QtGui/qpen.h
 -
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
