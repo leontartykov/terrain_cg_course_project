@@ -25,6 +25,7 @@ void Polygon::output_polygon(){
     for (int i = 0; i < _points.size(); i++){
         std::cout << "(" << _points[i].get_x() << ", " << _points[i].get_y() << ", " << _points[i].get_z() << "), ";
     }
+    std::cout << std::endl;
 }
 
 #endif

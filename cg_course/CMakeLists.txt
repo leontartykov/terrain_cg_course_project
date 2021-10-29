@@ -35,6 +35,14 @@ add_executable(${PROJECT_NAME}
     driver/geometry/polygon.hpp
     driver/geometry/polygon.cpp
 
+    driver/geometry/grid.h
+    driver/geometry/grid.hpp
+    driver/geometry/grid.cpp
+
+    driver/geometry/line.h
+    driver/geometry/line.hpp
+    driver/geometry/line.cpp
+
     driver/request/request.cpp
     driver/request/request.hpp
     driver/request/request.h
