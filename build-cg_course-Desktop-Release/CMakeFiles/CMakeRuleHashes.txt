@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-60f0ca7d24cb366545be077ba0eca1ed CMakeFiles/bmstu_cg_course_project_autogen

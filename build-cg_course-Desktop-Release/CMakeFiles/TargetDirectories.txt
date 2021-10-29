@@ -1,4 +1,0 @@
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/rebuild_cache.dir
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/edit_cache.dir
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project.dir
-/home/lev/Рабочий стол/study/semester_5/bmstu_cg_course_project/build-cg_course-Desktop-Release/CMakeFiles/bmstu_cg_course_project_autogen.dir
