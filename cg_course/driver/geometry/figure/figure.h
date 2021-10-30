@@ -10,4 +10,12 @@ public:
     virtual ~Figure() = default;
 };
 
+typedef struct rotate rotate_t;
+struct rotate
+{
+    double angle_x;
+    double angle_y;
+    double angle_z;
+};
+
 #endif

@@ -1,6 +1,8 @@
 #ifndef _POINT_H_
 #define _POINT_H_
 
+#include <iostream>
+
 template <typename T>
 class Point
 {
@@ -18,6 +20,14 @@ public:
     T get_x() const;
     T get_y() const;
     T get_z() const;
+
+    void set_x(T x);
+    void set_y(T y);
+    void set_z(T z);
+
+    void output_point();
+
+    //Point<T> &operator= (Point<T> &old);
 };
 
 #endif

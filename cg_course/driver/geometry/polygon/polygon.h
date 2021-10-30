@@ -4,8 +4,8 @@
 #include <vector>
 #include <iostream>
 
-#include "driver/geometry/figure.h"
-#include "driver/geometry/point.h"
+#include "driver/geometry/figure/figure.h"
+#include "driver/geometry/point/point.h"
 
 class Polygon: public Figure
 {
@@ -21,7 +21,7 @@ public:
     Point<double> operator[] (int index);
     void output_polygon();
 
-    void rotate_polygon(int angle_x, int angle_y, int angle_z);
+    //void rotate_polygon(int angle_x, int angle_y, int angle_z);
 };
 
 class Rectangle: public Polygon{

@@ -24,28 +24,32 @@ add_executable(${PROJECT_NAME}
     driver/perlin/perlin.cpp
     driver/perlin/perlin.hpp
 
-    driver/geometry/point.cpp
-    driver/geometry/point.hpp
-    driver/geometry/point.h
+    driver/geometry/point/point.cpp
+    driver/geometry/point/point.hpp
+    driver/geometry/point/point.h
 
-    driver/geometry/figure.h
-    driver/geometry/figure.cpp
+    driver/geometry/figure/figure.h
+    driver/geometry/figure/figure.cpp
 
-    driver/geometry/polygon.h
-    driver/geometry/polygon.hpp
-    driver/geometry/polygon.cpp
+    driver/geometry/polygon/polygon.h
+    driver/geometry/polygon/polygon.hpp
+    driver/geometry/polygon/polygon.cpp
 
-    driver/geometry/grid.h
-    driver/geometry/grid.hpp
-    driver/geometry/grid.cpp
+    driver/geometry/grid/grid.h
+    driver/geometry/grid/grid.hpp
+    driver/geometry/grid/grid.cpp
 
-    driver/geometry/line.h
-    driver/geometry/line.hpp
-    driver/geometry/line.cpp
+    driver/geometry/line/line.h
+    driver/geometry/line/line.hpp
+    driver/geometry/line/line.cpp
 
     driver/request/request.cpp
     driver/request/request.hpp
     driver/request/request.h
+
+    driver/transform/transform.cpp
+    driver/transform/transform.hpp
+    driver/transform/transform.h
 
     )
 

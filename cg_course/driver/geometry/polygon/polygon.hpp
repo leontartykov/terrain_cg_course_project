@@ -1,7 +1,7 @@
 #ifndef _POLYGON_HPP_
 #define _POLYGON_HPP_
 
-#include "driver/geometry/polygon.h"
+#include "driver/geometry/polygon/polygon.h"
 
 Polygon::Polygon(): _points(){
 }

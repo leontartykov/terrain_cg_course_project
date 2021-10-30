@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 
-#include "driver/geometry/polygon.h"
+#include "driver/geometry/polygon/polygon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

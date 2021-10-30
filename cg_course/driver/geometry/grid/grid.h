@@ -1,8 +1,8 @@
 #ifndef _GRID_H_
 #define _GRID_H_
 
-#include "driver/geometry/point.h"
-#include "driver/geometry/line.h"
+#include "driver/geometry/point/point.h"
+#include "driver/geometry/line/line.h"
 
 class Grid3D
 {
@@ -15,6 +15,11 @@ public:
 
     Line get_start_line_grid();
     Line get_end_line_grid();
+
+    void set_start_line_grid(Line &old_line);
+    void set_end_line_grid(Line &old_line);
+
+    void draw_grid();
 };
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef _POINT_HPP_
 #define _POINT_HPP_
 
-#include "driver/geometry/point.h"
+#include "driver/geometry/point/point.h"
 
 template <typename T>
 Point<T>::Point(): _x{0}, _y{0}, _z{0} {
@@ -37,5 +37,38 @@ template <typename T>
 T Point<T>::get_z() const{
     return _z;
 }
+
+template <typename T>
+void Point<T>::set_x(T x){
+    _x = x;
+    return;
+}
+
+template <typename T>
+void Point<T>::set_y(T y){
+    _y = y;
+    return;
+}
+
+template <typename T>
+void Point<T>::set_z(T z){
+    _z = z;
+    return;
+}
+
+template <typename T>
+void Point<T>::output_point()
+{
+    std::cout << "(" << _x << ", " << _y << ", " << _z << ")" << std::endl;
+}
+
+/*template <typename T>
+Point<T> &Point<T>::operator= (Point<T> &old)
+{
+    (*this).set_x(old.get_x());
+    (*this).set_y(old.get_y());
+    (*this).set_z(old.get_z());
+    return *this;
+}*/
 
 #endif
