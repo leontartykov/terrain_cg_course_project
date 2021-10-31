@@ -1,6 +1,8 @@
 #ifndef _GRID_H_
 #define _GRID_H_
 
+#include <QGraphicsScene>
+
 #include "driver/geometry/point/point.h"
 #include "driver/geometry/line/line.h"
 
@@ -20,6 +22,8 @@ public:
     void set_end_line_grid(Line &old_line);
 
     void draw_grid();
+    void rotate_grid(rotate_t &rotate_angles);
+    void draw_grid(QGraphicsScene *scene);
 };
 
 #endif

@@ -1,13 +1,14 @@
 #ifndef _GRID_HPP_
 #define _GRID_HPP_
 
+#include <cmath>
 #include "driver/geometry/grid/grid.h"
 #include "driver/transform/transform.h"
 
 Grid3D::Grid3D()
 {
     _line_start = Line(Point<double>(100, 100, 0), Point<double>(500, 100, 0.0));
-    _line_end = Line(Point<double>(500, 700, 0.0), Point<double>(100, 700, 0.0));
+    _line_end = Line(Point<double>(100, 700, 0.0), Point<double>(500, 700, 0.0));
 }
 
 Line Grid3D::get_start_line_grid(){
@@ -26,22 +27,66 @@ void Grid3D::set_end_line_grid(Line &old_line){
     _line_end.set_line(old_line);
 }
 
-void Grid3D::draw_grid()
+void Grid3D::draw_grid(QGraphicsScene *scene)
 {
-    double start_x = _line_start.get_line()[0].get_x(),
-            end_x = _line_start.get_line()[1].get_x(),
-            start_y = _line_end.get_line()[0].get_y(),
-            end_y = _line_end.get_line()[0].get_y();
-    /*std::cout << "Start x = " << start_x << std::endl;
-    std::cout << "End x = " << end_x << std::endl;
-    std::cout << "Start y = " << start_y << std::endl;
-    std::cout << "End y = " << end_y << std::endl;*/
+    Line screen_line_start(_line_start.get_start_point(), _line_start.get_end_point());
+    Line screen_line_end(_line_end.get_start_point(), _line_end.get_end_point());
 
-    /*for (int i = 0; i < 8; i++)
+    transform_3d_into_2d(screen_line_start.get_start_point(), _line_start.get_start_point());
+    transform_3d_into_2d(screen_line_start.get_end_point(), _line_start.get_end_point());
+
+    transform_3d_into_2d(screen_line_end.get_start_point(), _line_end.get_start_point());
+    transform_3d_into_2d(screen_line_end.get_end_point(), _line_end.get_end_point());
+
+    double start_x_start_line = screen_line_start.get_start_point().get_x(),
+                end_x_start_line = screen_line_start.get_end_point().get_x(),
+                start_x_end_line = screen_line_end.get_start_point().get_x(),
+                end_x_end_line = screen_line_end.get_end_point().get_x();
+
+    double start_y_start_line = screen_line_start.get_start_point().get_y(),
+                end_y_start_line = screen_line_start.get_end_point().get_y(),
+                start_y_end_line = screen_line_end.get_start_point().get_y(),
+                end_y_end_line = screen_line_end.get_end_point().get_y();
+
+    double part_x_start_ver = (end_x_start_line - start_x_start_line) / 7,
+                part_y_start_ver = (end_y_start_line - start_y_start_line) / 7,
+                part_x_end_ver = (end_x_end_line - start_x_end_line) / 7,
+                part_y_end_ver = (end_y_end_line - start_y_end_line) / 7;
+
+    double part_x_start_hor = (start_x_start_line - start_x_end_line) / 7,
+                part_y_start_hor = (start_y_start_line - start_y_end_line) / 7,
+                part_x_end_hor = (end_x_start_line - end_x_end_line) / 7,
+                part_y_end_hor = (end_y_start_line - end_y_end_line) / 7;
+
+    screen_line_start.output_line();
+    screen_line_end.output_line();
+
+    scene->addLine(start_x_start_line, start_y_start_line, end_x_start_line, end_y_start_line);
+    scene->addLine(start_x_end_line, start_y_end_line, end_x_end_line, end_y_end_line);
+
+    for (int i = 0; i < 8; i++)
     {
-        scene->addLine(start_x, start_y, start_x, end_y);
-        start_x += part;
-    }*/
+        scene->addLine(start_x_start_line, start_y_start_line, start_x_end_line, start_y_end_line);
+        start_x_start_line += part_x_start_ver;
+        start_x_end_line += part_x_end_ver;
+        start_y_start_line += part_y_start_ver;
+        start_y_end_line += part_y_end_ver;
+    }
+
+    start_x_end_line = screen_line_end.get_start_point().get_x();
+    start_y_end_line = screen_line_end.get_start_point().get_y();
+    end_x_end_line = screen_line_end.get_end_point().get_x();
+    end_y_end_line = screen_line_end.get_end_point().get_y();
+
+    for (int i = 0; i < 8; i++)
+    {
+        scene->addLine(start_x_end_line, start_y_end_line, end_x_end_line, end_y_end_line);
+
+        start_x_end_line += part_x_start_hor;
+        start_y_end_line += part_y_start_hor;
+        end_x_end_line += part_x_end_hor;
+        end_y_end_line += part_y_end_hor;
+    }
 }
 
 #endif
