@@ -12,12 +12,12 @@ void transform_3d_into_2d(Point<double> &screen_points, Point<double> &point)
 
 double transform_x_to_2d(const double coord, const double z)
 {
-    double x = (SCREEN_WIDTH / 2) + ((coord * 1000) / (z + 1000));
+    double x = ((coord * 1000) / (z + 1000));
     return x;
 }
 
 double transform_y_to_2d(const double coord, const double z)
 {
-    double y = (SCREEN_HEIGHT / 2) + ((coord * 1000) / (z + 1000));
+    double y = ((coord * 1000) / (z + 1000));
     return y;
 }

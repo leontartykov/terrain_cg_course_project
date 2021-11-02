@@ -26,8 +26,6 @@ public:
     void set_z(T z);
 
     void output_point();
-
-    //Point<T> &operator= (Point<T> &old);
 };
 
 #endif

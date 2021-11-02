@@ -43,6 +43,10 @@ add_executable(${PROJECT_NAME}
     driver/geometry/line/line.hpp
     driver/geometry/line/line.cpp
 
+    driver/geometry/matrix/matrix.h
+    driver/geometry/matrix/matrix.hpp
+    driver/geometry/matrix/matrix.cpp
+
     driver/request/request.cpp
     driver/request/request.hpp
     driver/request/request.h

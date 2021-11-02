@@ -102,3 +102,21 @@ void rotate_z(Point<double> &point,  double angle_z)
     point.set_x(temp_x * a_cos + temp_y * a_sin);
     point.set_y(-temp_x * a_sin + temp_y * a_cos);
 }
+
+void fill_z_grid(double ***z_grid, int size_grid)
+{
+    for (int i = 0; i < size_grid; i++){
+        for (int j = 0; j < size_grid; j++){
+            (*z_grid)[i][j] = i + j;
+        }
+    }
+}
+
+void draw_new_z_grid(double **new_z_grid, QGraphicsScene *scene)
+{
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            scene->addLine(100 * (i + 1), 100 * (i + 1), )
+        }
+    }
+}

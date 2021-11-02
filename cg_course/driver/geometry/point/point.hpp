@@ -62,13 +62,4 @@ void Point<T>::output_point()
     std::cout << "(" << _x << ", " << _y << ", " << _z << ")" << std::endl;
 }
 
-/*template <typename T>
-Point<T> &Point<T>::operator= (Point<T> &old)
-{
-    (*this).set_x(old.get_x());
-    (*this).set_y(old.get_y());
-    (*this).set_z(old.get_z());
-    return *this;
-}*/
-
 #endif
