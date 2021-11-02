@@ -16,7 +16,7 @@ Point<T>::~Point() {
 }
 
 template <typename T>
-void Point<T>::set_data_point(const T data_x, const T data_y, const T data_z)
+void Point<T>::set_point(const T data_x, const T data_y, const T data_z)
 {
     _x = data_x;
     _y = data_y;
@@ -59,7 +59,7 @@ void Point<T>::set_z(T z){
 template <typename T>
 void Point<T>::output_point()
 {
-    std::cout << "(" << _x << ", " << _y << ", " << _z << ")" << std::endl;
+    std::cout << "(" << _x << ", " << _y << ", " << _z << ")";// << std::endl;
 }
 
 #endif

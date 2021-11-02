@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "driver/geometry/point/point.hpp"
-#include "driver/geometry/grid/grid.h"
-#include "driver/geometry/line/line.h"
 #include "driver/geometry/line/line.hpp"
 #include "driver/geometry/grid/grid.hpp"
+#include "driver/landscape/landscape.hpp"
+//#include "driver/perlin/perlin.hpp"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -30,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     output_matrix(new_z_grid, 4);
 
     draw_new_z_grid(new_z_grid, scene);
+
+    Landscape landscape_1;
+    landscape_1.form_landscape();
+    landscape_1.draw_landscape();
+    landscape_1.output_landscape();
 
     view->show();
 }

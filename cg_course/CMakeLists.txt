@@ -55,6 +55,10 @@ add_executable(${PROJECT_NAME}
     driver/transform/transform.hpp
     driver/transform/transform.h
 
+    driver/landscape/landscape.cpp
+    driver/landscape/landscape.hpp
+    driver/landscape/landscape.h
+
     )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)

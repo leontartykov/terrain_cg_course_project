@@ -4,10 +4,8 @@
 #include "interface/mainwindow.h"
 #include "driver/geometry/point/point.hpp"
 #include "driver/geometry/polygon/polygon.hpp"
-#include "driver/perlin/perlin.hpp"
+//#include "driver/perlin/perlin.hpp"
 #include "driver/geometry/matrix/matrix.h"
-
-double **form_matrix_double(int size_matrix);
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +18,7 @@ int main(int argc, char *argv[])
     //std::cout << polygon[0].get_x() << std::endl;
     polygon.output_polygon();
 
-    perlin::Perlin map(1532512342);
+    //perlin::Perlin map(1532512342);
     int size_matrix = 512;
 
     std::cout << "MATRIX";

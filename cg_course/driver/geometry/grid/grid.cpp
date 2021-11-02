@@ -113,10 +113,10 @@ void fill_z_grid(double ***z_grid, int size_grid)
 }
 
 void draw_new_z_grid(double **new_z_grid, QGraphicsScene *scene)
-{
+{/*
     for (int i = 0; i < 4; i++){
         for (int j = 0; j < 4; j++){
             scene->addLine(100 * (i + 1), 100 * (i + 1), )
         }
-    }
+    }*/
 }

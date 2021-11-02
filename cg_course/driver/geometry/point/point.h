@@ -16,7 +16,7 @@ public:
     Point(T x, T y, T z) noexcept;
     ~Point();
 
-    void set_data_point(const T data_x, const T data_y, const T data_z);
+    void set_point(const T data_x, const T data_y, const T data_z);
     T get_x() const;
     T get_y() const;
     T get_z() const;
