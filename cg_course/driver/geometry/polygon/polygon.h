@@ -15,11 +15,12 @@ private:
 public:
     Polygon();
     explicit Polygon(std::initializer_list<Point<double>> items);
-    virtual ~Polygon();
+    ~Polygon();
 
     int get_amount();
     Point<double> operator[] (int index);
     void output_polygon();
+    virtual void rotate(rotate_t &rotate_angles) override;
 
     //void rotate_polygon(int angle_x, int angle_y, int angle_z);
 };

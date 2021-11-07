@@ -28,4 +28,9 @@ void Polygon::output_polygon(){
     std::cout << std::endl;
 }
 
+void Polygon::rotate(rotate_t &rotate_angles)
+{
+
+}
+
 #endif

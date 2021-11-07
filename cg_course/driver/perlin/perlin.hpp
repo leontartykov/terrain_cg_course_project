@@ -23,10 +23,10 @@ namespace perlin
     {
         //get proportion in original range
         double proportion = (value - old_min) / (old_max - old_min);
-        std::cout << "proportion = " << proportion << std::endl;
+        /*std::cout << "proportion = " << proportion << std::endl;
         std::cout << "proportion = " << new_min << std::endl;
         std::cout << "proportion = " << new_max << std::endl;
-        std::cout << "lerp(proportion, new_min, new_max) = " << lerp(proportion, new_min, new_max) << std::endl;
+        std::cout << "lerp(proportion, new_min, new_max) = " << lerp(proportion, new_min, new_max) << std::endl;*/
         return lerp(proportion, new_min, new_max);
     }
 
@@ -136,7 +136,7 @@ namespace perlin
                 double average = lerp(sy, lerp(sx, gradient(aa, x, y, 0), gradient(ab, x - 1, y, 0)),
                                                       lerp(sx, gradient(ba, x, y - 1, 0), gradient(bb, x - 1, y - 1, 0)));
 
-                std::cout << "RETURN VALUE: " << "\\" << map(average, -1, 1, 0, 1) << "\\" << std::endl;
+                //std::cout << "RETURN VALUE: " << "\\" << map(average, -1, 1, 0, 1) << "\\" << std::endl;
                 return map(average, -1, 1, 0, 1);
             }
 

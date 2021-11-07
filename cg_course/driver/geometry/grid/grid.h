@@ -6,7 +6,7 @@
 #include "driver/geometry/point/point.h"
 #include "driver/geometry/line/line.h"
 
-class Grid3D
+class Grid3D: public Figure
 {
 private:
     Line _line_start;
@@ -21,7 +21,7 @@ public:
     void set_start_line_grid(Line &old_line);
     void set_end_line_grid(Line &old_line);
 
-    void rotate_grid(rotate_t &rotate_angles);
+    virtual void rotate(rotate_t &rotate_angles) override;
     void draw_grid(QGraphicsScene *scene);
 
     double **create_z_grid(int size_grid);

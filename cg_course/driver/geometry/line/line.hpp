@@ -5,11 +5,11 @@
 
 Line::Line(Point<double> point_1, Point<double> point_2)
 {
-    _line[0] = point_1;
-    _line[1] = point_2;
+    _line.push_back(point_1);
+    _line.push_back(point_2);
 }
 
-std::array<Point<double>, 2> &Line::get_line(){
+std::vector<Point<double>> &Line::get_line(){
     return _line;
 }
 
@@ -31,8 +31,6 @@ Point<double> &Line::get_end_point(){
 
 void Line::set_line(Line &old_line)
 {
-    std::cout << "SET_LINE" << std::endl;
-    old_line.output_line();
     _line[0].set_x(old_line.get_start_point().get_x());
     (*this).get_start_point().set_y(old_line.get_start_point().get_y());
     (*this).get_start_point().set_z(old_line.get_start_point().get_z());
@@ -43,6 +41,11 @@ void Line::set_line(Line &old_line)
 
     (*this).get_start_point().output_point();
     (*this).get_end_point().output_point();
+}
+
+void Line::rotate(rotate_t &rotate_angles)
+{
+
 }
 
 #endif

@@ -59,8 +59,8 @@ void Grid3D::draw_grid(QGraphicsScene *scene)
                 part_x_end_hor = (end_x_start_line - end_x_end_line) / 7,
                 part_y_end_hor = (end_y_start_line - end_y_end_line) / 7;
 
-    screen_line_start.output_line();
-    screen_line_end.output_line();
+    /*screen_line_start.output_line();
+    screen_line_end.output_line();*/
 
     scene->addLine(start_x_start_line, start_y_start_line, end_x_start_line, end_y_start_line);
     scene->addLine(start_x_end_line, start_y_end_line, end_x_end_line, end_y_end_line);

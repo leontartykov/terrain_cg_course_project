@@ -2,7 +2,10 @@
 #define _LANDSCAPE_H_
 
 #include <vector>
+#include <QGraphicsScene>
 #include "driver/geometry/point/point.h"
+#include "driver/geometry/figure/figure.h"
+#include "driver/geometry/line/line.h"
 
 class Landscape
 {
@@ -15,8 +18,11 @@ public:
     ~Landscape();
 
     void form_landscape();
-    void draw_landscape();
+    void draw_landscape(QGraphicsScene *scene);
     void output_landscape();
+    void output_screen_landscape();
+
+    void rotate_landscape(rotate_t &rotate_angles);
 };
 
 #endif
