@@ -19,10 +19,14 @@ public:
 
     void form_landscape();
     void draw_landscape(QGraphicsScene *scene);
+
     void output_landscape();
     void output_screen_landscape();
 
     void rotate_landscape(rotate_t &rotate_angles);
+
+    Point<double> &get_point(int index_i, int index_j);
+    Point<double> &get_screen_point(int index_i, int index_j);
 };
 
 #endif

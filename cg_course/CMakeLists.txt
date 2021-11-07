@@ -59,6 +59,13 @@ add_executable(${PROJECT_NAME}
     driver/landscape/landscape.hpp
     driver/landscape/landscape.h
 
+    driver/invisible/zbuffer.cpp
+    driver/invisible/zbuffer.hpp
+    driver/invisible/zbuffer.h
+
+    driver/geometry/matrix/matrix.cpp
+    driver/geometry/matrix/matrix.hpp
+    driver/geometry/matrix/matrix.h
     )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)

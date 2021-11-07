@@ -12,7 +12,7 @@ private:
 
 public:
     Line() {}
-    explicit Line(Point<double> point_1, Point<double> point_2);
+    Line(Point<double> point_1, Point<double> point_2);
     ~Line() {}
 
     std::vector<Point<double>> &get_line();

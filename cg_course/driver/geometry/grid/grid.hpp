@@ -90,26 +90,4 @@ void Grid3D::draw_grid(QGraphicsScene *scene)
     }
 }
 
-double **Grid3D::create_z_grid(int size_grid)
-{
-    double **z_grid = nullptr;
-    z_grid = form_matrix_double(4);
-    return z_grid;
-}
-
-/*
-void Grid3D::draw_z_grid(QGraphicsScene *scene)
-{
-    Line screen_line_start(_line_start.get_start_point(), _line_start.get_end_point());
-    Line screen_line_end(_line_end.get_start_point(), _line_end.get_end_point());
-
-    transform_3d_into_2d(screen_line_start.get_start_point(), _line_start.get_start_point());
-    transform_3d_into_2d(screen_line_start.get_end_point(), _line_start.get_end_point());
-
-    transform_3d_into_2d(screen_line_end.get_start_point(), _line_end.get_start_point());
-    transform_3d_into_2d(screen_line_end.get_end_point(), _line_end.get_end_point());
-
-    for (int i = 0; i < )
-}*/
-
 #endif

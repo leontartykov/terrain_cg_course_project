@@ -4,6 +4,8 @@
 #include "driver/geometry/line/line.hpp"
 #include "driver/geometry/grid/grid.hpp"
 #include "driver/landscape/landscape.hpp"
+#include "driver/invisible/zbuffer.hpp"
+
 //#include "driver/perlin/perlin.hpp"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
@@ -20,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
                  rotate_landscape_angles = {120, 120, 0};
 
     Line line(Point<double>(0, 0, 0), Point<double>(1,1,0));
-    scene->addLine(line.get_start_point().get_x(), line.get_start_point().get_y(), line.get_end_point().get_x(), line.get_end_point().get_y());
+    scene->addLine(line.get_start_point().get_x(), line.get_start_point().get_y(),
+                               line.get_end_point().get_x(), line.get_end_point().get_y());
 
     grid.rotate(rotate_angles);
     grid.draw_grid(scene);
@@ -29,8 +32,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     landscape_1.form_landscape();
     //landscape_1.output_landscape();
     landscape_1.rotate_landscape(rotate_landscape_angles);
-    landscape_1.output_landscape();
+
     landscape_1.draw_landscape(scene);
+    landscape_1.output_screen_landscape();
+
+    ZBuffer zbuffer(20, 20);
+    std::cout << std::endl << "Z buffer:" << std::endl;
+    zbuffer.output();
 
     view->show();
 }

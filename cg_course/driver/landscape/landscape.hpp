@@ -121,4 +121,12 @@ void Landscape::rotate_landscape(rotate_t &rotate_angles)
     }
 }
 
+Point<double> &Landscape::get_point(int index_i, int index_j){
+    return _points[index_i][index_j];
+}
+
+Point<double> &Landscape::get_screen_point(int index_i, int index_j){
+    return _screen_points[index_i][index_j];
+}
+
 #endif
