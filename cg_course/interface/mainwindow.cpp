@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     landscape_1.rotate_landscape(rotate_landscape_angles);
 
     landscape_1.draw_landscape(scene);
-    //landscape_1.output_screen_landscape();
+    //landscape_1.output_landscape();
 
     view->show();
 }

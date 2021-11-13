@@ -14,6 +14,9 @@ void find_max_point(Point<double> &point_1, Point<double> &point_2,
 void find_middle_point(Point<double> &middle_point, Point<double> &min_point, Point<double> &max_point,
                                      Point<double> &point_1, Point<double> &point_2, Point<double> &point_3);
 
+void calculate_equation_plane(double &normal_x, double &normal_y, double &normal_z, double &d,
+                                                  Point<double> point_1, Point<double> point_2, Point<double>point_3);
+
 void remove_invisible_lines(ZBuffer &zbuffer, Landscape &landscape)
 {
     std::cout << "landscape.get_height() = " << landscape.get_height() << std::endl;
@@ -251,3 +254,25 @@ void find_middle_point(Point<double> &middle_point, Point<double> &min_point, Po
     }
 }
 
+void calculate_equation_plane(double &normal_x, double &normal_y, double &normal_z, double &d,
+                                                  Point<double> point_1, Point<double> point_2, Point<double>point_3)
+{
+    double vector_1_x = 0, vector_1_y = 0, vector_1_z = 0;
+    double vector_2_x = 0, vector_2_y = 0, vector_2_z = 0;
+    normal_x = 0, normal_y = 0, normal_z = 0;
+    double d = 0;
+
+    vector_1_x = x2 - x1;
+    vector_1_y = y2 - y1;
+    vector_1_z = z2 - z1;
+
+    vector_2_x = x3 - x1;
+    vector_2_y = y3 - y1;
+    vector_2_z = z3 - z1;
+
+    normal_x = vector_1_y * vector_2_z - vector_1_z * vector_2_y;
+    normal_y = vector_2_x * vector_1_z - vector_2_z * vector_1_x;
+    normal_z = vector_1_x * vector_2_y - vector_1_y * vector_2_x;
+
+    d = (- normal_x * x1 - normal_y * y1 - normal_z * z1);
+}
