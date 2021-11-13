@@ -27,6 +27,8 @@ public:
 
     Point<double> &get_point(int index_i, int index_j);
     Point<double> &get_screen_point(int index_i, int index_j);
+    int get_width();
+    int get_height();
 };
 
 #endif

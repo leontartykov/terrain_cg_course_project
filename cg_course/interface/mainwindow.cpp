@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     Grid3D grid;
 
     rotate_t rotate_angles = {40, 40, 0},
-                 rotate_landscape_angles = {120, 120, 0};
+                 rotate_landscape_angles = {180, 150, 0};
 
     Line line(Point<double>(0, 0, 0), Point<double>(1,1,0));
     scene->addLine(line.get_start_point().get_x(), line.get_start_point().get_y(),
@@ -34,11 +34,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     landscape_1.rotate_landscape(rotate_landscape_angles);
 
     landscape_1.draw_landscape(scene);
-    landscape_1.output_screen_landscape();
-
-    ZBuffer zbuffer(20, 20);
-    std::cout << std::endl << "Z buffer:" << std::endl;
-    zbuffer.output();
+    //landscape_1.output_screen_landscape();
 
     view->show();
 }

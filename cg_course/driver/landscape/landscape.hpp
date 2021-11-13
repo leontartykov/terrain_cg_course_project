@@ -5,6 +5,7 @@
 #include "driver/landscape/landscape.h"
 #include "driver/perlin/perlin.hpp"
 #include "driver/transform/transform.h"
+#include "driver/invisible/zbuffer.h"
 
 #define WIDTH_LANDSCAPE 20
 #define HEIGHT_LANDSCAPE 20
@@ -40,7 +41,7 @@ void Landscape::form_landscape()
 
     for (int x = 0; x < WIDTH_LANDSCAPE; x++){
         for (int y = 0; y < HEIGHT_LANDSCAPE; y++){
-            _points[x][y].set_point(x * 10, y * 10, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 100);
+            _points[x][y].set_point(x * 20, y * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 250);
         }
     }
 }
@@ -79,6 +80,12 @@ void Landscape::draw_landscape(QGraphicsScene *scene)
         }
     }
 
+    ZBuffer zbuffer(SCREEN_HEIGHT, SCREEN_WIDTH);
+    remove_invisible_lines(zbuffer, *this);
+    //zbuffer.output();
+
+    int x = 0, y = 0;
+    double z = 0;
     row_size = _screen_points.size();
     for (int i = 0; i < row_size; i++)
     {
@@ -87,10 +94,18 @@ void Landscape::draw_landscape(QGraphicsScene *scene)
         {
             if (i < row_size - 1 && j < column_size - 1)
             {
-                scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
-                                           _screen_points[i][j+1].get_x(), _screen_points[i][j+1].get_y());
-                scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
-                                            _screen_points[i+1][j].get_x(), _screen_points[i+1][j].get_y());
+                x = _screen_points[i][j].get_x();
+                y = _screen_points[i][j].get_y();
+                z = _points[i][j].get_z();
+                std::cout << "z = " << z << " zbuffer.get_z_point(x, y) = " << zbuffer.get_z_point(x, y) << std::endl;
+                std::cout << "? = ? " << (z == zbuffer.get_z_point(x, y))  << std::endl;
+                if (z == zbuffer.get_z_point(x, y))
+                {
+                    scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
+                                               _screen_points[i][j+1].get_x(), _screen_points[i][j+1].get_y());
+                    scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
+                                                _screen_points[i+1][j].get_x(), _screen_points[i+1][j].get_y());
+                }
             }
         }
     }
@@ -127,6 +142,14 @@ Point<double> &Landscape::get_point(int index_i, int index_j){
 
 Point<double> &Landscape::get_screen_point(int index_i, int index_j){
     return _screen_points[index_i][index_j];
+}
+
+int Landscape::get_height(){
+    return _points.size();
+}
+
+int Landscape::get_width(){
+    return _points[0].size();
 }
 
 #endif

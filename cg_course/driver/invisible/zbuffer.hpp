@@ -8,9 +8,9 @@ ZBuffer::ZBuffer(int width, int height)
 {
     for (int i = 0; i < width; i++)
     {
-        std::vector<int> temp;
+        std::vector<double> temp;
         for (int j = 0; j < height; j++){
-            temp.push_back(std::numeric_limits<int>::min());
+            temp.push_back(std::numeric_limits<int>::max());
         }
         _zbuffer_matrix.push_back(temp);
     }
@@ -34,6 +34,10 @@ void ZBuffer::output()
     }
 }
 
-double ZBuffer::get_z_point(int index_i, int index_j){
+double ZBuffer::get_z_point(int index_i, int index_j) const{
     return _zbuffer_matrix[index_i][index_j];
+}
+
+void ZBuffer::set_z_point(double value, int index_i, int index_j){
+    _zbuffer_matrix[index_i][index_j] = value;
 }
