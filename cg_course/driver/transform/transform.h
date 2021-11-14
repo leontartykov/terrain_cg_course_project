@@ -11,8 +11,8 @@
 
 void transform_3d_into_2d(Point<double> &screen_points, Point<double> &point);
 
-void shift_point_by_center(Point<double> &point, Point<double> center_figure_point);
-void shift_point_back_by_center(Point<double> &point, Point<double> center_figure_point);
+void shift_point_by_center(Point<double> &point, Point<double> &center_figure_point);
+void shift_point_back_by_center(Point<double> &point, Point<double> &center_figure_point);
 
 void rotate_point(Point<double> &point, rotate_t &rotate_angles);
 void rotate_x(Point<double> &point, double angle_x);

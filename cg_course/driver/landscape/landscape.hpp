@@ -41,17 +41,17 @@ void Landscape::form_landscape()
 
     for (int x = 0; x < WIDTH_LANDSCAPE; x++){
         for (int y = 0; y < HEIGHT_LANDSCAPE; y++){
-            _points[x][y].set_point(x * 20, y * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 250);
+            _points[x][y].set_point((x+1) * 20, (y+1) * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 250);
         }
     }
 
-    (*this).output_landscape();
+    //(*this).output_landscape();
 }
 
 void Landscape::output_screen_landscape()
 {
-    for (int i = 0; i < _points.size(); i++){
-        for (int j = 0; j < _points[i].size(); j++){
+    for (int i = 0; i < _screen_points.size(); i++){
+        for (int j = 0; j < _screen_points[i].size(); j++){
         _screen_points[i][j].output_point();
         }
         std::cout << std::endl;
@@ -75,15 +75,18 @@ void Landscape::draw_landscape(QGraphicsScene *scene)
     int row_size = _points.size();
     int column_size = _points[0].size();
 
-    /*for (int i = 0; i < row_size; i++)
+    for (int i = 0; i < row_size; i++)
     {
-        for (int j = 0; j < column_size ; j++){
+        for (int j = 0; j < column_size; j++){
             transform_3d_into_2d(_screen_points[i][j], _points[i][j]);
         }
-    }*/
+    }
+    //(*this).output_screen_landscape();
 
-    //ZBuffer zbuffer(SCREEN_HEIGHT, SCREEN_WIDTH);
-    //remove_invisible_lines(zbuffer, *this);
+    (*this).get_screen_point(0,0).output_point();
+
+    ZBuffer zbuffer(SCREEN_HEIGHT, SCREEN_WIDTH);
+    remove_invisible_lines(zbuffer, *this);
     //zbuffer.output();
 
     int x = 0, y = 0;
@@ -96,10 +99,12 @@ void Landscape::draw_landscape(QGraphicsScene *scene)
         {
             if (i < row_size - 1 && j < column_size - 1)
             {
-                    scene->addLine(_points[i][j].get_x(), _points[i][j].get_y(),
-                                               _points[i][j+1].get_x(), _points[i][j+1].get_y());
-                    scene->addLine(_points[i][j].get_x(), _points[i][j].get_y(),
-                                                _points[i+1][j].get_x(), _points[i+1][j].get_y());
+                    scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
+                                               _screen_points[i][j+1].get_x(), _screen_points[i][j+1].get_y());
+                    scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
+                                                _screen_points[i+1][j].get_x(), _screen_points[i+1][j].get_y());
+                    //scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
+                      //                          _screen_points[i+1][j+1].get_x(), _screen_points[i+1][j+1].get_y());
             }
         }
     }

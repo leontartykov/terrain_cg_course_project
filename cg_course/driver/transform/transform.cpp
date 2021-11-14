@@ -14,26 +14,30 @@ void transform_3d_into_2d(Point<double> &screen_points, Point<double> &point)
 
 double transform_x_to_2d(const double coord, const double z)
 {
-    double x = (SCREEN_WIDTH / 2) + (coord * 1000) / (z + 1000);
+    double x = (SCREEN_WIDTH / 4) + (coord * 1000) / (z + 1000);
     return x;
 }
 
 double transform_y_to_2d(const double coord, const double z)
 {
-    double y = (SCREEN_HEIGHT / 2) +  (coord * 1000) / (z + 1000);
+    double y = (SCREEN_HEIGHT / 4) +  (coord * 1000) / (z + 1000);
     return y;
 }
 
-void shift_point_by_center(Point<double> &point, Point<double> center_figure_point)
+void shift_point_by_center(Point<double> &point, Point<double> &center_figure_point)
 {
-    point.set_point(point.get_x() - center_figure_point.get_x(), point.get_y() - center_figure_point.get_y(),
-                             point.get_z() - center_figure_point.get_z());
+    double x = point.get_x() - center_figure_point.get_x();
+    double y = point.get_y() - center_figure_point.get_y();
+    double z = point.get_z() - center_figure_point.get_z();
+    point.set_point(x, y, z);
 }
 
-void shift_point_back_by_center(Point<double> &point, Point<double> center_figure_point)
+void shift_point_back_by_center(Point<double> &point, Point<double> &center_figure_point)
 {
-    point.set_point(point.get_x() + center_figure_point.get_x(), point.get_y() + center_figure_point.get_y(),
-                             point.get_z() + center_figure_point.get_z());
+    double x = point.get_x() + center_figure_point.get_x();
+    double y = point.get_y() + center_figure_point.get_y();
+    double z = point.get_z() + center_figure_point.get_z();
+    point.set_point(x, y, z);
 }
 
 void rotate_point(Point<double> &point, rotate_t &rotate_angles)
