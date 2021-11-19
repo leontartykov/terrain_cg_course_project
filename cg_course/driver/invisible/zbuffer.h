@@ -20,6 +20,7 @@ class ZBuffer: Matrix
 {
 private:
     std::vector<std::vector<double>> _zbuffer_matrix;
+    std::vector<std::vector<QColor>> _color_matrix;
 public:
     ZBuffer();
     ZBuffer(int width, int height);
@@ -30,6 +31,7 @@ public:
     void set_z_point(double value, int index_i, int index_j);
 
     std::vector<std::vector<double>> &get_zbuffer_matrix();
+    std::vector<std::vector<QColor>> &get_color_matrix();
 
 };
 

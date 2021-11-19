@@ -41,7 +41,7 @@ void Landscape::form_landscape()
 
     for (int x = 0; x < WIDTH_LANDSCAPE; x++){
         for (int y = 0; y < HEIGHT_LANDSCAPE; y++){
-            _points[x][y].set_point((x+1) * 20, (y+1) * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 250);
+            _points[x][y].set_point((x-10) * 20, (y-5) * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 250);
         }
     }
 
@@ -70,7 +70,7 @@ void Landscape::output_landscape()
     }
 }
 
-void Landscape::draw_landscape(QGraphicsScene *scene)
+void Landscape::draw_landscape(QGraphicsScene *scene, QImage *image)
 {
     int row_size = _points.size();
     int column_size = _points[0].size();
@@ -85,17 +85,18 @@ void Landscape::draw_landscape(QGraphicsScene *scene)
 
     (*this).get_screen_point(0,0).output_point();
 
-    ZBuffer zbuffer(SCREEN_HEIGHT, SCREEN_WIDTH);
+    ZBuffer zbuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
     remove_invisible_lines(zbuffer, *this);
     //zbuffer.output();
 
+    /*
     int x = 0, y = 0;
     double z = 0;
     row_size = _points.size();
     for (int i = 0; i < row_size; i++)
     {
         int column_size = _points[i].size();
-        for (int j = 0; j < column_size; j++)
+        for (int j = 0; j <=3 /*column_size; j++)
         {
             if (i < row_size - 1 && j < column_size - 1)
             {
@@ -107,7 +108,36 @@ void Landscape::draw_landscape(QGraphicsScene *scene)
                       //                          _screen_points[i+1][j+1].get_x(), _screen_points[i+1][j+1].get_y());
             }
         }
+    }*/
+
+    row_size = zbuffer.get_color_matrix().size(), column_size  = zbuffer.get_color_matrix()[0].size();
+    std::cout << "row_size = " << row_size << std::endl;
+    std::cout << "column_size = " << column_size << std::endl;
+
+    QPixmap pixmap;
+    QPainter painter;
+    painter.begin(image);
+    painter.setPen(Qt::black);
+    painter.drawLine(700, 700, 900, 700);
+
+    std::vector<std::vector<QColor>> colors = zbuffer.get_color_matrix();
+    int r = 0, g = 0, b = 0;
+    colors[0][0].getRgb(&r, &g, &b);
+    std::cout << "r = " << r << " g = " << g << " b = " << b;
+
+    for (int i = 0; i < row_size; i++){
+        for (int j = 0; j < column_size; j++)
+        {
+            colors[i][j].getRgb(&r, &g, &b);
+            if (r == 0 && g == 0 && b == 0){
+                painter.drawLine(i, j, i, j);
+            }
+        }
     }
+
+    pixmap.convertFromImage(*image);
+    scene->addPixmap(pixmap);
+    painter.end();
 }
 
 void Landscape::rotate_landscape(rotate_t &rotate_angles)

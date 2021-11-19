@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QImage>
+#include <QPixmap>
+#include <QPainter>
 
 #include "driver/geometry/polygon/polygon.h"
 
@@ -17,6 +20,9 @@ class MainWindow : public QMainWindow
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     QGraphicsView *view;
+    QImage *image;
+    QPixmap *pixmap;
+
 public:
 
     MainWindow(QWidget *parent = nullptr);

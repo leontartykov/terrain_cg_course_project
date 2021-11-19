@@ -14,6 +14,15 @@ ZBuffer::ZBuffer(int width, int height)
         }
         _zbuffer_matrix.push_back(temp);
     }
+
+    for (int i = 0; i < width; i++)
+    {
+        std::vector<QColor> temp;
+        for (int j = 0; j < height; j++){
+            temp.push_back(QColor(255, 255, 255));
+        }
+        _color_matrix.push_back(temp);
+    }
 }
 
 ZBuffer::~ZBuffer(){
@@ -44,4 +53,8 @@ void ZBuffer::set_z_point(double value, int index_i, int index_j){
 
 std::vector<std::vector<double>> &ZBuffer::get_zbuffer_matrix(){
     return _zbuffer_matrix;
+}
+
+std::vector<std::vector<QColor>> &ZBuffer::get_color_matrix(){
+    return _color_matrix;
 }

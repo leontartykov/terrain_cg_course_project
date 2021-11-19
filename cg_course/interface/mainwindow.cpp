@@ -13,6 +13,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     view = ui->graphicsView;
     scene = new QGraphicsScene(ui->graphicsView);
+    image = new QImage(1024, 754, QImage::Format_A2RGB30_Premultiplied);
+    image->fill(Qt::white);
+
+
 
     view->setScene(scene);
 
@@ -44,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //std::cout << "Ususal points: " << std::endl;
     //landscape_1.output_landscape();
 
-    landscape_1.draw_landscape(scene);
+    landscape_1.draw_landscape(scene, image);
     //landscape_1.output_landscape();
 
     view->show();

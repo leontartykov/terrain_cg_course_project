@@ -18,9 +18,8 @@ void calculate_equation_plane(plane_koeffs_t &plane_koeffs,
                                                  Point<double> point_1, Point<double> point_2,
                                                  Point<double>point_3);
 
-void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
-                                           std::vector<std::vector<Point<int>>> &rasterized_points,
-                                           plane_koeffs_t &plane_koeffs);
+void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix, std::vector<std::vector<QColor>> &color_matrix,
+                                           std::vector<std::vector<Point<int>>> &rasterized_points, plane_koeffs_t &plane_koeffs);
 double calculate_depth(int rasterize_x, int rasterize_y, plane_koeffs_t &plane_koeffs, double z_zbuffer);
 
 void remove_invisible_lines(ZBuffer &zbuffer, Landscape &landscape)
@@ -30,9 +29,11 @@ void remove_invisible_lines(ZBuffer &zbuffer, Landscape &landscape)
 
     plane_koeffs_t plane_koeffs_up, plane_koeffs_down;
 
-    for (int i = 0; i < landscape.get_height(); i++){
-        for (int j = 0; j < landscape.get_width(); j++){
-            if (i == 0 && j <= 3/*i < landscape.get_height() - 1 && j < landscape.get_width() - 1*/)
+    int height_landscape = landscape.get_height(), width_landscape = landscape.get_width();
+    for (int i = 0; i < height_landscape; i++){
+        for (int j = 0; j < width_landscape; j++){
+            //std::cout << "i = " << i << " j = " << j << std::endl;
+            if (i < landscape.get_height() - 1 && j < landscape.get_width() - 1)
             {
                 rasterized_points_up = rasterize_triangle(landscape.get_screen_point(i, j),
                                                                                  landscape.get_screen_point(i, j + 1),
@@ -40,6 +41,7 @@ void remove_invisible_lines(ZBuffer &zbuffer, Landscape &landscape)
                 rasterized_points_down = rasterize_triangle(landscape.get_screen_point(i, j),
                                                                                  landscape.get_screen_point(i + 1, j),
                                                                                  landscape.get_screen_point(i + 1, j + 1));
+                //std::cout << "End_rasterize!" << std::endl;
                 calculate_equation_plane(plane_koeffs_up,
                                                          landscape.get_point(i, j),
                                                          landscape.get_point(i, j + 1),
@@ -48,10 +50,17 @@ void remove_invisible_lines(ZBuffer &zbuffer, Landscape &landscape)
                                                          landscape.get_point(i, j),
                                                          landscape.get_point(i + 1, j),
                                                          landscape.get_point(i + 1, j + 1));
-                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), rasterized_points_up, plane_koeffs_up);
+                //std::cout << "End_equation!" << std::endl;
+                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
+                                                     rasterized_points_up, plane_koeffs_up);
+                //std::cout << "End_depth1!" << std::endl;
+                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
+                                                     rasterized_points_down, plane_koeffs_down);
+                //std::cout << "End_depth2!" << std::endl;
             }
         }
     }
+    //std::cout << "END!";
 }
 
 std::vector<std::vector<Point<int>>> rasterize_triangle(Point<double> &point_1,
@@ -67,7 +76,9 @@ std::vector<std::vector<Point<int>>> rasterize_triangle(Point<double> &point_1,
                                  point_1, point_2, point_3);
 
     double dx_12 = 0, dx_23 = 0, dx_13 = 0;
+    double dy_12 = 0, dy_23 = 0, dy_13 = 0;
 
+    //определение приращений dx по каждой из сторон треугольника
     if ((int)middle_point.get_y() - (int)min_point.get_y() != 0){
             dx_12 = (min_point.get_x() - middle_point.get_x()) / ((int)min_point.get_y() - (int)middle_point.get_y());
     }
@@ -87,22 +98,20 @@ std::vector<std::vector<Point<int>>> rasterize_triangle(Point<double> &point_1,
     double min_dx = 0, max_dx = 0;
     int exchanged = 0;
 
+    //определение левой фиксированной точки
     if (fixed_point_x_12 + dx_12 < fixed_point_x_13 + dx_13)
     {
-        min_fixed_x = fixed_point_x_12;
-        max_fixed_x = fixed_point_x_13;
-        min_dx = dx_12;
-        max_dx = dx_13;
+        min_fixed_x = fixed_point_x_12, max_fixed_x = fixed_point_x_13;
+        min_dx = dx_12, max_dx = dx_13;
     }
     else
     {
-        min_fixed_x = fixed_point_x_13;
-        max_fixed_x = fixed_point_x_12;
-        min_dx = dx_13;
-        max_dx = dx_12;
+        min_fixed_x = fixed_point_x_13, max_fixed_x = fixed_point_x_12;
+        min_dx = dx_13, max_dx = dx_12;
         exchanged = 1;
     }
 
+    //растеризация верхнего треугольника
     int resize_array = 0;
     for (int y = min_point.get_y(); y <= middle_point.get_y(); y++)
     {
@@ -141,6 +150,7 @@ std::vector<std::vector<Point<int>>> rasterize_triangle(Point<double> &point_1,
         max_dx = dx_23;
     }
 
+    //растеризация нижнего треугольника
     for (int y = middle_point.get_y() + 1; y <= max_point.get_y(); y++)
     {
         std::vector<Point<int>> temp;
@@ -263,24 +273,49 @@ void calculate_equation_plane(plane_koeffs_t &plane_koeffs,
 }
 
 void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
+                                            std::vector<std::vector<QColor>> &color_matrix,
                                            std::vector<std::vector<Point<int>>> &rasterized_points,
                                            plane_koeffs_t &plane_koeffs)
 {
     double z = 0;
     int rasterize_x = 0, rasterize_y = 0;
-    for (int i = 0; i < rasterized_points.size(); i++){
-        for (int j = 0; j < rasterized_points[i].size(); j++)
+    int size_row = rasterized_points.size(), size_column = 0;
+    //std::cout << "size_row = " << size_row << std::endl;
+    //std::cout << "size_column = " << size_column << std::endl;
+    for (int i = 0; i < size_row; i++)
+    {
+        size_column = rasterized_points[i].size();
+        for (int j = 0; j < size_column; j++)
         {
             rasterize_x = rasterized_points[i][j].get_x();
             rasterize_y = rasterized_points[i][j].get_y();
+            std::cout << "rasterize_x = " << rasterize_x;
+            std::cout << " rasterize_y = " << rasterize_y << std::endl;
             z = calculate_depth(rasterize_x, rasterize_y, plane_koeffs, zbuffer_matrix[rasterize_x][rasterize_y]);
             //std::cout << "z = " << z << std::endl;
+            //std::cout << "z = " << z << std::endl;
+            //std::cout << "rasterize_x = " << rasterize_x << " rasterize_y = " << rasterize_y << std::endl;
+            //std::cout << "zbuffer_matrix[rasterize_x][rasterize_y] = " << zbuffer_matrix[rasterize_x][rasterize_y] << std::endl;
+            if (z > zbuffer_matrix[rasterize_x][rasterize_y])
+            {
 
-            if (z > zbuffer_matrix[rasterize_x][rasterize_y]){
                 zbuffer_matrix[rasterize_x][rasterize_y] = z;
+                //std::cout << "here" << std::endl;
+                //std::cout << "zbuffer_matrix[rasterize_x][rasterize_y] = " << zbuffer_matrix[rasterize_x][rasterize_y] << std::endl;
+
+                //std::cout << "color.\n";
+                //color_matrix[rasterize_x][rasterize_y].setRgb(0, 0, 0);
+                //std::cout << "end_if_color.\n";
+                if (j == 0 || j == size_column - 1){
+                    //std::cout << "here_color" << std::endl;
+                    color_matrix[rasterize_x][rasterize_y].setRgb(0, 0, 0);
+                    //std::cout << "color_matrix[rasterize_x][rasterize_y] =" << color_matrix[rasterize_x][rasterize_y].name() << std::endl;
+                }
                 //std::cout << "zbuffer_matrix[" << rasterize_x << "][" << rasterize_y << "] = " << zbuffer_matrix[rasterize_x][rasterize_y] << std::endl;
+             //std::cout << "end_iteration.\n";
             }
         }
+        std::cout << std::endl;
     }
 }
 

@@ -18,7 +18,7 @@ public:
     ~Landscape();
 
     void form_landscape();
-    void draw_landscape(QGraphicsScene *scene);
+    void draw_landscape(QGraphicsScene *scene, QImage *image);
 
     void output_landscape();
     void output_screen_landscape();
