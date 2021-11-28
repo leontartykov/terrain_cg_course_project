@@ -82,3 +82,10 @@ void rotate_z(Point<double> &point,  double angle_z)
     point.set_x(temp_x * a_cos + temp_y * a_sin);
     point.set_y(-temp_x * a_sin + temp_y * a_cos);
 }
+
+void swap(int &value_1, int &value_2)
+{
+    int temp = value_1;
+    value_1 = value_2;
+    value_2 = temp;
+}

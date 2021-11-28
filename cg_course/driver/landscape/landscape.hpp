@@ -86,7 +86,7 @@ void Landscape::draw_landscape(QGraphicsScene *scene, QImage *image)
     (*this).get_screen_point(0,0).output_point();
 
     ZBuffer zbuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
-    remove_invisible_lines(zbuffer, *this);
+    remove_invisible_lines(zbuffer, *this, scene);
     //zbuffer.output();
 
     /*
@@ -110,9 +110,10 @@ void Landscape::draw_landscape(QGraphicsScene *scene, QImage *image)
         }
     }*/
 
-    row_size = zbuffer.get_color_matrix().size(), column_size  = zbuffer.get_color_matrix()[0].size();
+    /*row_size = zbuffer.get_color_matrix().size(), column_size  = zbuffer.get_color_matrix()[0].size();
     std::cout << "row_size = " << row_size << std::endl;
-    std::cout << "column_size = " << column_size << std::endl;
+    std::cout << "column_size = " << column_size << std::endl;*/
+
 
     QPixmap pixmap;
     QPainter painter;
@@ -125,11 +126,12 @@ void Landscape::draw_landscape(QGraphicsScene *scene, QImage *image)
     colors[0][0].getRgb(&r, &g, &b);
     std::cout << "r = " << r << " g = " << g << " b = " << b;
 
-    for (int i = 0; i < row_size; i++){
-        for (int j = 0; j < column_size; j++)
+    for (int i = 0; i < 1024; i++){
+        for (int j = 0; j < 756; j++)
         {
             colors[i][j].getRgb(&r, &g, &b);
             if (r == 0 && g == 0 && b == 0){
+                //std::cout << "is_black\n";
                 painter.drawLine(i, j, i, j);
             }
         }

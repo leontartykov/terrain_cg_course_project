@@ -6,6 +6,7 @@
 #include <QImage>
 #include <QPixmap>
 #include <QPainter>
+#include <QColor>
 
 #include "driver/geometry/polygon/polygon.h"
 

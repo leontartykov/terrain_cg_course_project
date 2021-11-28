@@ -16,6 +16,13 @@ struct plane_koeffs_polygon
     double d;
 };
 
+typedef struct edge edge_t;
+struct edge
+{
+    int x;
+    int y;
+};
+
 class ZBuffer: Matrix
 {
 private:
@@ -35,6 +42,6 @@ public:
 
 };
 
- void remove_invisible_lines(ZBuffer &zbuffer, Landscape &landscape);
+ void remove_invisible_lines(ZBuffer &zbuffer, Landscape &landscape, QGraphicsScene *scene);
 
 #endif

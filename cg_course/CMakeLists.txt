@@ -66,6 +66,10 @@ add_executable(${PROJECT_NAME}
     driver/geometry/matrix/matrix.cpp
     driver/geometry/matrix/matrix.hpp
     driver/geometry/matrix/matrix.h
+
+    driver/color/color.h
+    driver/color/color.hpp
+    driver/color/color.cpp
     )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)

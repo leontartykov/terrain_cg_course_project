@@ -19,4 +19,6 @@ void rotate_x(Point<double> &point, double angle_x);
 void rotate_y(Point<double> &point,  double angle_y);
 void rotate_z(Point<double> &point,  double angle_z);
 
+void swap(int &value_1, int &value_2);
+
 #endif
