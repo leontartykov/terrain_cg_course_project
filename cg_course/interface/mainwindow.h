@@ -7,8 +7,10 @@
 #include <QPixmap>
 #include <QPainter>
 #include <QColor>
+#include <QDebug>
 
 #include "driver/geometry/polygon/polygon.h"
+#include "driver/landscape/landscape.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,8 +27,10 @@ class MainWindow : public QMainWindow
     QPixmap *pixmap;
 
 public:
-
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+public slots:
+    void rotate_landscape_x();
 };
 #endif // MAINWINDOW_H

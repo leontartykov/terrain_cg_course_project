@@ -3,9 +3,13 @@
 
 #include <limits>
 #include <vector>
+#include <QColor>
+#include <QGraphicsScene>
 
+#include "driver/geometry/point/point.h"
 #include "driver/geometry/matrix/matrix.h"
-#include "driver/landscape/landscape.h"
+#include "driver/geometry/vector/vector.h"
+//#include "driver/light/light.h"
 
 typedef struct plane_koeffs_polygon plane_koeffs_t;
 struct plane_koeffs_polygon
@@ -28,6 +32,8 @@ class ZBuffer: Matrix
 private:
     std::vector<std::vector<double>> _zbuffer_matrix;
     std::vector<std::vector<QColor>> _color_matrix;
+
+    int _width, _height;
 public:
     ZBuffer();
     ZBuffer(int width, int height);
@@ -40,8 +46,22 @@ public:
     std::vector<std::vector<double>> &get_zbuffer_matrix();
     std::vector<std::vector<QColor>> &get_color_matrix();
 
+    void set_color(int index_i, int index_j, QRgb rgb);
+
+    double get_width();
+    double get_height();
+
+    bool is_background(int index_i, int index_j);
 };
 
- void remove_invisible_lines(ZBuffer &zbuffer, Landscape &landscape, QGraphicsScene *scene);
+void rasterize_triangle(std::vector<std::vector<Vector2D>> &rasterized_points, Point<double> &point_1,
+                                     Point<double> &point_2, Point<double> &point_3, QGraphicsScene *scene,
+                                    std::vector<std::vector<QColor>> colors);
+void calculate_equation_plane(plane_koeffs_t &plane_koeffs,
+                                                 Point<double> point_1, Point<double> point_2,
+                                                 Point<double>point_3);
+void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix, std::vector<std::vector<QColor>> &color_matrix,
+                                           std::vector<std::vector<Vector2D>> &rasterized_points, plane_koeffs_t &plane_koeffs,
+                                            Vector3D &light_position, Vector3D &normal);
 
 #endif

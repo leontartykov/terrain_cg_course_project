@@ -70,6 +70,20 @@ add_executable(${PROJECT_NAME}
     driver/color/color.h
     driver/color/color.hpp
     driver/color/color.cpp
+
+    driver/light/light.h
+    driver/light/light.hpp
+    driver/light/light.cpp
+
+    driver/geometry/vector/vector.h
+    driver/geometry/vector/vector_2.hpp
+    driver/geometry/vector/vector_2.cpp
+    driver/geometry/vector/vector_3.hpp
+    driver/geometry/vector/vector_3.cpp
+
+    driver/camera/camera.h
+    driver/camera/camera.hpp
+    driver/camera/camera.cpp
     )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)

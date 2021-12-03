@@ -6,6 +6,9 @@ ZBuffer::ZBuffer(){
 
 ZBuffer::ZBuffer(int width, int height)
 {
+    _width = width;
+    _height = height;
+
     for (int i = 0; i < width; i++)
     {
         std::vector<double> temp;
@@ -57,4 +60,28 @@ std::vector<std::vector<double>> &ZBuffer::get_zbuffer_matrix(){
 
 std::vector<std::vector<QColor>> &ZBuffer::get_color_matrix(){
     return _color_matrix;
+}
+
+double ZBuffer::get_width(){
+    return _width;
+}
+
+double ZBuffer::get_height(){
+    return _height;
+}
+
+bool ZBuffer::is_background(int index_i, int index_j)
+{
+    bool is_background = false;
+    int r = 0, g = 0, b = 0;
+    _color_matrix[index_i][index_j].getRgb(&r, &g, &b);
+    if (r == 255 && g == 255 && b == 255)
+        is_background = true;
+    //std::cout << "is_background = " << is_background << std::endl;
+    return is_background;
+}
+
+void ZBuffer::set_color(int index_i, int index_j, QRgb rgb)
+{
+    _color_matrix[index_i][index_j].setRgb(rgb);
 }
