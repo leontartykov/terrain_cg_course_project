@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
     Landscape landscape;
     rotate_t rotate_angles = {1, 10, 0},
-                 rotate_landscape_angles = {20, 20, 20};
+                 rotate_landscape_angles = {60, 0, 10};
 
     view = ui->graphicsView;
     scene = new QGraphicsScene(ui->graphicsView);
@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ZBuffer zbuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     landscape.form_landscape();
-    //landscape.rotate_landscape(rotate_landscape_angles);
+    landscape.rotate_landscape(rotate_landscape_angles);
     landscape.transform_points_to_screen();
     landscape.remove_invisible_lines(zbuffer, scene, light.get_position());
     //light.adjust_illumination(zbuffer);
@@ -68,4 +68,3 @@ void MainWindow::rotate_landscape_x()
 {
     qDebug() << ui->spinbox_rotate_x->value();
 }
-

@@ -59,11 +59,9 @@ void Light::adjust_illumination(ZBuffer &zbuffer)
                 Point<double> point_1(i, j, zbuffer.get_z_point(i, j));
                 Point<double> point_2(i, j + 1, zbuffer.get_z_point(i, j +1));
                 Point<double> point_3(i + 1, j, zbuffer.get_z_point(i + 1, j));
-
                 point_1.output_point();
                 point_2.output_point();
                 point_3.output_point();
-
                 Vector3D normal_vector = normal(point_1, point_2, point_3);
                 std::cout << "Вектор нормали к точке: ";
                 normal_vector.output();

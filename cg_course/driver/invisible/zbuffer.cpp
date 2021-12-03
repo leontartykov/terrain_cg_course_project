@@ -213,7 +213,7 @@ void output_edge(std::vector<edge_t> &edge)
 
 void create_line_by_int_brezenhem(std::vector<std::vector<Vector2D>> &edge,
                                                          Point<int> start_point, Point <int> end_point, QGraphicsScene *scene)
-{ 
+{
     QPen *pen = new QPen(Qt::red);
     int flag_exchange = 0;
     int x_start = start_point.get_x(), y_start = start_point.get_y();
@@ -435,12 +435,12 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
 
             if (z > zbuffer_matrix[rasterize_x][rasterize_y])
             {
-                std::cout << "z = " << z << std::endl;
-                std::cout << "rasterize_X = " << rasterize_x << std::endl;
-                std::cout << "rasterize_y = " << rasterize_y << std::endl;
+                //std::cout << "z = " << z << std::endl;
+                //std::cout << "rasterize_X = " << rasterize_x << std::endl;
+                //std::cout << "rasterize_y = " << rasterize_y << std::endl;
                 x_3d = (rasterize_x - SCREEN_WIDTH / 4)*(z + 1000)/1000;
                 y_3d = (rasterize_y - SCREEN_HEIGHT / 4)*(z + 1000)/1000;
-                std::cout << "x_3d = " << x_3d << " y_3d = " << y_3d << std::endl;;
+                //std::cout << "x_3d = " << x_3d << " y_3d = " << y_3d << std::endl;;
                 Vector3D light_direction(light_position.X() - x_3d, light_position.Y() - y_3d, light_position.Z() - z);
 
                 light_direction.output();
@@ -448,8 +448,8 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
                 light_direction.output();
                 normal.output();
 
-                scalar = fabs(dot_product(normal, light_direction));
-                std::cout << "scalar = " << scalar << std::endl;
+                scalar = std::max(dot_product(normal, light_direction), 0.0);
+                //std::cout << "scalar = " << scalar << std::endl;
                 zbuffer_matrix[rasterize_x][rasterize_y] = z;
 
                 r_in = r * scalar * 0.8 * 1;

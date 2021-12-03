@@ -8,8 +8,8 @@
 #include "driver/invisible/zbuffer.h"
 #include "driver/light/light.hpp"
 
-#define WIDTH_LANDSCAPE 20
-#define HEIGHT_LANDSCAPE 20
+#define WIDTH_LANDSCAPE 25
+#define HEIGHT_LANDSCAPE 25
 
 Landscape::Landscape()
 {
@@ -44,9 +44,14 @@ void Landscape::form_landscape()
 
     for (int x = 0; x < WIDTH_LANDSCAPE; x++){
         for (int y = 0; y < HEIGHT_LANDSCAPE; y++){
-            _points[y][x].set_point((x+10) * 20, (y+5) * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 300);
+            _points[x][y].set_point((x+10) * 20, (y+5) * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 300);
         }
     }
+
+    std::cout << "begin =";
+    _points[0][0].output_point();
+    std::cout << "end =";
+    _points[WIDTH_LANDSCAPE - 1][HEIGHT_LANDSCAPE - 1].output_point();
 
     //(*this).output_landscape();
 }
@@ -96,9 +101,10 @@ void Landscape::transform_points_to_screen()
 void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *image)
 {
     //zbuffer.output();
+
+    // обычный вывод сетки
     /*
-     * обычный вывод сетки
-     * int x = 0, y = 0;
+    int x = 0, y = 0;
     double z = 0;
     int row_size = _points.size();
     for (int i = 0; i < row_size; i++)
@@ -106,7 +112,7 @@ void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *
         int column_size = _points[i].size();
         for (int j = 0; j < column_size; j++)
         {
-            if (i < row_size - 1 && j < column_size - 1)
+            if (i <= 5 && j==0/*i < row_size - 1 && j < column_size - 1*//*)
             {
                     scene->addLine(_screen_points[i+1][j].get_x(), _screen_points[i+1][j].get_y(),
                                                _screen_points[i + 1][j+1].get_x(), _screen_points[i+1][j+1].get_y());
@@ -114,7 +120,6 @@ void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *
                                                 _screen_points[i+1][j].get_x(), _screen_points[i+1][j].get_y());
                     scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
                                                _screen_points[i+1][j+1].get_x(), _screen_points[i+1][j+1].get_y());
-
                     scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
                                                _screen_points[i][j+1].get_x(), _screen_points[i][j+1].get_y());
                     scene->addLine(_screen_points[i][j+1].get_x(), _screen_points[i][j+1].get_y(),
@@ -136,6 +141,7 @@ void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *
                                        _screen_points[i][j].get_x(), _screen_points[i][j].get_y());
         }
     }*/
+
 
 
     QPixmap pixmap;
@@ -179,10 +185,12 @@ void Landscape::rotate_landscape(rotate_t &rotate_angles)
     center_figure_point.set_point((begin_landscape_point.get_x() + end_landscape_point.get_x()) / 2,
                                                 (begin_landscape_point.get_y() + end_landscape_point.get_y()) / 2,
                                                 (begin_landscape_point.get_z() + end_landscape_point.get_z()) / 2);
+    begin_landscape_point.output_point();
+    end_landscape_point.output_point();
 
-    for (int i = 0; i < _points.size(); i++){
-        for (int j = 0; j < _points[i].size(); j++){
-            shift_point_back_by_center(_points[i][j], center_figure_point);
+    for (int i = 0; i < WIDTH_LANDSCAPE; i++){
+        for (int j = 0; j < HEIGHT_LANDSCAPE; j++){
+            shift_point_by_center(_points[i][j], center_figure_point);
             rotate_point(_points[i][j], rotate_angles);
             shift_point_back_by_center(_points[i][j], center_figure_point);
         }
@@ -208,14 +216,14 @@ int Landscape::get_width(){
 void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D light_position)
 {
     plane_koeffs_t plane_koeffs_up, plane_koeffs_down;
-    std::cout << "light_position = ";
-    light_position.output();
+    //std::cout << "light_position = ";
+    //light_position.output();
     int height_landscape = (*this).get_height(), width_landscape = (*this).get_width();
     //std::cout << "height_landscape = " << height_landscape << std::endl;
     for (int i = 0; i < width_landscape; i++){
         for (int j = 0; j < height_landscape; j++)
         {
-            if (/*i == 0 && j==0*/i < height_landscape - 1 && j < width_landscape - 1)
+            if (/*i <= 5 && j<=1*/i < height_landscape - 1 && j < width_landscape - 1)
             {
                  std::vector<std::vector<Vector2D>> rasterized_points_up;
                  std::vector<std::vector<Vector2D>> rasterized_points_down;
