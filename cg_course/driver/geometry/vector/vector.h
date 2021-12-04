@@ -22,20 +22,20 @@ public:
     void output();
 };
 
-
+template <typename T>
 class Vector3D
 {
 private:
-    double _x, _y, _z;
+    T _x, _y, _z;
 public:
     Vector3D();
-    Vector3D(double x, double y, double z);
+    Vector3D(T x, T y, T z);
     ~Vector3D();
 
-    double X();
-    double Y();
-    double Z();
-    void set_vector(double x, double y, double z);
+    T X();
+    T Y();
+    T Z();
+    void set_vector(T x, T y, T z);
 
     void normalize();
 
@@ -46,7 +46,10 @@ public:
     void output();
 };
 
-Vector3D normal(Point<double> point_1, Point<double> point_2, Point<double> point_3);
-double dot_product(Vector3D &vector_1, Vector3D &vector_2);
+template <typename T1, typename T2>
+Vector3D<T1> find_normal(Point<T2> point_1, Point<T2> point_2, Point<T2> point_3);
+
+template <typename T1, typename T2>
+double dot_product(Vector3D<T1> &vector_1, Vector3D<T2> &vector_2);
 
 #endif

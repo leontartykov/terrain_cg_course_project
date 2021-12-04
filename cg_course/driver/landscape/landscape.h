@@ -17,6 +17,8 @@ class Landscape
 private:
     std::vector<std::vector<Point<double>>> _points;
     std::vector<std::vector<Point<double>>> _screen_points;
+    std::vector<std::vector<Vector3D<int>>> _normals;
+    std::vector<std::vector<Vector3D<double>> _shading_normals;
 
 public:
     Landscape();
@@ -25,7 +27,7 @@ public:
     void form_landscape();
     void transform_points_to_screen();
     void draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *image);
-    void remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D light_position);
+    void remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D<int> light_position);
 
     void output_landscape();
     void output_screen_landscape();
@@ -34,6 +36,9 @@ public:
 
     Point<double> &get_point(int index_i, int index_j);
     Point<double> &get_screen_point(int index_i, int index_j);
+
+    void find_all_landscape_normals();
+    void find_average_normals_of_each_node();
     int get_width();
     int get_height();
 

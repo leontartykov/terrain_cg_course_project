@@ -71,7 +71,7 @@ void Light::adjust_illumination(ZBuffer &zbuffer)
     }*/
 }
 
-Vector3D Light::get_position(){
+Vector3D<int> Light::get_position(){
     return _position;
 }
 

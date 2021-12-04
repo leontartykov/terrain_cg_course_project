@@ -84,6 +84,10 @@ add_executable(${PROJECT_NAME}
     driver/camera/camera.h
     driver/camera/camera.hpp
     driver/camera/camera.cpp
+
+    driver/geometry/triangle/triangle.h
+    driver/geometry/triangle/triangle.hpp
+    driver/geometry/triangle/triangle.cpp
     )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)

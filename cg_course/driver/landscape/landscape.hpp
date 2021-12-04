@@ -1,12 +1,15 @@
 #ifndef _LANDSCAPE_HPP_
 #define _LANDSCAPE_HPP_
 
-#include "driver/geometry/point/point.h"
 #include "driver/landscape/landscape.h"
+#include "driver/geometry/point/point.h"
+
 #include "driver/perlin/perlin.hpp"
 #include "driver/transform/transform.h"
 #include "driver/invisible/zbuffer.h"
 #include "driver/light/light.hpp"
+#include "driver/geometry/triangle/triangle.hpp"
+#include "driver/geometry/vector/vector_3.hpp"
 
 #define WIDTH_LANDSCAPE 25
 #define HEIGHT_LANDSCAPE 25
@@ -83,9 +86,9 @@ void Landscape::transform_points_to_screen()
     int row_size = _points.size();
     int column_size = _points[0].size();
 
-    std::cout << "point_1_x = " << _points[0][0].get_x() << std::endl;
+    /*std::cout << "point_1_x = " << _points[0][0].get_x() << std::endl;
     std::cout << "point_1_y = " << _points[0][0].get_y() << std::endl;
-    std::cout << "point_1_z = " << _points[0][0].get_z() << std::endl;
+    std::cout << "point_1_z = " << _points[0][0].get_z() << std::endl;*/
     for (int i = 0; i < row_size; i++)
     {
         for (int j = 0; j < column_size; j++){
@@ -93,8 +96,8 @@ void Landscape::transform_points_to_screen()
         }
     }
 
-    std::cout << "screen_point_1_x = " << _screen_points[0][0].get_x() << std::endl;
-    std::cout << "screen_point_1_y = " << _screen_points[0][0].get_y() << std::endl;
+    /*std::cout << "screen_point_1_x = " << _screen_points[0][0].get_x() << std::endl;
+    std::cout << "screen_point_1_y = " << _screen_points[0][0].get_y() << std::endl;*/
     //(*this).output_screen_landscape();
 }
 
@@ -213,16 +216,17 @@ int Landscape::get_width(){
     return _points[0].size();
 }
 
-void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D light_position)
+void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D<int> light_position)
 {
     plane_koeffs_t plane_koeffs_up, plane_koeffs_down;
-    //std::cout << "light_position = ";
-    //light_position.output();
+    std::cout << "light_position = ";
+    light_position.output();
     int height_landscape = (*this).get_height(), width_landscape = (*this).get_width();
     //std::cout << "height_landscape = " << height_landscape << std::endl;
     for (int i = 0; i < width_landscape; i++){
         for (int j = 0; j < height_landscape; j++)
         {
+            //убрать if в цикл
             if (/*i <= 5 && j<=1*/i < height_landscape - 1 && j < width_landscape - 1)
             {
                  std::vector<std::vector<Vector2D>> rasterized_points_up;
@@ -235,29 +239,6 @@ void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, 
                                                                                  (*this).get_screen_point(i + 1, j),
                                                                                  (*this).get_screen_point(i + 1, j + 1), scene,
                                                 zbuffer.get_color_matrix());
-                //std::cout << "End_rasterize!" << std::endl;
-                 /*std::cout << "rasterized_points_up";
-                 for (int i = 0; i < rasterized_points_up.size(); i++){
-                     for (int j = 0; j < rasterized_points_up[i].size(); j++){
-                         rasterized_points_up[i][j].output_point();
-                     }
-                     std::cout << std::endl;
-                 }*/
-
-                 /*std::cout << "rasterized_points_down";
-                 for (int i = 0; i < rasterized_points_up.size(); i++){
-                     for (int j = 0; j < rasterized_points_up[i].size(); j++){
-                         rasterized_points_up[i][j].output_point();
-                     }
-                     std::cout << std::endl;
-                 }*/
-                //std::cout << "rasterized_points_up.size() = " << rasterized_points_up.size() << std::endl;
-                //QPen *pen = new QPen(Qt::red);
-                //scene->addLine(302, 349, 302, 349, *pen);
-                /*scene->addLine(331, 359, 331, 359, *pen);
-                scene->addLine(290, 361, 290, 361, *pen);*/
-
-
                 calculate_equation_plane(plane_koeffs_up,
                                                          (*this).get_point(i, j),
                                                          (*this).get_point(i, j + 1),
@@ -266,10 +247,50 @@ void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, 
                                                          (*this).get_point(i, j),
                                                          (*this).get_point(i + 1, j),
                                                          (*this).get_point(i + 1, j + 1));
-                Vector3D normal_up(plane_koeffs_up.a, plane_koeffs_up.b, plane_koeffs_up.c);
-                Vector3D normal_down(plane_koeffs_down.a, plane_koeffs_down.b, plane_koeffs_down.c);
+                /*if ((i == 0 && j == 0) || (i == height_landscape - 1 && j == width_landscape - 1)){
+                    if (i == 0 && j == 0){
+                        std::vector<Triangle<int>> triangles;
+                        triangles.push_back(Triangle((*this).get_point(i, j), (*this).get_point(i, j + 1), (*this).get_point(i + 1, j + 1)));
+                        triangles.push_back(Triangle((*this).get_point(i, j), (*this).get_point(i + 1, j), (*this).get_point(i + 1, j + 1)));
+                        calculate_average_normal(triangles);
+                    }
+                    else{
+                        std::vector<Triangle<int>> triangles;
+                        triangles.push_back(Triangle((*this).get_point(width_landscape - 1, height_landscape - 1),
+                                                                       (*this).get_point(width_landscape - 2, height_landscape - 2),
+                                                                       (*this).get_point(width_landscape - 2, height_landscape - 1)));
+                        triangles.push_back(Triangle((*this).get_point(width_landscape - 1, height_landscape - 1),
+                                                                       (*this).get_point(width_landscape - 2, height_landscape - 2),
+                                                                       (*this).get_point(width_landscape - 1, height_landscape - 2)));
+                        calculate_average_normal(triangles);
+                    }
+                }
+                else if (i > 0 && i < height_landscape - 1 &&  (j == 0 || j == width_landscape - 1))
+                {
+                    if (j == 0)
+                    {
+                        std::vector<Triangle<int>> triangles;
+                        triangles.push_back(Triangle((*this).get_point(width_landscape - 1, height_landscape - 1),
+                                                                       (*this).get_point(width_landscape - 2, height_landscape - 2),
+                                                                       (*this).get_point(width_landscape - 2, height_landscape - 1)));
+                        triangles.push_back(Triangle((*this).get_point(width_landscape - 1, height_landscape - 1),
+                                                                       (*this).get_point(width_landscape - 2, height_landscape - 2),
+                                                                       (*this).get_point(width_landscape - 1, height_landscape - 2)));
+                        calculate_average_normal(triangles);
+                    }
+                    else
+                    {
+
+                    }
+                }*/
+
+                Vector3D<double> normal_up(plane_koeffs_up.a, plane_koeffs_up.b, plane_koeffs_up.c);
+                Vector3D<double> normal_down(plane_koeffs_down.a, plane_koeffs_down.b, plane_koeffs_down.c);
+                //normal_up.output();
+                //normal_down.output();
                 normal_up.normalize();
                 normal_down.normalize();
+                //normal_down.output();
 
                 calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
                                                      rasterized_points_up, plane_koeffs_up, light_position, normal_up);
@@ -281,5 +302,99 @@ void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, 
     //std::cout << "END!";*/
 }
 
+void Landscape::find_all_landscape_normals()
+{
+    int width_landscape = (*this).get_width(), height_landscape = (*this).get_height();
+    for (int i = 0; i < width_landscape - 1; i++)
+    {
+        std::vector<Vector3D<int>> row_normals;
+        for (int j = 0; j < height_landscape - 1; j++)
+        {
+
+             Vector3D<int> normal_up_triangle = find_normal<int, double>((*this).get_point(i, j),
+                                                                                            (*this).get_point(i, j + 1),
+                                                                                            (*this).get_point(i + 1, j + 1));
+             Vector3D<int> normal_down_triangle = find_normal<int, double>((*this).get_point(i, j),
+                                                                                            (*this).get_point(i + 1, j),
+                                                                                            (*this).get_point(i + 1, j + 1));
+             row_normals.push_back(normal_down_triangle);
+             row_normals.push_back(normal_up_triangle);
+        }
+        _normals.push_back(row_normals);
+    }
+
+}
+
+Landscape::find_average_normals_of_each_node()
+{
+    //расчет нормалей в вершинах полигонов
+    //случаи:
+    //1случай: угловые узлы карты высот (левый верхний и нижний правый - усреднять 2 нормали)
+    //2 случай: угловые узлы карты высот (правый верхний и нижний левый - усреднять 1 нормаль)
+    //3 случай: все боковые узлы (кроме угловых) - усреднение 3 нормалей
+    //4 случай: все остальные - усреднение 6 нормалей
+    int width = (*this).get_width(), height = (*this).get_height();
+    for (int i = 0; i < width; i++){
+        std::vector<Vector3D<double>> row_shading_normals;
+        for (int j = 0; j < height; j++){
+            //1 случай
+            if ((i == 0 && j == 0) || (i == width_landscape - 1 && j = height_landscape - 1))
+            {
+                if (i == 0)
+                {
+                    std::vector<Triangle<double>> triangles;
+                    triangles.push_back(Triangle<double>((*this).get_point(i, j), (*this).get_point(i + 1, j), (*this).get_point(i + 1, j + 1)));
+                    triangles.push_back(Triangle<double>((*this).get_point(i, j), (*this).get_point(i, j + 1), (*this).get_point(i + 1, j + 1)));
+                    calculate_shading_normal(triangles);
+                }
+                else
+                {
+                    std::vector<Triangle<double>> triangles;
+                    triangles.push_back(Triangle<double>((*this).get_point(width_landscape - 1, height_landscape - 1),
+                                                                                   (*this).get_point(width_landscape - 2, height_landscape - 2),
+                                                                                   (*this).get_point(width_landscape - 2, height_landscape - 1)));
+                    triangles.push_back(Triangle<double>((*this).get_point(width_landscape - 1, height_landscape - 1),
+                                                                                   (*this).get_point(width_landscape - 2, height_landscape - 2),
+                                                                                   (*this).get_point(width_landscape - 1, height_landscape - 2)));
+                }
+            }
+            //2 случай
+            else if (i == 0 && j == height_landscape - 1 || j == 0 && i == width_landscape - 1)
+            {
+                if (i == 0)
+                {
+                    std::vector<Triangle<double>> triangles;
+                    triangles.push_back(Triangle<double>((*this).get_point(i, height_landscape - 1),
+                                                                                   (*this).get_point(i + 1, height_landscape - 1),
+                                                                                   (*this).get_point(i, height_landscape - 2)));
+                    calculate_shading_normal(triangles);
+                }
+                else
+                {
+                    std::vector<Triangle<double>> triangles;
+                    triangles.push_back(Triangle<double>((*this).get_point(width_landscape - 1, j),
+                                                                                   (*this).get_point(width_landscape - 2, j),
+                                                                                   (*this).get_point(width_landscape - 1, j +1)));
+                    calculate_shading_normal(triangles);
+                }
+            }
+            //3 случай
+            else if((i == 0 && (j > 0 && j < height_landscape - 1)) || (i == width_landscape - 1 && (j > 0 && j < height_landscape - 1)))
+            {
+                if (i == 0)
+                {
+                    std::vector<Triangle<double>> triangles;
+                    triangles.push_back(Triangle<double>((*this).get_point()));
+                    calculate_shading_normal(triangles);
+                }
+                else
+                {
+                    std::vector<Triangle<double>> triangles;
+                    calculate_shading_normal(triangles);
+                }
+            }
+        }
+    }
+}
 
 #endif

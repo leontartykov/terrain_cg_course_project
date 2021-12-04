@@ -16,8 +16,8 @@ private:
     double _is;
     double _ia;
 
-    Vector3D _position;
-    Vector3D _direction;
+    Vector3D<int> _position;
+    Vector3D<int> _direction;
 public:
     Light();
     ~Light();
@@ -39,7 +39,7 @@ public:
     void set_ks(double ks) {_ks = ks;}
 
     void adjust_illumination(ZBuffer &zbuffer);
-    Vector3D get_position();
+    Vector3D<int> get_position();
 };
 
 #endif

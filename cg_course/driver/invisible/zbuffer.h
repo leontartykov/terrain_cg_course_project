@@ -14,9 +14,9 @@
 typedef struct plane_koeffs_polygon plane_koeffs_t;
 struct plane_koeffs_polygon
 {
-    double a;
-    double b;
-    double c;
+    int a;
+    int b;
+    int c;
     double d;
 };
 
@@ -62,6 +62,6 @@ void calculate_equation_plane(plane_koeffs_t &plane_koeffs,
                                                  Point<double>point_3);
 void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix, std::vector<std::vector<QColor>> &color_matrix,
                                            std::vector<std::vector<Vector2D>> &rasterized_points, plane_koeffs_t &plane_koeffs,
-                                            Vector3D &light_position, Vector3D &normal);
+                                            Vector3D<int> &light_position, Vector3D<double> &normal);
 
 #endif

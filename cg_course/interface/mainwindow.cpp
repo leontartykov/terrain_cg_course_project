@@ -5,6 +5,7 @@
 #include "driver/geometry/grid/grid.hpp"
 #include "driver/landscape/landscape.hpp"
 #include "driver/invisible/zbuffer.hpp"
+//#include "driver/geometry/vector/vector_3.hpp"
 
 //#include "driver/perlin/perlin.hpp"
 
@@ -47,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ZBuffer zbuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     landscape.form_landscape();
+    landscape.find_all_landscape_normals();
+    landscape.find_average_normals_of_each_node();
     landscape.rotate_landscape(rotate_landscape_angles);
     landscape.transform_points_to_screen();
     landscape.remove_invisible_lines(zbuffer, scene, light.get_position());

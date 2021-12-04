@@ -6,7 +6,7 @@
 #include "driver/transform/transform.h"
 #include "driver/geometry/vector/vector.h"
 #include "driver/geometry/vector/vector_2.hpp"
-//#include "driver/geometry/vector/vector_3.hpp"
+#include "driver/geometry/vector/vector_3.hpp"
 //#include "driver/light/light.hpp"
 
 
@@ -384,10 +384,10 @@ void calculate_equation_plane(plane_koeffs_t &plane_koeffs,
     point_1_plane.set_point(point_1.get_x(), point_1.get_y(), point_1.get_z());
     point_2_plane.set_point(point_2.get_x(), point_2.get_y(), point_2.get_z());
     point_3_plane.set_point(point_3.get_x(), point_3.get_y(), point_3.get_z());
-    std::cout << "input points: ";
+    /*std::cout << "input points: ";
     point_1_plane.output_point();
     point_2_plane.output_point();
-    point_3_plane.output_point();
+    point_3_plane.output_point();*/
     int vector_1_x = 0, vector_1_y = 0, vector_1_z = 0;
     int vector_2_x = 0, vector_2_y = 0, vector_2_z = 0;
     plane_koeffs.a = 0, plane_koeffs.b = 0, plane_koeffs.c = 0, plane_koeffs.d = 0;
@@ -406,15 +406,17 @@ void calculate_equation_plane(plane_koeffs_t &plane_koeffs,
     plane_koeffs.c = vector_1_x * vector_2_y - vector_1_y * vector_2_x;
     plane_koeffs.d = (-plane_koeffs.a *  (int)point_1.get_x() - plane_koeffs.b * (int)point_1.get_y() - plane_koeffs.c * (int)point_1.get_z());
 
-    std::cout << "Got equation: "  << plane_koeffs.a << "x, " << plane_koeffs.b << "y, " << plane_koeffs.c << "z, " << plane_koeffs.d << std::endl;
+    //std::cout << "Got equation: "  << plane_koeffs.a << "x, " << plane_koeffs.b << "y, " << plane_koeffs.c << "z, " << plane_koeffs.d << std::endl;
 }
 
 void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
                                             std::vector<std::vector<QColor>> &color_matrix,
-                                           std::vector<std::vector<Vector2D>> &rasterized_points,
-                                           plane_koeffs_t &plane_koeffs, Vector3D &light_position,
-                                            Vector3D &normal)
+                                            std::vector<std::vector<Vector2D>> &rasterized_points,
+                                            plane_koeffs_t &plane_koeffs, Vector3D<int> &light_position,
+                                            Vector3D<double> &normal)
 {
+    //std::cout << "plane_A = " << plane_koeffs.a << std::endl;
+    //normal.output();
     double z = 0;
     int rasterize_x = 0, rasterize_y = 0;
     int size_row = rasterized_points.size(), size_column = 0;
@@ -438,17 +440,17 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
                 //std::cout << "z = " << z << std::endl;
                 //std::cout << "rasterize_X = " << rasterize_x << std::endl;
                 //std::cout << "rasterize_y = " << rasterize_y << std::endl;
-                x_3d = (rasterize_x - SCREEN_WIDTH / 4)*(z + 1000)/1000;
-                y_3d = (rasterize_y - SCREEN_HEIGHT / 4)*(z + 1000)/1000;
+                x_3d = (int)((rasterize_x - SCREEN_WIDTH / 4)*(z + 1000)/1000);
+                y_3d = (int)((rasterize_y - SCREEN_HEIGHT / 4)*(z + 1000)/1000);
                 //std::cout << "x_3d = " << x_3d << " y_3d = " << y_3d << std::endl;;
-                Vector3D light_direction(light_position.X() - x_3d, light_position.Y() - y_3d, light_position.Z() - z);
+                Vector3D<double> light_direction(light_position.X() - x_3d, light_position.Y() - y_3d, light_position.Z() - z);
 
-                light_direction.output();
+                //light_direction.output();
                 light_direction.normalize();
-                light_direction.output();
-                normal.output();
+                //light_direction.output();
+                //normal.output();
 
-                scalar = std::max(dot_product(normal, light_direction), 0.0);
+                scalar = std::max(dot_product<double, double>(normal, light_direction), 0.0);
                 //std::cout << "scalar = " << scalar << std::endl;
                 zbuffer_matrix[rasterize_x][rasterize_y] = z;
 
