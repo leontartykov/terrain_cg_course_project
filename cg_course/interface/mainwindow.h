@@ -25,6 +25,7 @@ class MainWindow : public QMainWindow
     QGraphicsView *view;
     QImage *image;
     QPixmap *pixmap;
+    Landscape landscape; //  Сделал лендскейп членом класса. Иначе этот объект умирал при выходе из конструктора
 
 public:
     MainWindow(QWidget *parent = nullptr);

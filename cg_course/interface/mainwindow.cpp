@@ -9,10 +9,9 @@
 
 //#include "driver/perlin/perlin.hpp"
 
-MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)\
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    Landscape landscape;
     rotate_t rotate_angles = {1, 10, 0},
                  rotate_landscape_angles = {60, 0, 10};
 
@@ -33,11 +32,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     light.set_is(ui->spinbox_is->value());
     light.set_ks(ui->spinbox_ks->value());
 
-
-    //rotate_landscape_angles.angle_x = ui->spinbox_rotate_x->value();
-    //rotate_landscape_angles.angle_y = ui->spinbox_rotate_y->value();
-    //rotate_landscape_angles.angle_z = ui->spinbox_rotate_z->value();
-
     Line line(Point<double>(0, 0, 0), Point<double>(1,1,0));
     scene->addLine(line.get_start_point().get_x(), line.get_start_point().get_y(),
                                line.get_end_point().get_x(), line.get_end_point().get_y());
@@ -48,9 +42,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ZBuffer zbuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     landscape.form_landscape();
+    landscape.output_landscape();
     landscape.find_all_landscape_normals();
+    landscape.output_normals();
     landscape.find_average_normals_of_each_node();
-    landscape.rotate_landscape(rotate_landscape_angles);
+    landscape.output_shading_normals();
+
+    //landscape.rotate_landscape(rotate_landscape_angles);
     landscape.transform_points_to_screen();
     landscape.remove_invisible_lines(zbuffer, scene, light.get_position());
     //light.adjust_illumination(zbuffer);
@@ -59,7 +57,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //zbuffer.get_color_matrix()[100][250].getRgb(&r, &g, &b);
     //std::cout << "r = " << r << " g = " << g << " b = " << b <<std::endl;
     landscape.draw_landscape(zbuffer, scene, image);
-
+    // Пример создания сигнал-слот соединения
+    QObject::connect(ui->spinbox_rotate_x, SIGNAL(valueChanged(int)), this, SLOT(rotate_landscape_x()));
     view->show();
 }
 
@@ -69,5 +68,8 @@ MainWindow::~MainWindow(){
 
 void MainWindow::rotate_landscape_x()
 {
+    // Здесь можно вызвать нужный метод объекта landscape
     qDebug() << ui->spinbox_rotate_x->value();
+    rotate_t rotate_landscape_angles = {60, 0, 10};
+    landscape.rotate_landscape(rotate_landscape_angles);
 }

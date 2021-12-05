@@ -36,12 +36,15 @@ public:
     T Y();
     T Z();
     void set_vector(T x, T y, T z);
+    void reset();
 
     void normalize();
 
-    //Vector3D operator+ (Vector3D vector_1, Vector3D vec_2);
-    Vector3D operator - (Vector3D &vector_2);
-    Vector3D operator / (double length);
+    Vector3D<T> &operator += (Vector3D &vector);
+    Vector3D<T> operator - (Vector3D &vector_2);
+    Vector3D<T> operator + (Vector3D<T> &vector_2);
+    Vector3D<T> operator / (double length);
+    Vector3D<T> &operator /= (double length);
 
     void output();
 };

@@ -17,8 +17,9 @@ class Landscape
 private:
     std::vector<std::vector<Point<double>>> _points;
     std::vector<std::vector<Point<double>>> _screen_points;
-    std::vector<std::vector<Vector3D<int>>> _normals;
-    std::vector<std::vector<Vector3D<double>> _shading_normals;
+    std::vector<std::vector<Vector3D<int>>> _normals_up_triangles;
+    std::vector<std::vector<Vector3D<int>>> _normals_down_triangles;
+    std::vector<std::vector<Vector3D<double>>> _shading_normals;
 
 public:
     Landscape();
@@ -42,6 +43,9 @@ public:
     int get_width();
     int get_height();
 
+    void output_normals();
+    void output_shading_normals();
+    Vector3D<double> find_shading_normals(std::vector<Vector3D<int>> &normals, int i, int j);
 };
 
 #endif
