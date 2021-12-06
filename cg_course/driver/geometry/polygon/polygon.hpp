@@ -17,8 +17,7 @@ int Polygon::get_amount(){
 }
 
 Point<double> Polygon::operator [] (int index){
-    if (index >= 0 && _points.size())
-        return _points[index];
+     return _points[index];
 }
 
 void Polygon::output_polygon(){

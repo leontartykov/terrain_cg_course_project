@@ -42,20 +42,17 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ZBuffer zbuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     landscape.form_landscape();
-    landscape.output_landscape();
+    //landscape.output_landscape();
     landscape.find_all_landscape_normals();
-    landscape.output_normals();
+    //landscape.output_normals();
     landscape.find_average_normals_of_each_node();
-    landscape.output_shading_normals();
+    //landscape.output_shading_normals();
 
-    //landscape.rotate_landscape(rotate_landscape_angles);
+    landscape.rotate_landscape(rotate_landscape_angles);
     landscape.transform_points_to_screen();
     landscape.remove_invisible_lines(zbuffer, scene, light.get_position());
     //light.adjust_illumination(zbuffer);
 
-    //int r = 0, g = 0, b = 0;
-    //zbuffer.get_color_matrix()[100][250].getRgb(&r, &g, &b);
-    //std::cout << "r = " << r << " g = " << g << " b = " << b <<std::endl;
     landscape.draw_landscape(zbuffer, scene, image);
     // Пример создания сигнал-слот соединения
     QObject::connect(ui->spinbox_rotate_x, SIGNAL(valueChanged(int)), this, SLOT(rotate_landscape_x()));

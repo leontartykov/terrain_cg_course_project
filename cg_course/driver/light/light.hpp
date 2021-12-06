@@ -9,15 +9,16 @@ Light::Light()
     _ka = 0;
     _kd = 0;
     _ks = 0;
-    _position.set_vector(1500, 1500, 150);
+    _position.set_vector(150, 100, 150);
     _direction.set_vector(0, 0, 0);
 }
 
 Light::~Light(){
 }
 
-void Light::adjust_illumination(ZBuffer &zbuffer)
+void Light::adjust_illumination()
 {
+    /*
     int width = zbuffer.get_width();
     int height = zbuffer.get_height();
 

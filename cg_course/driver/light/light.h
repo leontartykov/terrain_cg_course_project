@@ -3,7 +3,7 @@
 
 #include <QColor>
 #include "driver/geometry/vector/vector.h"
-#include "driver/invisible/zbuffer.h"
+//#include "driver/invisible/zbuffer.h"
 
 class Light
 {
@@ -38,7 +38,7 @@ public:
     void set_is(double is) {_is = is;}
     void set_ks(double ks) {_ks = ks;}
 
-    void adjust_illumination(ZBuffer &zbuffer);
+    void adjust_illumination();
     Vector3D<int> get_position();
 };
 

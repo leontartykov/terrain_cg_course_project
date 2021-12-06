@@ -11,8 +11,8 @@
 #include "driver/geometry/triangle/triangle.hpp"
 #include "driver/geometry/vector/vector_3.hpp"
 
-#define WIDTH_LANDSCAPE 5
-#define HEIGHT_LANDSCAPE 5
+#define WIDTH_LANDSCAPE 20
+#define HEIGHT_LANDSCAPE 20
 
 Landscape::Landscape()
 {
@@ -47,7 +47,7 @@ void Landscape::form_landscape()
 
     for (int x = 0; x < WIDTH_LANDSCAPE; x++){
         for (int y = 0; y < HEIGHT_LANDSCAPE; y++){
-            _points[x][y].set_point((x+10) * 20, (y+5) * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 300);
+            _points[x][y].set_point((x+10) * 20, (y+5) * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 100);
         }
     }
 
@@ -221,51 +221,87 @@ int Landscape::get_width(){
 void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D<int> light_position)
 {
     plane_koeffs_t plane_koeffs_up, plane_koeffs_down;
-    std::cout << "light_position = ";
-    light_position.output();
     int height_landscape = (*this).get_height(), width_landscape = (*this).get_width();
-    //std::cout << "height_landscape = " << height_landscape << std::endl;
+
+    //все точки экранных треугольников (верхние, нижние)
+    //берем тройную матрицу для того, чтобы поделить на верхнюю часть треугольника
+    //и нижнюю
+    std::vector<std::vector<rasterised_points_t>> rasterized_points_up, rasterized_points_down;
+
+    //нормали для треугольников (верхние, нижние)
+    Vector3D<double> normal_up, normal_down;
+
+    //нормали вершин для каждого треугольника (верхние, нижние)
+    Triangle<double>triangle_up_normals, triangle_down_normals;
+
+    //вершины треугольников (верхний и нижний) в 3д
+    Triangle<double>triangle_up_3d, triangle_down_3d;
+
+    Point<int> middle_point_up, middle_point_down;
+
     for (int i = 0; i < width_landscape; i++){
         for (int j = 0; j < height_landscape; j++)
         {
+            //std::cout << "i = " << i << " j = " << j << std::endl;
             //убрать if в цикл
-            if (/*i <= 5 && j<=1*/i < height_landscape - 1 && j < width_landscape - 1)
+            if (i < height_landscape - 1 && j < width_landscape - 1)
             {
-                 std::vector<std::vector<Vector2D>> rasterized_points_up;
-                 std::vector<std::vector<Vector2D>> rasterized_points_down;
-                 rasterize_triangle(rasterized_points_up, (*this).get_screen_point(i, j),
-                                                                                 (*this).get_screen_point(i, j + 1),
-                                                                                 (*this).get_screen_point(i + 1, j + 1), scene,
-                                              zbuffer.get_color_matrix());
-                 rasterize_triangle(rasterized_points_down, (*this).get_screen_point(i, j),
-                                                                                 (*this).get_screen_point(i + 1, j),
-                                                                                 (*this).get_screen_point(i + 1, j + 1), scene,
-                                                zbuffer.get_color_matrix());
-                calculate_equation_plane(plane_koeffs_up,
-                                                         (*this).get_point(i, j),
-                                                         (*this).get_point(i, j + 1),
-                                                         (*this).get_point(i + 1, j + 1));
-                calculate_equation_plane(plane_koeffs_down,
-                                                         (*this).get_point(i, j),
-                                                         (*this).get_point(i + 1, j),
-                                                         (*this).get_point(i + 1, j + 1));
+                triangle_up_normals.set_triangle(_shading_normals[i][j], _shading_normals[i][j+1], _shading_normals[i+1][j+1]);
+                triangle_down_normals.set_triangle(_shading_normals[i][j], _shading_normals[i+1][j], _shading_normals[i+1][j+1]);
 
-                Vector3D<double> normal_up(plane_koeffs_up.a, plane_koeffs_up.b, plane_koeffs_up.c);
-                Vector3D<double> normal_down(plane_koeffs_down.a, plane_koeffs_down.b, plane_koeffs_down.c);
+                /*std::cout << "Треугольники нормалей верхний и нижний до: \n";
+                triangle_up_normals.output();
+                triangle_down_normals.output();
+                std::cout << std::endl << std::endl;*/
+
+                middle_point_up = rasterize_triangle(rasterized_points_up, triangle_up_normals, light_position,
+                                             _screen_points[i][j], _screen_points[i][j+1], _screen_points[i + 1][j + 1],
+                                             scene, zbuffer.get_color_matrix());
+                //qDebug() << "rasterized_points_up = " << rasterized_points_up.size();
+                middle_point_down = rasterize_triangle(rasterized_points_down, triangle_down_normals, light_position,
+                                             _screen_points[i][j], _screen_points[i+1][j], _screen_points[i + 1][j + 1],
+                                            scene, zbuffer.get_color_matrix());
+                //qDebug() << "rasterized_points_down = " << rasterized_points_down.size();
+
+                /*std::cout << "Треугольники нормалей верхний и нижний после: \n";
+                triangle_up_normals.output();
+                triangle_down_normals.output();
+                std::cout << std::endl << std::endl;*/
+
+                //triangle_down_3d.set_triangle();
+
+                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
+                                                     rasterized_points_up, plane_koeffs_up, light_position, triangle_up_normals,
+                                                     triangle_up_3d, middle_point_up);
+                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
+                                                     rasterized_points_down, plane_koeffs_up, light_position, triangle_down_normals,
+                                                     triangle_down_3d, middle_point_down);
+               // triangle_up_normals.set_triangle();
+                /*calculate_equation_plane(plane_koeffs_up,
+                                                        _points[i][j],
+                                                        _points[i][j+1],
+                                                        _points[i + 1][j + 1]);
+                calculate_equation_plane(plane_koeffs_down,
+                                                         _points[i][j],
+                                                         _points[i+1][j],
+                                                         _points[i + 1][j + 1]);
+
+                normal_up.set_vector(plane_koeffs_up.a, plane_koeffs_up.b, plane_koeffs_up.c);
+                normal_down.set_vector(plane_koeffs_down.a, plane_koeffs_down.b, plane_koeffs_down.c);*/
                 //normal_up.output();
                 //normal_down.output();
-                normal_up.normalize();
-                normal_down.normalize();
+                //normal_up.normalize(), normal_down.normalize();
                 //normal_down.output();
 
-                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
+                /*calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
                                                      rasterized_points_up, plane_koeffs_up, light_position, normal_up);
                 calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
-                                                     rasterized_points_down, plane_koeffs_down, light_position, normal_down);
+                                                     rasterized_points_down, plane_koeffs_down, light_position, normal_down);*/
+
+                rasterized_points_up.clear(), rasterized_points_down.clear();
             }
         }
     }
-    //std::cout << "END!";*/
 }
 
 void Landscape::find_all_landscape_normals()
@@ -302,10 +338,10 @@ void Landscape::find_average_normals_of_each_node()
     //3 случай: все боковые узлы по горизонтали (кроме угловых) - усреднение 3 нормалей
     //4 случай: все боковые узлы по вертикали (кроме угловых) - усреднение 3 нормалей
     //5 случай: все остальные - усреднение 6 нормалей
-    qDebug()<< "УЧЕТ НОРМАЛЕЙ.\n";
+
     int width = (*this).get_width(), height = (*this).get_height();
-    qDebug() << "width = " << width << " height = " << height;
-    qDebug() << "_normals_up_triangles = " << _normals_up_triangles.size() << " _normals_down_triangles = " << _normals_down_triangles.size();
+    //qDebug() << "width = " << width << " height = " << height;
+    //qDebug() << "_normals_up_triangles = " << _normals_up_triangles.size() << " _normals_down_triangles = " << _normals_down_triangles.size();
 
     //усредненный вектор
     Vector3D<double> average_vector;
@@ -323,13 +359,14 @@ void Landscape::find_average_normals_of_each_node()
             //1 случай
             if (i == 0 && j == 0 || i == width - 1 && j == height - 1)
             {
-                qDebug()<< "Случай 1: " << "i = " << i << " j = " << j;
+                //qDebug()<< "Случай 1: " << "i = " << i << " j = " << j;
                 if (i == 0){
 
                     normals.push_back(_normals_down_triangles[i][j]);
                     normals.push_back(_normals_up_triangles[i][j]);
 
                     average_vector = find_shading_normals(normals, i, j);
+                    average_vector.normalize();
                     row_shading_normals.push_back(average_vector);
                 }
                 else{
@@ -337,6 +374,7 @@ void Landscape::find_average_normals_of_each_node()
                     normals.push_back(_normals_down_triangles[i - 1][j - 1]);
 
                     average_vector = find_shading_normals(normals, i, j);
+                    average_vector.normalize();
                     row_shading_normals.push_back(average_vector);
                 }
                 normals.clear();
@@ -344,17 +382,19 @@ void Landscape::find_average_normals_of_each_node()
             //2 случай
             else if (i == 0 && j == height - 1 || j == 0 && i == width- 1)
             {
-                qDebug()<< "Случай 2: " << "i = " << i << " j = " << j;
+                //qDebug()<< "Случай 2: " << "i = " << i << " j = " << j;
                 if (i == 0){
                     normals.push_back(_normals_down_triangles[i][j - 1]);
 
                     average_vector = find_shading_normals(normals, i, j);
+                    average_vector.normalize();
                     row_shading_normals.push_back(average_vector);
                 }
                 else{
                     normals.push_back(_normals_down_triangles[i - 1][j]);
 
                     average_vector = find_shading_normals(normals, i, j);
+                    average_vector.normalize();
                     row_shading_normals.push_back(average_vector);
                 }
                 normals.clear();
@@ -362,7 +402,7 @@ void Landscape::find_average_normals_of_each_node()
             //3 случай
             else if((i == 0 && (j > 0 && j < height - 1)) || (i == width - 1 && (j > 0 && j < height - 1)))
             {
-                qDebug()<< "Случай 3: " << "i = " << i << " j = " << j;
+                //qDebug()<< "Случай 3: " << "i = " << i << " j = " << j;
                 if (i == 0)
                 {
                     normals.push_back(_normals_up_triangles[i][j - 1]);
@@ -370,6 +410,7 @@ void Landscape::find_average_normals_of_each_node()
                     normals.push_back(_normals_down_triangles[i][j]);
 
                     average_vector = find_shading_normals(normals, i, j);
+                    average_vector.normalize();
                     row_shading_normals.push_back(average_vector);
                 }
                 else
@@ -379,6 +420,7 @@ void Landscape::find_average_normals_of_each_node()
                     normals.push_back(_normals_down_triangles[i-1][j]);
 
                     average_vector = find_shading_normals(normals, i, j);
+                    average_vector.normalize();
                     row_shading_normals.push_back(average_vector);
                 }
                 normals.clear();
@@ -386,7 +428,7 @@ void Landscape::find_average_normals_of_each_node()
             //4 случай
             else if((j == 0 && i > 0 && i < width - 1) || (j == height - 1 && i > 0 && i < width - 1))
             {
-                qDebug()<< "Случай 4: " << "i = " << i << " j = " << j;
+                //qDebug()<< "Случай 4: " << "i = " << i << " j = " << j;
                 if (j == 0)
                 {
                     normals.push_back(_normals_down_triangles[i-1][j]);
@@ -394,6 +436,7 @@ void Landscape::find_average_normals_of_each_node()
                     normals.push_back(_normals_up_triangles[i][j]);
 
                     average_vector = find_shading_normals(normals, i, j);
+                    average_vector.normalize();
                     row_shading_normals.push_back(average_vector);
                 }
                 else
@@ -403,13 +446,14 @@ void Landscape::find_average_normals_of_each_node()
                     normals.push_back(_normals_up_triangles[i][j - 1]);
 
                     average_vector = find_shading_normals(normals, i, j);
+                    average_vector.normalize();
                     row_shading_normals.push_back(average_vector);
                 }
                 normals.clear();
             }
             else
             {
-                qDebug()<< "Случай 5: " << "i = " << i << " j = " << j;
+                //qDebug()<< "Случай 5: " << "i = " << i << " j = " << j;
                 normals.push_back(_normals_up_triangles[i - 1][j - 1]);
                 normals.push_back(_normals_up_triangles[i][j]);
                 normals.push_back(_normals_up_triangles[i][j-1]);
@@ -419,6 +463,7 @@ void Landscape::find_average_normals_of_each_node()
                 normals.push_back(_normals_down_triangles[i][j]);
 
                 average_vector = find_shading_normals(normals, i, j);
+                average_vector.normalize();
                 row_shading_normals.push_back(average_vector);
                 normals.clear();
             }
@@ -465,15 +510,15 @@ void Landscape::output_shading_normals()
 
 Vector3D<double> Landscape::find_shading_normals(std::vector<Vector3D<int>> &normals, int i, int j)
 {
-    std::cout << "Случай: i = " << i << " j = " << j << std::endl;
+    /*std::cout << "Случай: i = " << i << " j = " << j << std::endl;
     qDebug() << "Количество нормалей: " << normals.size() << "\n";
-    std::cout << "Входные нормали: ";
+    std::cout << "Входные нормали: ";*/
     int count_normals = normals.size();
-    for (int i = 0; i < count_normals; i++){
+    /*for (int i = 0; i < count_normals; i++){
         normals[i].output();
         std::cout << " ";
     }
-    std::cout << std::endl << std::endl;
+    std::cout << std::endl << std::endl;*/
 
     Vector3D<int> sum_normal;
 

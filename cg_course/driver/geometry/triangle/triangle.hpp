@@ -4,11 +4,19 @@
 #include "triangle.h"
 
 template <typename T>
-Triangle<T>::Triangle(Point<T> point_1, Point<T> point_2, Point<T> point_3)
+Triangle<T>::Triangle()
 {
-    _point_1 = point_1;
-    _point_2 = point_2;
-    _point_3 = point_3;
+    _triangle[0] = Vector3D<T>(0.0, 0.0, 0.0);
+    _triangle[1] = Vector3D<T>(0.0, 0.0, 0.0);
+    _triangle[2] = Vector3D<T>(0.0, 0.0, 0.0);
+}
+
+template <typename T>
+Triangle<T>::Triangle(Vector3D<T> point_1, Vector3D<T> point_2, Vector3D<T> point_3)
+{
+    _triangle[0] = point_1;
+    _triangle[1] = point_2;
+    _triangle[2] = point_3;
 }
 
 template <typename T>
@@ -19,10 +27,33 @@ Triangle<T>::~Triangle(){
 template <typename T>
 void Triangle<T>::output(){
     std::cout << "[";
-    _point_1.output_point();
-    _point_2.output_point();
-    _point_3.output_point();
+    _triangle[0].output_point();
+    _triangle[1].output_point();
+    _triangle[2].output_point();
     std::cout << "]";
+}
+
+template <typename T>
+void Triangle<T>::set_triangle(Vector3D<T> point_1, Vector3D<T> point_2, Vector3D<T> point_3)
+{
+    _triangle[0] = point_1;
+    _triangle[1] = point_2;
+    _triangle[2] = point_3;
+}
+
+template <typename T>
+void Triangle<T>::swap_points(int index_first, int index_second)
+{
+    Vector3D<T> temp_point;
+    temp_point = _triangle[index_first - 1];
+    _triangle[index_first - 1] = _triangle[index_second - 1];
+    _triangle[index_second - 1] = temp_point;
+    //temp_point = (*this).get_point(index_first);
+}
+
+template <typename T>
+Vector3D<T> Triangle<T>::operator[] (int index){
+    return _triangle[index];
 }
 
 #endif

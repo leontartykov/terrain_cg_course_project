@@ -107,6 +107,12 @@ void Vector3D<T>::normalize(){
     _z *= inverse_length;
 }
 
+template <typename T>
+double Vector3D<T>::length(){
+    double length = sqrt(_x * _x + _y * _y + _z * _z);
+    return length;
+}
+
 template <typename T1, typename T2>
 double dot_product(Vector3D<T1> &vector_1, Vector3D<T2> &vector_2){
     return vector_1.X() * vector_2.X() + vector_1.Y() * vector_2.Y() + vector_1.Z() * vector_2.Z();

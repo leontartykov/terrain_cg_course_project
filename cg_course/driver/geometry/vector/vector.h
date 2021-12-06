@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <QDebug>
 
 #include "driver/geometry/point/point.h"
 
@@ -45,6 +46,8 @@ public:
     Vector3D<T> operator + (Vector3D<T> &vector_2);
     Vector3D<T> operator / (double length);
     Vector3D<T> &operator /= (double length);
+
+    double length();
 
     void output();
 };
