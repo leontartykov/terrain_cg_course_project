@@ -1,7 +1,8 @@
 #include "driver/invisible/zbuffer.h"
+#include "driver/transform/transform.h"
 
-ZBuffer::ZBuffer(){
-    //что да придумается сюда
+ZBuffer::ZBuffer():ZBuffer(SCREEN_WIDTH, SCREEN_HEIGHT){
+    //что-то да придумается сюда
 }
 
 ZBuffer::ZBuffer(int width, int height)

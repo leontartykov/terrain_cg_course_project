@@ -143,11 +143,12 @@ namespace perlin
             double accumulatedNoise2D(double x, double y, int octaves = 8, double lacunarity = 2.0, double gain = 0.5)
              {
                  double result = 0.0;
-                 double amplitude = 1.0;
-                 double frequency = 1.0;
+                 double amplitude = 0.90;
+                 double frequency = 0.90;
                  double maxVal = 0.0; // used to normalize result
 
-                 for (; octaves > 0; octaves--) {
+                 for (; octaves > 0; octaves--)
+                 {
                      result += noise2D(x * frequency, y * frequency) * amplitude;
 
                      maxVal += amplitude;

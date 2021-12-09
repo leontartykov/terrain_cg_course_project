@@ -12,9 +12,6 @@ class Triangle
 {
 private:
     std::array<Vector3D<T>, 3> _triangle;
-    /*Point<T> _point_1;
-    Point<T> _point_2;
-    Point<T> _point_3;*/
 public:
     Triangle();
     Triangle(Vector3D<T> point_1, Vector3D<T> point_2, Vector3D<T> point_3);

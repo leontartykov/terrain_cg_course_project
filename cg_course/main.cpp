@@ -2,11 +2,6 @@
 #include <iostream>
 
 #include "interface/mainwindow.h"
-#include "driver/geometry/point/point.hpp"
-#include "driver/geometry/polygon/polygon.hpp"
-#include "driver/geometry/matrix/matrix.h"
-#include "driver/geometry/triangle/triangle.hpp"
-#include "driver/geometry/vector/vector_3.hpp"
 
 int main(int argc, char *argv[])
 {

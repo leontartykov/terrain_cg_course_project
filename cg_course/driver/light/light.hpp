@@ -6,9 +6,6 @@
 
 Light::Light()
 {
-    _ka = 0;
-    _kd = 0;
-    _ks = 0;
     _position.set_vector(150, 100, 150);
     _direction.set_vector(0, 0, 0);
 }

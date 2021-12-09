@@ -18,10 +18,10 @@ void find_max_point(Point<double> &point_1, Point<double> &point_2,
 void find_middle_point(Point<int> &middle_point, Point<int> &min_point, Point<int> &max_point,
                                      Point<double> &point_1, Point<double> &point_2, Point<double> &point_3);
 
-double calculate_depth(int rasterize_x, int rasterize_y, plane_koeffs_t &plane_koeffs);
+double calculate_depth(int rasterize_x, int rasterize_y, plane_koeffs_t &plane_koeffs, double zbuffer_value);
 int sign(int x);
 void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> &edge,
-                                                         Point<int> start_point, Point <int> end_point, QGraphicsScene *scene,
+                                                         Point<int> start_point, Point <int> end_point, std::unique_ptr<QGraphicsScene>&scene,
                                                         Vector3D<double> normal_start, Vector3D<double> normal_end,
                                                             Vector3D<int> &light_position, plane_koeffs_t &plane_koeffs);
 void output_edge(std::vector<edge_t> &edge);
@@ -35,7 +35,7 @@ void swap_rasterised_points(rasterised_points_t &value_1, rasterised_points_t &v
 Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &rasterized_points,
                                     Triangle<double>&triangle_normals,
                                     Vector3D<int> &light_position, Point<double> &point_1, Point<double> &point_2, Point<double> &point_3,
-                                    QGraphicsScene *scene, std::vector<std::vector<QColor>> &colors)
+                                    std::unique_ptr<QGraphicsScene>&scene, std::vector<std::vector<QColor>> &colors)
 {
     /*std::cout << std::endl << "Треугольник: point_1: ";
     point_1.output_point();
@@ -170,7 +170,6 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
         for (int i = 0; i < edge_1_size; i++)
         {
             edge_1_i_size = edge_1[i].size();
-            edge_2_i_size = edge_2[i].size();
 
             rasterised_points_t x_left = edge_2[i][0], x_right = edge_1[i][edge_1_i_size - 1];
             double x_left_value = x_left.point.X(), x_right_value = x_right.point.X();
@@ -246,7 +245,7 @@ void output_edge(std::vector<edge_t> &edge)
 }
 
 void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> &edge,
-                                                         Point<int> start_point, Point <int> end_point, QGraphicsScene *scene,
+                                                         Point<int> start_point, Point <int> end_point, std::unique_ptr<QGraphicsScene>&scene,
                                                         Vector3D<double> normal_start, Vector3D<double> normal_end,
                                                             Vector3D<int> &light_position, plane_koeffs_t &plane_koeffs)
 {
@@ -288,7 +287,7 @@ void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> 
     //длина вектора Vstart Vend
     length_xstart_xend = edge_all.length();
 
-    z = calculate_depth(x_start, y_start, plane_koeffs);
+    z = calculate_depth(x_start, y_start, plane_koeffs, (double)std::numeric_limits<int>::min());
     x_3d = (int)((x_start - SCREEN_HEIGHT / 4) * (z + 1000)/1000);
     y_3d = (int)((y_start - SCREEN_HEIGHT / 4) * (z + 1000)/1000);
     light_direction.set_vector(light_position.X() - x_3d, light_position.Y() - y_3d, light_position.Z() - z);
@@ -297,7 +296,7 @@ void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> 
     Istart = scalar;
 
 
-    z = calculate_depth(x_end, y_end, plane_koeffs);
+    z = calculate_depth(x_end, y_end, plane_koeffs, (double)std::numeric_limits<int>::min());
     x_3d = (int)((x_end - SCREEN_HEIGHT / 4) * (z + 1000)/1000);
     y_3d = (int)((y_end - SCREEN_HEIGHT / 4) * (z + 1000)/1000);
     light_direction.set_vector(light_position.X() - x_3d, light_position.Y() - y_3d, light_position.Z() - z);
@@ -496,8 +495,7 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
                                             std::vector<std::vector<QColor>> &color_matrix,
                                             std::vector<std::vector<rasterised_points_t>> &rasterized_points,
                                             plane_koeffs_t &plane_koeffs, Vector3D<int> &light_position,
-                                            Triangle<double>&triangle_normals, Triangle<double>points_3d,
-                                            Point<int> middle_point)
+                                            Triangle<double>&triangle_normals, Triangle<double>points_3d)
 {
     //qDebug() << "CALCULATE DEPTH PIXELS.";
     //qDebug() << "rasterized_points = " << rasterized_points.size();
@@ -530,32 +528,20 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
             rasterize_x_value = rasterize_point.point.X();
             rasterize_y_value = rasterize_point.point.Y();
 
-            z = calculate_depth(rasterize_x_value, rasterize_y_value, plane_koeffs);
+            z = calculate_depth(rasterize_x_value, rasterize_y_value, plane_koeffs, zbuffer_matrix[rasterize_x_value][rasterize_y_value]);
             //qDebug() << "x_rasterize = " << rasterize_x_value << " y_rasterize = " << rasterize_y_value << " intensity = " << rasterized_points[i][j].intensity;
             //qDebug() << "z = " << z << " zbuffer_value = " << zbuffer_matrix[rasterize_x_value][rasterize_y_value];
 
             if (z > zbuffer_matrix[rasterize_x_value][rasterize_y_value])
             {
-                //std::cout << "z = " << z << std::endl;
-                //std::cout << "rasterize_X = " << rasterize_x << std::endl;
-                //std::cout << "rasterize_y = " << rasterize_y << std::endl;
-                //x_3d = (int)((rasterize_x - SCREEN_WIDTH / 4)*(z + 1000)/1000);
-                //y_3d = (int)((rasterize_y - SCREEN_HEIGHT / 4)*(z + 1000)/1000);
-                //std::cout << "x_3d = " << x_3d << " y_3d = " << y_3d << std::endl;;
-                //light_direction.set_vector(light_position.X() - x_3d, light_position.Y() - y_3d, light_position.Z() - z);
-
-                //light_direction.output();
-                //light_direction.normalize();
-                //light_direction.output();
-                //normal.output();
-
-                //scalar = std::max(dot_product<double, double>(normal, light_direction), 0.0);
-                //std::cout << "scalar = " << scalar << std::endl;
                 zbuffer_matrix[rasterize_x_value][rasterize_y_value] = z;
 
                 r_in = r * rasterize_point.intensity;
                 g_in = g * rasterize_point.intensity;
                 b_in = b * rasterize_point.intensity;
+                if (r == 255 && g == 255 && b == 255){
+                    qDebug() << "Есть такой белый пиксель.";
+                }
                 color_matrix[rasterize_x_value][rasterize_y_value].setRgb(r_in, g_in, b_in);
             }
         }
@@ -617,14 +603,15 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
     }
 }*/
 
-double calculate_depth(int rasterize_x, int rasterize_y, plane_koeffs_t &plane_koeffs)
+double calculate_depth(int rasterize_x, int rasterize_y, plane_koeffs_t &plane_koeffs, double zbuffer_value)
 {
-    double z = std::numeric_limits<int>::min();
+    double z = zbuffer_value;
     if (plane_koeffs.c != 0){
         z = -(plane_koeffs.a * rasterize_x + plane_koeffs.b * rasterize_y + plane_koeffs.d) / plane_koeffs.c;
     }
     else{
         qDebug() << "Деление на ноль.\n";
+        qDebug() << "rasterize_x = " << rasterize_x << " rasterize_y = " << rasterize_y;
     }
     return z;
 }

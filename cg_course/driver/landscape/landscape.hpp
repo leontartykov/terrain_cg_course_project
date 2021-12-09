@@ -10,6 +10,7 @@
 #include "driver/light/light.hpp"
 #include "driver/geometry/triangle/triangle.hpp"
 #include "driver/geometry/vector/vector_3.hpp"
+#include "driver/geometry/figure/figure.h"
 
 #define WIDTH_LANDSCAPE 20
 #define HEIGHT_LANDSCAPE 20
@@ -33,6 +34,10 @@ Landscape::Landscape()
         }
         _screen_points.push_back(temp);
     }
+
+    _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
+    _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
+    _meta_config.lacunarity = 0, _meta_config.octaves = 0;
 }
 
 Landscape::~Landscape(){
@@ -40,23 +45,19 @@ Landscape::~Landscape(){
 
 void Landscape::form_landscape()
 {
-    perlin::Perlin map(1532512342);
-    double frequency = 8;
-    double fx = WIDTH_LANDSCAPE / frequency;
-    double fy = HEIGHT_LANDSCAPE / frequency;
+    perlin::Perlin map(123654789);
+    double fx = WIDTH_LANDSCAPE / _meta_config.frequency_x;
+    double fy = HEIGHT_LANDSCAPE / _meta_config.frequency_y;
 
     for (int x = 0; x < WIDTH_LANDSCAPE; x++){
         for (int y = 0; y < HEIGHT_LANDSCAPE; y++){
-            _points[x][y].set_point((x+10) * 20, (y+5) * 20, map.accumulatedNoise2D(x / fx, y / fy, 8, 2.0f, 0.25f) * 100);
+            _points[x][y].set_point((x+3) * 25, (y+3) * 25,
+                                                map.accumulatedNoise2D(x / fx, y / fy, _meta_config.octaves,
+                                                                                           _meta_config.lacunarity, _meta_config.gain) * 100);
         }
     }
 
-    std::cout << "begin =";
-    _points[0][0].output_point();
-    std::cout << "end =";
     _points[WIDTH_LANDSCAPE - 1][HEIGHT_LANDSCAPE - 1].output_point();
-
-    //(*this).output_landscape();
 }
 
 void Landscape::output_screen_landscape()
@@ -86,22 +87,15 @@ void Landscape::transform_points_to_screen()
     int row_size = _points.size();
     int column_size = _points[0].size();
 
-    /*std::cout << "point_1_x = " << _points[0][0].get_x() << std::endl;
-    std::cout << "point_1_y = " << _points[0][0].get_y() << std::endl;
-    std::cout << "point_1_z = " << _points[0][0].get_z() << std::endl;*/
     for (int i = 0; i < row_size; i++)
     {
         for (int j = 0; j < column_size; j++){
             transform_3d_into_2d(_screen_points[i][j], _points[i][j]);
         }
     }
-
-    /*std::cout << "screen_point_1_x = " << _screen_points[0][0].get_x() << std::endl;
-    std::cout << "screen_point_1_y = " << _screen_points[0][0].get_y() << std::endl;*/
-    //(*this).output_screen_landscape();
 }
 
-void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *image)
+void Landscape::draw_landscape(ZBuffer &zbuffer, std::unique_ptr<QGraphicsScene>&scene, std::unique_ptr<QImage>&image)
 {
     //zbuffer.output();
 
@@ -133,47 +127,32 @@ void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *
         }
     }*/
 
-    /*row_size = zbuffer.get_color_matrix().size(), column_size  = zbuffer.get_color_matrix()[0].size();
-    std::cout << "row_size = " << row_size << std::endl;
-    std::cout << "column_size = " << column_size << std::endl;*/
-
-    /*
-    for (int i = 0; i < WIDTH_LANDSCAPE; i++){
-        for (int j = 0; j < HEIGHT_LANDSCAPE; j++){
-            scene->addLine(_screen_points[i][j].get_x(), _screen_points[i][j].get_y(),
-                                       _screen_points[i][j].get_x(), _screen_points[i][j].get_y());
-        }
-    }*/
-
-
-
+    //image.get()->setPixel();
     QPixmap pixmap;
     QPainter painter;
-    painter.begin(image);
+    painter.begin(image.get());
 
     std::vector<std::vector<QColor>> colors = zbuffer.get_color_matrix();
     int r = 0, g = 0, b = 0;
     colors[0][0].getRgb(&r, &g, &b);
-    //std::cout << "r = " << r << " g = " << g << " b = " << b;
-    //colors[0][0].setRgb(50, 50, 50);
-    //std::cout << "r = " << r << " g = " << g << " b = " << b;
 
-    for (int i = 0; i < 1024; i++){
-        for (int j = 0; j < 756; j++)
+    for (int i = 0; i < SCREEN_WIDTH; i++){
+        for (int j = 0; j < SCREEN_HEIGHT; j++)
         {
             colors[i][j].getRgb(&r, &g, &b);
-            //std::cout << "r = " << r << "g = " << g << "b = " << b << std::endl;
+
             painter.setPen(QColor(r, g, b));
             painter.drawLine(i, j, i, j);
         }
     }
 
-    pixmap.convertFromImage(*image);
-    scene->addPixmap(pixmap);
+    //pixmap.convertFromImage();
+    scene.get()->clear();
+    scene.get()->addPixmap(QPixmap::fromImage(*image));
     painter.end();
 }
 
-void Landscape::rotate_landscape(rotate_t &rotate_angles)
+void Landscape::rotate_landscape(rotate_t &diff_rotate_angles)
 {
     qDebug() << "ROTATE_LANDSCAPE\n";
     //std::cout << "ROTATE_LANDSCAPE\n";
@@ -196,7 +175,7 @@ void Landscape::rotate_landscape(rotate_t &rotate_angles)
     for (int i = 0; i < WIDTH_LANDSCAPE; i++){
         for (int j = 0; j < HEIGHT_LANDSCAPE; j++){
             shift_point_by_center(_points[i][j], center_figure_point);
-            rotate_point(_points[i][j], rotate_angles);
+            rotate_point(_points[i][j], diff_rotate_angles);
             shift_point_back_by_center(_points[i][j], center_figure_point);
         }
     }
@@ -218,7 +197,7 @@ int Landscape::get_width(){
     return _points[0].size();
 }
 
-void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D<int> light_position)
+void Landscape::remove_invisible_lines(ZBuffer &zbuffer, std::unique_ptr<QGraphicsScene>&scene, Vector3D<int> light_position)
 {
     plane_koeffs_t plane_koeffs_up, plane_koeffs_down;
     int height_landscape = (*this).get_height(), width_landscape = (*this).get_width();
@@ -239,67 +218,28 @@ void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, 
 
     Point<int> middle_point_up, middle_point_down;
 
-    for (int i = 0; i < width_landscape; i++){
-        for (int j = 0; j < height_landscape; j++)
+    for (int i = 0; i < width_landscape - 1; i++){
+        for (int j = 0; j < height_landscape - 1; j++)
         {
-            //std::cout << "i = " << i << " j = " << j << std::endl;
-            //убрать if в цикл
-            if (i < height_landscape - 1 && j < width_landscape - 1)
-            {
-                triangle_up_normals.set_triangle(_shading_normals[i][j], _shading_normals[i][j+1], _shading_normals[i+1][j+1]);
-                triangle_down_normals.set_triangle(_shading_normals[i][j], _shading_normals[i+1][j], _shading_normals[i+1][j+1]);
+            triangle_up_normals.set_triangle(_shading_normals[i][j], _shading_normals[i][j+1], _shading_normals[i+1][j+1]);
+            triangle_down_normals.set_triangle(_shading_normals[i][j], _shading_normals[i+1][j], _shading_normals[i+1][j+1]);
 
-                /*std::cout << "Треугольники нормалей верхний и нижний до: \n";
-                triangle_up_normals.output();
-                triangle_down_normals.output();
-                std::cout << std::endl << std::endl;*/
+            middle_point_up = rasterize_triangle(rasterized_points_up, triangle_up_normals, light_position,
+                                         _screen_points[i][j], _screen_points[i][j+1], _screen_points[i + 1][j + 1],
+                                         scene, zbuffer.get_color_matrix());
 
-                middle_point_up = rasterize_triangle(rasterized_points_up, triangle_up_normals, light_position,
-                                             _screen_points[i][j], _screen_points[i][j+1], _screen_points[i + 1][j + 1],
-                                             scene, zbuffer.get_color_matrix());
-                //qDebug() << "rasterized_points_up = " << rasterized_points_up.size();
-                middle_point_down = rasterize_triangle(rasterized_points_down, triangle_down_normals, light_position,
-                                             _screen_points[i][j], _screen_points[i+1][j], _screen_points[i + 1][j + 1],
-                                            scene, zbuffer.get_color_matrix());
-                //qDebug() << "rasterized_points_down = " << rasterized_points_down.size();
+            middle_point_down = rasterize_triangle(rasterized_points_down, triangle_down_normals, light_position,
+                                         _screen_points[i][j], _screen_points[i+1][j], _screen_points[i + 1][j + 1],
+                                        scene, zbuffer.get_color_matrix());
 
-                /*std::cout << "Треугольники нормалей верхний и нижний после: \n";
-                triangle_up_normals.output();
-                triangle_down_normals.output();
-                std::cout << std::endl << std::endl;*/
+            calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
+                                                 rasterized_points_up, plane_koeffs_up, light_position, triangle_up_normals,
+                                                 triangle_up_3d);
+            calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
+                                                 rasterized_points_down, plane_koeffs_up, light_position, triangle_down_normals,
+                                                 triangle_down_3d);
 
-                //triangle_down_3d.set_triangle();
-
-                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
-                                                     rasterized_points_up, plane_koeffs_up, light_position, triangle_up_normals,
-                                                     triangle_up_3d, middle_point_up);
-                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
-                                                     rasterized_points_down, plane_koeffs_up, light_position, triangle_down_normals,
-                                                     triangle_down_3d, middle_point_down);
-               // triangle_up_normals.set_triangle();
-                /*calculate_equation_plane(plane_koeffs_up,
-                                                        _points[i][j],
-                                                        _points[i][j+1],
-                                                        _points[i + 1][j + 1]);
-                calculate_equation_plane(plane_koeffs_down,
-                                                         _points[i][j],
-                                                         _points[i+1][j],
-                                                         _points[i + 1][j + 1]);
-
-                normal_up.set_vector(plane_koeffs_up.a, plane_koeffs_up.b, plane_koeffs_up.c);
-                normal_down.set_vector(plane_koeffs_down.a, plane_koeffs_down.b, plane_koeffs_down.c);*/
-                //normal_up.output();
-                //normal_down.output();
-                //normal_up.normalize(), normal_down.normalize();
-                //normal_down.output();
-
-                /*calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
-                                                     rasterized_points_up, plane_koeffs_up, light_position, normal_up);
-                calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
-                                                     rasterized_points_down, plane_koeffs_down, light_position, normal_down);*/
-
-                rasterized_points_up.clear(), rasterized_points_down.clear();
-            }
+            rasterized_points_up.clear(), rasterized_points_down.clear();
         }
     }
 }
@@ -529,6 +469,31 @@ Vector3D<double> Landscape::find_shading_normals(std::vector<Vector3D<int>> &nor
 
     average_normal /= count_normals;
     return average_normal;
+}
+
+rotate_t Landscape::get_rotate_angles(){
+    return _rotate_landscape_angles;
+}
+
+void Landscape::set_rotate_angles(int angle_x, int angle_y, int angle_z)
+{
+    _rotate_landscape_angles.angle_x = angle_x;
+    _rotate_landscape_angles.angle_y = angle_y;
+    _rotate_landscape_angles.angle_z = angle_z;
+}
+
+void Landscape::set_meta_config(int octaves, double amplitude, double frequency,
+                                  double exponent, int frequency_x, int frequency_y,
+                                  double gain, double lacunarity)
+{
+    _meta_config.octaves = octaves;
+    _meta_config.amplitude = amplitude;
+    _meta_config.frequency = frequency;
+    _meta_config.exponent = exponent;
+    _meta_config.frequency_x = frequency_x;
+    _meta_config.frequency_y = frequency_y;
+    _meta_config.gain = gain;
+    _meta_config.lacunarity = lacunarity;
 }
 
 #endif
