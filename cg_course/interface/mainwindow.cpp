@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     view->setScene(scene);
 
     init_landscape();
+    init_light();
 
     QObject::connect(ui->spinbox_rotate_x, SIGNAL(valueChanged(int)), this, SLOT(rotate_landscape()));
     QObject::connect(ui->spinbox_rotate_y, SIGNAL(valueChanged(int)), this, SLOT(rotate_landscape()));
@@ -38,6 +39,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     QObject::connect(ui->spinbox_width_landscape, SIGNAL(valueChanged(int)), this, SLOT(change_size_noise()));
     QObject::connect(ui->spinbox_height_landscape, SIGNAL(valueChanged(int)), this, SLOT(change_size_noise()));
+
+    QObject::connect(ui->spinbox_light_position_x, SIGNAL(valueChanged(int)), this, SLOT(change_light_position()));
+    QObject::connect(ui->spinbox_light_position_y, SIGNAL(valueChanged(int)), this, SLOT(change_light_position()));
+    QObject::connect(ui->spinbox_light_position_z, SIGNAL(valueChanged(int)), this, SLOT(change_light_position()));
 
     view->show();
 }
@@ -86,6 +91,15 @@ void MainWindow::init_landscape()
     landscape.draw_landscape(zbuffer, scene, image);
 }
 
+void MainWindow::init_light()
+{
+    int light_x = ui->spinbox_light_position_x->value(),
+         light_y = ui->spinbox_light_position_y->value(),
+         light_z = ui->spinbox_light_position_z->value();
+
+    light.set_position(light_x, light_y, light_z);
+}
+
 void MainWindow::rotate_landscape()
 {
     // Здесь можно вызвать нужный метод объекта landscape
@@ -99,8 +113,6 @@ void MainWindow::rotate_landscape()
     landscape.set_rotate_angles(landscape.get_rotate_x() + rotate_angles.angle_x,
                                                   landscape.get_rotate_y() + rotate_angles.angle_y,
                                                   landscape.get_rotate_z() + rotate_angles.angle_z);
-    //landscape.output_rotate_angles();
-
     zbuffer.clear();
 
     landscape.rotate_landscape(rotate_angles);
@@ -111,7 +123,6 @@ void MainWindow::rotate_landscape()
 
 void MainWindow::change_noise_parametrs()
 {
-    //qDebug() << "change_noise";
     meta_data_t meta_data;
     meta_data.octaves = ui->spinbox_octaves->value();
     meta_data.amplitude = ui->spinbox_amplitude->value();
@@ -124,7 +135,6 @@ void MainWindow::change_noise_parametrs()
 
     landscape.set_meta_data(meta_data);
     zbuffer.clear();
-    //landscape.clear();
 
     init_landscape();
 }
@@ -132,11 +142,24 @@ void MainWindow::change_noise_parametrs()
 void MainWindow::change_size_noise()
 {
     int width = ui->spinbox_width_landscape->value(), height = ui->spinbox_height_landscape->value();
-    //qDebug() << "width = " << width;
-    //landscape = Landscape(width, height);
+
     landscape.clear();
     landscape.change_size(width, height);
     zbuffer.clear();
     init_landscape();
-    //landscape.change_size(width, height);
+}
+
+void MainWindow::change_light_position()
+{
+    int light_x = ui->spinbox_light_position_x->value(),
+         light_y = ui->spinbox_light_position_y->value(),
+         light_z = ui->spinbox_light_position_z->value();
+
+    light.set_position(light_x, light_y, light_z);
+    int width = ui->spinbox_width_landscape->value(), height = ui->spinbox_height_landscape->value();
+    light.output_light_position();
+    landscape.clear();
+    landscape.change_size(width, height);
+    zbuffer.clear();
+    init_landscape();
 }

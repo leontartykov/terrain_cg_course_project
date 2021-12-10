@@ -73,4 +73,12 @@ Vector3D<int> Light::get_position(){
     return _position;
 }
 
+void Light::set_position(int x, int y, int z){
+    _position.set_vector(x, y, z);
+}
+
+void Light::output_light_position(){
+    _position.output();
+}
+
 #endif

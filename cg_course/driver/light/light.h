@@ -24,6 +24,9 @@ public:
 
     void adjust_illumination();
     Vector3D<int> get_position();
+    void set_position(int x, int y, int z);
+
+    void output_light_position();
 };
 
 #endif

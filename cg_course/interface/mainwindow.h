@@ -36,10 +36,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void init_landscape();
+    void init_light();
 
 public slots:
     void rotate_landscape();
     void change_noise_parametrs();
     void change_size_noise();
+    void change_light_position();
 };
 #endif // MAINWINDOW_H
