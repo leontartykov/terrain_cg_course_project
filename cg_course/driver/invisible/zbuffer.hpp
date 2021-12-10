@@ -82,7 +82,21 @@ bool ZBuffer::is_background(int index_i, int index_j)
     return is_background;
 }
 
-void ZBuffer::set_color(int index_i, int index_j, QRgb rgb)
-{
+void ZBuffer::set_color(int index_i, int index_j, QRgb rgb){
     _color_matrix[index_i][index_j].setRgb(rgb);
+}
+
+void ZBuffer::clear()
+{
+    for (int i = 0; i < _width; i++){
+        for (int j = 0; j < _height; j++){
+            _zbuffer_matrix[i][j] = std::numeric_limits<int>::min();
+        }
+    }
+
+    for (int i = 0; i < _width; i++){
+        for (int j = 0; j < _height; j++){
+            _color_matrix[i][j] = QColor(255, 255, 255);
+        }
+    }
 }

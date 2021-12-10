@@ -21,7 +21,7 @@ void find_middle_point(Point<int> &middle_point, Point<int> &min_point, Point<in
 double calculate_depth(int rasterize_x, int rasterize_y, plane_koeffs_t &plane_koeffs, double zbuffer_value);
 int sign(int x);
 void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> &edge,
-                                                         Point<int> start_point, Point <int> end_point, std::unique_ptr<QGraphicsScene>&scene,
+                                                         Point<int> start_point, Point <int> end_point, QGraphicsScene *scene,
                                                         Vector3D<double> normal_start, Vector3D<double> normal_end,
                                                             Vector3D<int> &light_position, plane_koeffs_t &plane_koeffs);
 void output_edge(std::vector<edge_t> &edge);
@@ -35,7 +35,7 @@ void swap_rasterised_points(rasterised_points_t &value_1, rasterised_points_t &v
 Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &rasterized_points,
                                     Triangle<double>&triangle_normals,
                                     Vector3D<int> &light_position, Point<double> &point_1, Point<double> &point_2, Point<double> &point_3,
-                                    std::unique_ptr<QGraphicsScene>&scene, std::vector<std::vector<QColor>> &colors)
+                                    QGraphicsScene *scene, std::vector<std::vector<QColor>> &colors)
 {
     /*std::cout << std::endl << "Треугольник: point_1: ";
     point_1.output_point();
@@ -78,6 +78,10 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
     middle_point.set_point(point_triangle_2.get_x(), point_triangle_2.get_y(), 0);
     max_point.set_point(point_triangle_3.get_x(), point_triangle_3.get_y(), 0);
 
+    /*std::cout << "min_point = "; min_point.output_point();
+    std::cout << "middle_point = "; middle_point.output_point();
+    std::cout << "max_point = "; max_point.output_point();*/
+
     //вычисление координат пикселей ребер треугольника
     //qDebug() << "edge_1";
     create_line_by_int_brezenhem(edge_1, min_point, middle_point, scene, triangle_normals[0], triangle_normals[1], light_position, plane_koeffs);
@@ -94,8 +98,9 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
     //для интерполяции
     double t = 0, intensity = 0;
     //если серединная вершина треугольника лежит левее максимальной
-    if (middle_point.get_x() < max_point.get_x())
+    if (middle_point.get_x() <= max_point.get_x())
     {
+        //qDebug() << "middle_point_x < max point_x";
         int edge_1_i_size, edge_2_i_size, edge_3_i_size;
         //нахождение min и max по "х" пикселя для одинакового "у"  (верхняя часть треугольника)
         for (int i = 0; i < edge_1_size; i++)
@@ -126,7 +131,7 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
                 point.point = Vector2D(x, y);
                 point.intensity = intensity;
                 temp_points.push_back(point);
-                //scene->addLine(x_left, y, x_left, y);
+                //scene->addLine(x, y, x, y);
             }
             rasterized_points.push_back(temp_points);
             temp_points.clear();
@@ -159,19 +164,25 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
                 point.point = Vector2D(x, y);
                 point.intensity = intensity;
                 temp_points.push_back(point);
-                //scene->addLine(x_left, y, x_left, y);
+                //scene->addLine(x, y, x, y);
             }
             rasterized_points.push_back(temp_points);
             temp_points.clear();
         }
     }
-    else{
+    else
+    {
+        //qDebug() << "middle_point_x > max point_x";
         int edge_1_i_size, edge_2_i_size, edge_3_i_size;
         for (int i = 0; i < edge_1_size; i++)
         {
             edge_1_i_size = edge_1[i].size();
 
             rasterised_points_t x_left = edge_2[i][0], x_right = edge_1[i][edge_1_i_size - 1];
+
+            if (x_left.point.X() > x_right.point.X()){
+                swap_rasterised_points(x_left, x_right);
+            }
             double x_left_value = x_left.point.X(), x_right_value = x_right.point.X();
             double I_left = x_left.intensity, I_right = x_right.intensity;
             for (int x = x_left_value, y = edge_2[i][0].point.Y(); x <= x_right_value; x++)
@@ -189,7 +200,7 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
                 point.point = Vector2D(x, y);
                 point.intensity = intensity;
                 temp_points.push_back(point);
-                //scene->addLine(x_left, y, x_left, y);
+                //scene->addLine(x, y, x, y);
             }
             rasterized_points.push_back(temp_points);
             temp_points.clear();
@@ -201,8 +212,13 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
             edge_2_i_size = edge_2[edge_2_size - 1 - j].size();
 
             rasterised_points_t x_left = edge_2[edge_2_size - 1 - j][edge_2_i_size - 1], x_right = edge_3[i][0];
+
+            if (x_left.point.X() > x_right.point.X()){
+                swap_rasterised_points(x_left, x_right);
+            }
             double x_left_value = x_left.point.X(), x_right_value = x_right.point.X();
             double I_left = x_left.intensity, I_right = x_right.intensity;
+            //qDebug() << "x_left_value = " << x_left_value << " x_right_value = " << x_right_value;
             for (int x = x_left_value, y = edge_3[i][0].point.Y(); x <= x_right_value; x++)
             {
                 //qDebug() << "x_left_value - x = " << x_left_value - x;
@@ -218,7 +234,7 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
                 point.point = Vector2D(x, y);
                 point.intensity = intensity;
                 temp_points.push_back(point);
-                //scene->addLine(x_left, y, x_left, y);
+                //scene->addLine(x, y, x, y);
             }
             rasterized_points.push_back(temp_points);
             temp_points.clear();
@@ -245,12 +261,12 @@ void output_edge(std::vector<edge_t> &edge)
 }
 
 void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> &edge,
-                                                         Point<int> start_point, Point <int> end_point, std::unique_ptr<QGraphicsScene>&scene,
+                                                         Point<int> start_point, Point <int> end_point, QGraphicsScene *scene,
                                                         Vector3D<double> normal_start, Vector3D<double> normal_end,
                                                             Vector3D<int> &light_position, plane_koeffs_t &plane_koeffs)
 {
     Vector3D<double> light_direction;
-    //QPen *pen = new QPen(Qt::red);
+    QPen *pen = new QPen(Qt::red);
     int flag_exchange = 0;
     int x_start = start_point.get_x(), y_start = start_point.get_y();
     int x_end = end_point.get_x(), y_end = end_point.get_y();
@@ -305,6 +321,8 @@ void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> 
     Iend = scalar;
 
     //qDebug() << "Istart = " << Istart << " Iend = " << Iend << "\n";
+    //qDebug() << "start_point: " << x_start << " " << y_start;
+    //qDebug() << "end_point: " << x_end << " " << y_end;
 
     while (i <= dx)
     {
@@ -539,9 +557,7 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
                 r_in = r * rasterize_point.intensity;
                 g_in = g * rasterize_point.intensity;
                 b_in = b * rasterize_point.intensity;
-                if (r == 255 && g == 255 && b == 255){
-                    qDebug() << "Есть такой белый пиксель.";
-                }
+
                 color_matrix[rasterize_x_value][rasterize_y_value].setRgb(r_in, g_in, b_in);
             }
         }
@@ -610,8 +626,8 @@ double calculate_depth(int rasterize_x, int rasterize_y, plane_koeffs_t &plane_k
         z = -(plane_koeffs.a * rasterize_x + plane_koeffs.b * rasterize_y + plane_koeffs.d) / plane_koeffs.c;
     }
     else{
-        qDebug() << "Деление на ноль.\n";
-        qDebug() << "rasterize_x = " << rasterize_x << " rasterize_y = " << rasterize_y;
+        //qDebug() << "Деление на ноль.\n";
+        //qDebug() << "rasterize_x = " << rasterize_x << " rasterize_y = " << rasterize_y;
     }
     return z;
 }

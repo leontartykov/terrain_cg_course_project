@@ -17,19 +17,49 @@
 
 Landscape::Landscape()
 {
-    for (int i = 0; i < WIDTH_LANDSCAPE; i++)
+    //считаем размер ландшафта - количество тругольников в рядах и столбцах
+    _width = HEIGHT_LANDSCAPE + 1, _height = WIDTH_LANDSCAPE + 1;
+    qDebug() << "Landscape_constructor.";
+    for (int i = 0; i < _width; i++)
     {
         std::vector<Point<double>> temp;
-        for (int j = 0; j < HEIGHT_LANDSCAPE; j++){
+        for (int j = 0; j < _height; j++){
             temp.push_back(Point<double>(0, 0, 0));
         }
         _points.push_back(temp);
     }
 
-    for (int i = 0; i < WIDTH_LANDSCAPE; i++)
+    for (int i = 0; i < _width; i++)
     {
         std::vector<Point<double>> temp;
-        for (int j = 0; j < HEIGHT_LANDSCAPE; j++){
+        for (int j = 0; j < _height; j++){
+            temp.push_back(Point<double>(0, 0, 0));
+        }
+        _screen_points.push_back(temp);
+    }
+
+    _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
+    _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
+    _meta_config.lacunarity = 0, _meta_config.octaves = 0;
+}
+
+Landscape::Landscape(int width, int height)
+{
+    _width = height + 1, _height = width + 1;
+    qDebug() << "Landscape_constructor.";
+    for (int i = 0; i < _width; i++)
+    {
+        std::vector<Point<double>> temp;
+        for (int j = 0; j < _height; j++){
+            temp.push_back(Point<double>(0, 0, 0));
+        }
+        _points.push_back(temp);
+    }
+
+    for (int i = 0; i < _width; i++)
+    {
+        std::vector<Point<double>> temp;
+        for (int j = 0; j < _height; j++){
             temp.push_back(Point<double>(0, 0, 0));
         }
         _screen_points.push_back(temp);
@@ -45,19 +75,20 @@ Landscape::~Landscape(){
 
 void Landscape::form_landscape()
 {
-    perlin::Perlin map(123654789);
-    double fx = WIDTH_LANDSCAPE / _meta_config.frequency_x;
-    double fy = HEIGHT_LANDSCAPE / _meta_config.frequency_y;
+    perlin::Perlin map(1532512342);
+    double frequency_x = _meta_config.frequency_x, frequency_y = _meta_config.frequency_y;
+    double fx = _width / frequency_x;
+    double fy = _height / frequency_y;
+    qDebug() << "_meta_config.exponent = " << _meta_config.exponent;
 
-    for (int x = 0; x < WIDTH_LANDSCAPE; x++){
-        for (int y = 0; y < HEIGHT_LANDSCAPE; y++){
-            _points[x][y].set_point((x+3) * 25, (y+3) * 25,
-                                                map.accumulatedNoise2D(x / fx, y / fy, _meta_config.octaves,
-                                                                                           _meta_config.lacunarity, _meta_config.gain) * 100);
+    for (int x = 0; x < _width; x++){
+        for (int y = 0; y < _height; y++){
+            _points[x][y].set_point((x+3) * 20, (y+3) * 20,
+                                                map.accumulatedNoise2D(x / fx, y / fy, _meta_config) * _meta_config.exponent);
         }
     }
 
-    _points[WIDTH_LANDSCAPE - 1][HEIGHT_LANDSCAPE - 1].output_point();
+    _points[_width - 1][_height - 1].output_point();
 }
 
 void Landscape::output_screen_landscape()
@@ -72,8 +103,8 @@ void Landscape::output_screen_landscape()
 
 void Landscape::output_landscape()
 {
-    std::cout << "Размер шума (row): " << _points.size() << std::endl;
-    std::cout << "Размер шума (column): " << _points[0].size() << std::endl;
+    //std::cout << "Размер шума (row): " << _points.size() << std::endl;
+    //std::cout << "Размер шума (column): " << _points[0].size() << std::endl;
     for (int i = 0; i < _points.size(); i++){
         for (int j = 0; j < _points[i].size(); j++){
         _points[i][j].output_point();
@@ -84,32 +115,29 @@ void Landscape::output_landscape()
 
 void Landscape::transform_points_to_screen()
 {
-    int row_size = _points.size();
-    int column_size = _points[0].size();
-
-    for (int i = 0; i < row_size; i++)
+    for (int i = 0; i < _width; i++)
     {
-        for (int j = 0; j < column_size; j++){
+        for (int j = 0; j < _height; j++){
             transform_3d_into_2d(_screen_points[i][j], _points[i][j]);
         }
     }
 }
 
-void Landscape::draw_landscape(ZBuffer &zbuffer, std::unique_ptr<QGraphicsScene>&scene, std::unique_ptr<QImage>&image)
+void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *image)
 {
     //zbuffer.output();
 
     // обычный вывод сетки
-    /*
-    int x = 0, y = 0;
+
+    /*int x = 0, y = 0;
     double z = 0;
-    int row_size = _points.size();
+    int row_size = _width;
     for (int i = 0; i < row_size; i++)
     {
-        int column_size = _points[i].size();
+        int column_size = _height;
         for (int j = 0; j < column_size; j++)
         {
-            if (i <= 5 && j==0/*i < row_size - 1 && j < column_size - 1*//*)
+            if (i < row_size - 1 && j < column_size - 1)
             {
                     scene->addLine(_screen_points[i+1][j].get_x(), _screen_points[i+1][j].get_y(),
                                                _screen_points[i + 1][j+1].get_x(), _screen_points[i+1][j+1].get_y());
@@ -127,10 +155,11 @@ void Landscape::draw_landscape(ZBuffer &zbuffer, std::unique_ptr<QGraphicsScene>
         }
     }*/
 
+
     //image.get()->setPixel();
     QPixmap pixmap;
     QPainter painter;
-    painter.begin(image.get());
+    painter.begin(image);
 
     std::vector<std::vector<QColor>> colors = zbuffer.get_color_matrix();
     int r = 0, g = 0, b = 0;
@@ -147,14 +176,14 @@ void Landscape::draw_landscape(ZBuffer &zbuffer, std::unique_ptr<QGraphicsScene>
     }
 
     //pixmap.convertFromImage();
-    scene.get()->clear();
-    scene.get()->addPixmap(QPixmap::fromImage(*image));
+    scene->clear();
+    scene->addPixmap(QPixmap::fromImage(*image));
     painter.end();
 }
 
 void Landscape::rotate_landscape(rotate_t &diff_rotate_angles)
 {
-    qDebug() << "ROTATE_LANDSCAPE\n";
+    //qDebug() << "ROTATE_LANDSCAPE\n";
     //std::cout << "ROTATE_LANDSCAPE\n";
     Point<double> center_figure_point;
     Point<double> begin_landscape_point, end_landscape_point;
@@ -172,8 +201,8 @@ void Landscape::rotate_landscape(rotate_t &diff_rotate_angles)
     begin_landscape_point.output_point();
     end_landscape_point.output_point();
 
-    for (int i = 0; i < WIDTH_LANDSCAPE; i++){
-        for (int j = 0; j < HEIGHT_LANDSCAPE; j++){
+    for (int i = 0; i < _width; i++){
+        for (int j = 0; j < _height; j++){
             shift_point_by_center(_points[i][j], center_figure_point);
             rotate_point(_points[i][j], diff_rotate_angles);
             shift_point_back_by_center(_points[i][j], center_figure_point);
@@ -190,17 +219,17 @@ Point<double> &Landscape::get_screen_point(int index_i, int index_j){
 }
 
 int Landscape::get_height(){
-    return _points.size();
+    return _height;
 }
 
 int Landscape::get_width(){
-    return _points[0].size();
+    return _width;
 }
 
-void Landscape::remove_invisible_lines(ZBuffer &zbuffer, std::unique_ptr<QGraphicsScene>&scene, Vector3D<int> light_position)
+void Landscape::remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D<int> light_position)
 {
     plane_koeffs_t plane_koeffs_up, plane_koeffs_down;
-    int height_landscape = (*this).get_height(), width_landscape = (*this).get_width();
+    int width_landscape = (*this).get_width(), height_landscape = (*this).get_height();
 
     //все точки экранных треугольников (верхние, нижние)
     //берем тройную матрицу для того, чтобы поделить на верхнюю часть треугольника
@@ -221,9 +250,12 @@ void Landscape::remove_invisible_lines(ZBuffer &zbuffer, std::unique_ptr<QGraphi
     for (int i = 0; i < width_landscape - 1; i++){
         for (int j = 0; j < height_landscape - 1; j++)
         {
+            //qDebug() << "i = " << i << " j = " << j;
             triangle_up_normals.set_triangle(_shading_normals[i][j], _shading_normals[i][j+1], _shading_normals[i+1][j+1]);
             triangle_down_normals.set_triangle(_shading_normals[i][j], _shading_normals[i+1][j], _shading_normals[i+1][j+1]);
 
+            //std::cout << "_screen_points[i][j] = ";
+            //_screen_points[i][j].output_point();
             middle_point_up = rasterize_triangle(rasterized_points_up, triangle_up_normals, light_position,
                                          _screen_points[i][j], _screen_points[i][j+1], _screen_points[i + 1][j + 1],
                                          scene, zbuffer.get_color_matrix());
@@ -231,6 +263,15 @@ void Landscape::remove_invisible_lines(ZBuffer &zbuffer, std::unique_ptr<QGraphi
             middle_point_down = rasterize_triangle(rasterized_points_down, triangle_down_normals, light_position,
                                          _screen_points[i][j], _screen_points[i+1][j], _screen_points[i + 1][j + 1],
                                         scene, zbuffer.get_color_matrix());
+
+            /*std::cout << "Верхний треугольник: \n";
+            for (int i = 0; i < rasterized_points_up.size(); i++){
+                for (int j = 0; j < rasterized_points_up[i].size(); j++){
+                    rasterized_points_up[i][j].point.output();
+                }
+            }*/
+
+            //std::cout << "\ni = " << i << " j = " << j << "raster_up.size() = " << rasterized_points_up.size() << " rasterdown.size() = " << rasterized_points_down.size() << std::endl;
 
             calculate_depth_pixels(zbuffer.get_zbuffer_matrix(), zbuffer.get_color_matrix(),
                                                  rasterized_points_up, plane_koeffs_up, light_position, triangle_up_normals,
@@ -246,14 +287,13 @@ void Landscape::remove_invisible_lines(ZBuffer &zbuffer, std::unique_ptr<QGraphi
 
 void Landscape::find_all_landscape_normals()
 {
-    int width_landscape = (*this).get_width(), height_landscape = (*this).get_height();
-    for (int i = 0; i < width_landscape - 1; i++)
+    for (int i = 0; i < _width - 1; i++)
     {
         std::vector<Vector3D<int>> row_normals_up_triangles;
         std::vector<Vector3D<int>> row_normals_down_triangles;
-        for (int j = 0; j < height_landscape - 1; j++)
+        for (int j = 0; j < _height - 1; j++)
         {
-
+             //qDebug() << "i = " << i << " j = " << j;
              Vector3D<int> normal_up_triangle = find_normal<int, double>((*this).get_point(i, j),
                                                                                             (*this).get_point(i, j + 1),
                                                                                             (*this).get_point(i + 1, j + 1));
@@ -292,12 +332,12 @@ void Landscape::find_average_normals_of_each_node()
     //векторы нормалей для каждого из случаев
     std::vector<Vector3D<int>> normals;
 
-    for (int i = 0; i < width; i++)
+    for (int i = 0; i < _width; i++)
     {
-        for (int j = 0; j < height; j++)
+        for (int j = 0; j < _height; j++)
         {
             //1 случай
-            if (i == 0 && j == 0 || i == width - 1 && j == height - 1)
+            if (i == 0 && j == 0 || i == _width - 1 && j == _height - 1)
             {
                 //qDebug()<< "Случай 1: " << "i = " << i << " j = " << j;
                 if (i == 0){
@@ -320,7 +360,7 @@ void Landscape::find_average_normals_of_each_node()
                 normals.clear();
             }
             //2 случай
-            else if (i == 0 && j == height - 1 || j == 0 && i == width- 1)
+            else if (i == 0 && j == _height - 1 || j == 0 && i == _width- 1)
             {
                 //qDebug()<< "Случай 2: " << "i = " << i << " j = " << j;
                 if (i == 0){
@@ -340,7 +380,7 @@ void Landscape::find_average_normals_of_each_node()
                 normals.clear();
             }
             //3 случай
-            else if((i == 0 && (j > 0 && j < height - 1)) || (i == width - 1 && (j > 0 && j < height - 1)))
+            else if((i == 0 && (j > 0 && j < _height - 1)) || (i == width - 1 && (j > 0 && j < _height - 1)))
             {
                 //qDebug()<< "Случай 3: " << "i = " << i << " j = " << j;
                 if (i == 0)
@@ -366,7 +406,7 @@ void Landscape::find_average_normals_of_each_node()
                 normals.clear();
             }
             //4 случай
-            else if((j == 0 && i > 0 && i < width - 1) || (j == height - 1 && i > 0 && i < width - 1))
+            else if((j == 0 && i > 0 && i < _width - 1) || (j == _height - 1 && i > 0 && i < _width - 1))
             {
                 //qDebug()<< "Случай 4: " << "i = " << i << " j = " << j;
                 if (j == 0)
@@ -494,6 +534,91 @@ void Landscape::set_meta_config(int octaves, double amplitude, double frequency,
     _meta_config.frequency_y = frequency_y;
     _meta_config.gain = gain;
     _meta_config.lacunarity = lacunarity;
+}
+
+void Landscape::output_rotate_angles()
+{
+    qDebug() << "x :" << _rotate_landscape_angles.angle_x;
+    qDebug() << " y :" << _rotate_landscape_angles.angle_y;
+    qDebug() << " z :" << _rotate_landscape_angles.angle_z;
+}
+
+int Landscape::get_rotate_x(){
+    return _rotate_landscape_angles.angle_x;
+}
+
+int Landscape::get_rotate_y(){
+    return _rotate_landscape_angles.angle_y;
+}
+
+int Landscape::get_rotate_z(){
+    return _rotate_landscape_angles.angle_z;
+}
+
+void Landscape::set_meta_data(meta_data_t meta_data){
+    _meta_config = meta_data;
+}
+
+void Landscape::clear()
+{
+    for (int i = 0; i < _width; i++){
+         _points[i].clear();
+    }
+    _points.clear();
+
+    for (int i = 0; i < _width; i++){
+        _screen_points[i].clear();
+    }
+    _screen_points.clear();
+
+    _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
+    _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
+    _meta_config.lacunarity = 0, _meta_config.octaves = 0;
+
+    int width_landscape = (*this).get_width(), height_landscape = (*this).get_height();
+    for (int i = 0; i < width_landscape - 1; i++)
+    {
+        _normals_up_triangles[i].clear();
+        _normals_down_triangles[i].clear();
+        _shading_normals[i].clear();
+    }
+    _normals_up_triangles.clear();
+    _normals_down_triangles.clear();
+    _shading_normals.clear();
+}
+
+void Landscape::change_size(int width, int height)
+{
+    qDebug() << "change_size";
+    qDebug() << "width = " << width << " height = " << height;
+    qDebug() << "_points.size() = " << _points.size();
+    _width = height + 1; _height = width + 1;
+    for (int i = 0; i < _width; i++)
+    {
+        std::vector<Point<double>> temp;
+        for (int j = 0; j < _height; j++){
+            temp.push_back(Point<double>(0, 0, 0));
+        }
+        _points.push_back(temp);
+    }
+
+    for (int i = 0; i < _width; i++)
+    {
+        std::vector<Point<double>> temp;
+        for (int j = 0; j < _height; j++){
+            temp.push_back(Point<double>(0, 0, 0));
+        }
+        _screen_points.push_back(temp);
+    }
+
+    _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
+    _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
+    _meta_config.lacunarity = 0, _meta_config.octaves = 0;
+}
+
+void Landscape::resize(int width, int height)
+{
+
 }
 
 #endif

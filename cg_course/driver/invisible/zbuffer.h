@@ -61,6 +61,8 @@ public:
     double get_height();
 
     bool is_background(int index_i, int index_j);
+
+    void clear();
 };
 
 void calculate_equation_plane(plane_koeffs_t &plane_koeffs,
@@ -76,6 +78,6 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
 Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &rasterized_points,
                                     Triangle<double>&triangle_normals,
                                     Vector3D<int> &light_position, Point<double> &point_1, Point<double> &point_2, Point<double> &point_3,
-                                    std::unique_ptr<QGraphicsScene>&scene, std::vector<std::vector<QColor>> &colors);
+                                    QGraphicsScene *scene, std::vector<std::vector<QColor>> &colors);
 
 #endif

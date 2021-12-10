@@ -24,11 +24,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
     Ui::MainWindow *ui;
-    std::unique_ptr<QGraphicsScene> _scene;
-    std::unique_ptr<QGraphicsView> _view;
-    std::unique_ptr<QImage> _image;
+    QGraphicsScene *scene;
+    QGraphicsView *view;
+    QImage *image;
     QPixmap pixmap;
-    //QGraphicsPixmapItem* q_pmap;
+
     Landscape landscape; //  Сделал лендскейп членом класса. Иначе этот объект умирал при выходе из конструктора
     Light light;
     ZBuffer zbuffer;
@@ -38,6 +38,8 @@ public:
     void init_landscape();
 
 public slots:
-    void rotate_landscape_x();
+    void rotate_landscape();
+    void change_noise_parametrs();
+    void change_size_noise();
 };
 #endif // MAINWINDOW_H

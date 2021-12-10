@@ -37,15 +37,17 @@ private:
 
     rotate_t _rotate_landscape_angles;
     meta_data_t _meta_config;
+    int _width, _height;
 
 public:
     Landscape();
+    Landscape(int width, int height);
     ~Landscape();
 
     void form_landscape();
     void transform_points_to_screen();
-    void draw_landscape(ZBuffer &zbuffer, std::unique_ptr<QGraphicsScene>&scene, std::unique_ptr<QImage>&image);
-    void remove_invisible_lines(ZBuffer &zbuffer, std::unique_ptr<QGraphicsScene>&scene, Vector3D<int> light_position);
+    void draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QImage *image);
+    void remove_invisible_lines(ZBuffer &zbuffer, QGraphicsScene *scene, Vector3D<int> light_position);
 
     void output_landscape();
     void output_screen_landscape();
@@ -69,6 +71,17 @@ public:
     void set_meta_config(int octaves, double amplitude, double frequency,
                                       double exponent, int frequency_x, int frequency_y,
                                       double gain, double lacunarity);
+
+    void output_rotate_angles();
+    int get_rotate_x();
+    int get_rotate_y();
+    int get_rotate_z();
+
+    void set_meta_data(meta_data_t meta_data);
+    void clear();
+
+    void change_size(int width, int height);
+    void resize(int width, int height);
 };
 
 #endif

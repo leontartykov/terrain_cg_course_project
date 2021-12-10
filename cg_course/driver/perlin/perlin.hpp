@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <random>
 
+#include "driver/landscape/landscape.h"
+
 namespace perlin
 {
     //fade function f(t) = 6t^5 - 15t^4 + 10t^3
@@ -100,9 +102,9 @@ namespace perlin
                 double sx = fade(x);
 
                 //get hash value for all neighboring points
-                int a, b;
-                a = p[xi      ];
-                b = p[xi + 1];
+                int a; //, b;
+                a = p[xi];
+                // b = p[xi + 1];
 
                 //get weighted average
                 double average = lerp(sx, gradient(a, x, 0, 0), gradient(a, x - 1, 0, 0));
@@ -140,15 +142,19 @@ namespace perlin
                 return map(average, -1, 1, 0, 1);
             }
 
-            double accumulatedNoise2D(double x, double y, int octaves = 8, double lacunarity = 2.0, double gain = 0.5)
+            double accumulatedNoise2D(double x, double y, meta_data_t &meta_data)
              {
+                 double gain = meta_data.gain;
+                 double lacunarity = meta_data.lacunarity;
+                 double amplitude = meta_data.amplitude;
+                 double frequency = meta_data.frequency;
+
                  double result = 0.0;
-                 double amplitude = 0.90;
-                 double frequency = 0.90;
                  double maxVal = 0.0; // used to normalize result
 
-                 for (; octaves > 0; octaves--)
-                 {
+                 //qDebug() << "count_octaves = " << meta_data.octaves;
+                 int octaves = meta_data.octaves;
+                 for (; octaves > 0; octaves--) {
                      result += noise2D(x * frequency, y * frequency) * amplitude;
 
                      maxVal += amplitude;
