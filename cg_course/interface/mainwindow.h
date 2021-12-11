@@ -43,5 +43,6 @@ public slots:
     void change_noise_parametrs();
     void change_size_noise();
     void change_light_position();
+    void scale_landscape();
 };
 #endif // MAINWINDOW_H

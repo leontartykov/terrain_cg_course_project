@@ -6,8 +6,8 @@
 #include "driver/geometry/point/point.h"
 #include "driver/geometry/figure/figure.h"
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 754
+#define SCREEN_WIDTH 1146
+#define SCREEN_HEIGHT 820
 
 void transform_3d_into_2d(Point<double> &screen_points, Point<double> &point);
 

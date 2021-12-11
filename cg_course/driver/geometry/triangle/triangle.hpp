@@ -27,10 +27,10 @@ Triangle<T>::~Triangle(){
 template <typename T>
 void Triangle<T>::output(){
     std::cout << "[";
-    _triangle[0].output_point();
-    _triangle[1].output_point();
-    _triangle[2].output_point();
-    std::cout << "]";
+    _triangle[0].output();
+    _triangle[1].output();
+    _triangle[2].output();
+    std::cout << "]" << std::endl;
 }
 
 template <typename T>

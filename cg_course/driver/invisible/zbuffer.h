@@ -61,6 +61,7 @@ public:
     double get_height();
 
     bool is_background(int index_i, int index_j);
+    bool is_equal_colors(int index_i, int index_j, QColor rgb);
 
     void clear();
 };
@@ -78,6 +79,14 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
 Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &rasterized_points,
                                     Triangle<double>&triangle_normals,
                                     Vector3D<int> &light_position, Point<double> &point_1, Point<double> &point_2, Point<double> &point_3,
-                                    QGraphicsScene *scene, std::vector<std::vector<QColor>> &colors);
+                                    QGraphicsScene *scene, std::vector<std::vector<QColor>> &colors, plane_koeffs_t &plane_koeffs);
+
+void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> &edge,
+                                                         Point<int> start_point, Point <int> end_point, QGraphicsScene *scene,
+                                                        Vector3D<double> normal_start, Vector3D<double> normal_end,
+                                                            Vector3D<int> &light_position, plane_koeffs_t &plane_koeffs);
+
+void create_line_by_int_brezenhem(std::vector<rasterised_points_t> &edge,
+                                                         Point<int> start_point, Point <int> end_point, QGraphicsScene *scene);
 
 #endif

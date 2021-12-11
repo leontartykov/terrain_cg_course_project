@@ -78,8 +78,23 @@ bool ZBuffer::is_background(int index_i, int index_j)
     _color_matrix[index_i][index_j].getRgb(&r, &g, &b);
     if (r == 255 && g == 255 && b == 255)
         is_background = true;
-    //std::cout << "is_background = " << is_background << std::endl;
+    //qDebug() << "is_background = " << is_background;
     return is_background;
+}
+
+bool ZBuffer::is_equal_colors(int index_i, int index_j, QColor rgb)
+{
+    bool is_equal = false;
+    int r_matrix = 0, g_matrix = 0, b_matrix = 0;
+    _color_matrix[index_i][index_j].getRgb(&r_matrix, &g_matrix, &b_matrix);
+
+    int r = 0, g = 0, b = 0;
+    rgb.getRgb(&r, &g, &b);
+    if (r_matrix == r && g_matrix == g && b_matrix == b){
+        is_equal = true;
+    }
+
+    return is_equal;
 }
 
 void ZBuffer::set_color(int index_i, int index_j, QRgb rgb){

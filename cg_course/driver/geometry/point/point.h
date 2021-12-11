@@ -2,6 +2,7 @@
 #define _POINT_H_
 
 #include <iostream>
+#include <QDebug>
 
 template <typename T>
 class Point

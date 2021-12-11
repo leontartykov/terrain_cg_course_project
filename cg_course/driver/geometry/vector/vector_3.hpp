@@ -94,7 +94,7 @@ Vector3D<T> Vector3D<T>::operator+ (Vector3D<T> &vector_2)
 
 template <typename T>
 void Vector3D<T>::output(){
-    qDebug() << "(" << _x << ", " << _y << ", " << _z << ") ";
+    std::cout << "(" << _x << ", " << _y << ", " << _z << ") ";
 }
 
 template <typename T>
@@ -125,7 +125,7 @@ Vector3D<T1> find_normal(Point<T2> point_1, Point<T2> point_2, Point<T2> point_3
     point_1.output_point();
     point_2.output_point();
     point_3.output_point();
-    std::cout << std::endl;*/
+    std::cout << " ";*/
     Vector3D<T1> normal_vector;
     Point<T1> int_point_1(point_1.get_x(), point_1.get_y(), point_1.get_z());
     Point<T1> int_point_2(point_3.get_x(), point_2.get_y(), point_2.get_z());
@@ -147,8 +147,9 @@ Vector3D<T1> find_normal(Point<T2> point_1, Point<T2> point_2, Point<T2> point_3
     double c = vector_1_x * vector_2_y - vector_1_y * vector_2_x;
 
     normal_vector.set_vector(a, b, c);
-    //qDebug() << "Полученный вектор нормали: ";
-    //normal_vector.output();
+    /*std::cout << "Полученный вектор нормали: ";
+    normal_vector.output();
+    std::cout << std::endl;*/
 
     return normal_vector;
 }

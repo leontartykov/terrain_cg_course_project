@@ -34,11 +34,16 @@ private:
     std::vector<std::vector<Vector3D<int>>> _normals_up_triangles;
     std::vector<std::vector<Vector3D<int>>> _normals_down_triangles;
     std::vector<std::vector<Vector3D<double>>> _shading_normals;
+    std::vector<Point<double>> _base_points;
+    std::vector<Point<int>> _base_screen;
+    std::vector<std::vector<Vector3D<int>>> _normals_base;
 
     rotate_t _rotate_landscape_angles;
     meta_data_t _meta_config;
     int _width, _height;
 
+    void fill_base(ZBuffer &zbuffer, std::vector<rasterised_points_t> &edge);
+    void fill_boards(ZBuffer &zbuffer, Point<int> &point);
 public:
     Landscape();
     Landscape(int width, int height);
@@ -82,6 +87,10 @@ public:
 
     void change_size(int width, int height);
     void resize(int width, int height);
+
+    void make_base(ZBuffer &zbuffer, QGraphicsScene *scene);
+    void find_base_normals();
+    void clear_normals();
 };
 
 #endif

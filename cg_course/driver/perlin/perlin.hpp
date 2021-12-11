@@ -4,6 +4,7 @@
 #include <iterator>
 #include <algorithm>
 #include <random>
+#include <cmath>
 
 #include "driver/landscape/landscape.h"
 
@@ -143,29 +144,40 @@ namespace perlin
             }
 
             double accumulatedNoise2D(double x, double y, meta_data_t &meta_data)
-             {
-                 double gain = meta_data.gain;
-                 double lacunarity = meta_data.lacunarity;
+            {
+                 double frequency_x = meta_data.frequency_x, frequency_y = meta_data.frequency_y;
                  double amplitude = meta_data.amplitude;
-                 double frequency = meta_data.frequency;
+
+                 //qDebug() << "frequency_x = " << frequency_x;
+                 int octaves = meta_data.octaves;
+                 //qDebug() << "octaves = " << octaves;
+
 
                  double result = 0.0;
                  double maxVal = 0.0; // used to normalize result
 
                  //qDebug() << "count_octaves = " << meta_data.octaves;
-                 int octaves = meta_data.octaves;
-                 for (; octaves > 0; octaves--) {
-                     result += noise2D(x * frequency, y * frequency) * amplitude;
 
+                 for (; octaves > 0; octaves--)
+                 {
+                     result += noise2D(x * frequency_x, y * frequency_y) * amplitude;
                      maxVal += amplitude;
+                     //qDebug() << "amplitude = " << amplitude;
+                     //qDebug() << "frequency_x = " << frequency_x;
+                     //qDebug() << "frequency_y = " << frequency_y;
+                     amplitude /= 2;
 
-                     amplitude *= gain;
-                     frequency *= lacunarity;
+                     //frequency *= 2;
+                     frequency_x *= 2;
+                     frequency_y *= 2;
                  }
 
                  // return normalized result
-                 return result / maxVal;
-             }
+                 //qDebug() << "maxVal = " << maxVal;
+                 double e = result / maxVal;
+                 //qDebug() << "exponent = " << meta_data.exponent;
+                 return e;
+            }
     };
 }
 
