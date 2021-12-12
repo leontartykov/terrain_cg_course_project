@@ -25,6 +25,9 @@ public:
     void set_x(T x);
     void set_y(T y);
     void set_z(T z);
+    Point<T> &operator *= (double scale);
+    Point<T> &operator += (double scale);
+    Point<T> &operator -= (double scale);
 
     void output_point();
 };

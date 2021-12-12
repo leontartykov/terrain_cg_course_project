@@ -176,7 +176,7 @@ namespace perlin
                  //qDebug() << "maxVal = " << maxVal;
                  double e = result / maxVal;
                  //qDebug() << "exponent = " << meta_data.exponent;
-                 return e;
+                 return std::pow(e, meta_data.exponent);
             }
     };
 }

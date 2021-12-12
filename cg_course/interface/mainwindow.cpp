@@ -5,9 +5,6 @@
 #include "driver/geometry/grid/grid.hpp"
 #include "driver/landscape/landscape.hpp"
 #include "driver/invisible/zbuffer.hpp"
-//#include "driver/geometry/vector/vector_3.hpp"
-
-//#include "driver/perlin/perlin.hpp"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -17,8 +14,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     view = ui->graphicsView;
 
     scene = new QGraphicsScene(ui->graphicsView);
-    image = new QImage(SCREEN_WIDTH, SCREEN_HEIGHT, QImage::Format_A2RGB30_Premultiplied);
-    image->fill(Qt::white);
     view->setScene(scene);
     view->show();
 
@@ -33,8 +28,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QObject::connect(ui->spinbox_amplitude, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
     QObject::connect(ui->spinbox_exp, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
     QObject::connect(ui->spinbox_frequency, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
-    QObject::connect(ui->spinbox_frequency_x, SIGNAL(valueChanged(int)), this, SLOT(change_noise_parametrs()));
-    QObject::connect(ui->spinbox_frequency_y, SIGNAL(valueChanged(int)), this, SLOT(change_noise_parametrs()));
+    QObject::connect(ui->spinbox_frequency_x, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
+    QObject::connect(ui->spinbox_frequency_y, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
     QObject::connect(ui->spinbox_gain, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
     QObject::connect(ui->spinbox_lacunarity, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
 
@@ -54,9 +49,6 @@ MainWindow::~MainWindow(){
 
 void MainWindow::init_landscape()
 {
-
-    //qDebug() << "ui_size = " << ui->graphicsView->viewport()->size();
-    //qDebug() << "Init landscape.";
     landscape.set_meta_config(ui->spinbox_octaves->value(), ui->spinbox_amplitude->value(), ui->spinbox_frequency->value(),
                                                 ui->spinbox_exp->value(), ui->spinbox_frequency_x->value(), ui->spinbox_frequency_y->value(),
                                                 ui->spinbox_gain->value(), ui->spinbox_lacunarity->value());
@@ -74,7 +66,7 @@ void MainWindow::init_landscape()
     //qDebug() << "find_average_normals_of_each_node().";
     landscape.find_average_normals_of_each_node();
     //std::cout << "Усредненные нормали ландшафта.\n";
-    landscape.output_shading_normals();
+    //landscape.output_shading_normals();
 
     rotate_t rotate_angles;
     rotate_angles.angle_x = ui->spinbox_rotate_x->value();
@@ -83,6 +75,10 @@ void MainWindow::init_landscape()
 
     //qDebug() << "rotate_landscape.";
     landscape.rotate_landscape(rotate_angles);
+
+    double scale = ui->spinbox_scale->value();
+    landscape.set_scale_landscape(scale);
+    landscape.scale_landscape();
 
     //qDebug() << "transform_points_to_screen.";
     landscape.transform_points_to_screen();
@@ -93,7 +89,7 @@ void MainWindow::init_landscape()
     //landscape.make_base(zbuffer, scene);
 
     //qDebug() << "draw_landscape.";
-    landscape.draw_landscape(zbuffer, scene, image);
+    landscape.draw_landscape(zbuffer, scene, view);
 }
 
 void MainWindow::init_light()
@@ -107,10 +103,6 @@ void MainWindow::init_light()
 
 void MainWindow::rotate_landscape()
 {
-    // Здесь можно вызвать нужный метод объекта landscape
-    image->fill(qRgb(255,255,255));
-    //scene->items().clear();
-
     rotate_t rotate_angles, rotate_angles_landscape = landscape.get_rotate_angles();
     rotate_angles.angle_x = ui->spinbox_rotate_x->value() -  landscape.get_rotate_x();
     rotate_angles.angle_y = ui->spinbox_rotate_y->value() - landscape.get_rotate_y();
@@ -120,14 +112,11 @@ void MainWindow::rotate_landscape()
                                                   landscape.get_rotate_z() + rotate_angles.angle_z);
     zbuffer.clear();
 
-    //landscape.clear_normals();
-    //landscape.find_all_landscape_normals();
-    //landscape.find_average_normals_of_each_node();
     landscape.rotate_landscape(rotate_angles);
     landscape.transform_points_to_screen();
     landscape.remove_invisible_lines(zbuffer, scene, light.get_position());
-    //landscape.make_base(zbuffer, scene);
-    landscape.draw_landscape(zbuffer, scene, image);
+
+    landscape.draw_landscape(zbuffer, scene, view);
 }
 
 void MainWindow::change_noise_parametrs()
@@ -143,11 +132,9 @@ void MainWindow::change_noise_parametrs()
     meta_data.gain = ui->spinbox_gain->value();
     meta_data.lacunarity = ui->spinbox_lacunarity->value();
 
-
     zbuffer.clear();
     landscape.clear();
     landscape.change_size(width, height);
-    //landscape.set_meta_data(meta_data);
 
     init_landscape();
 }
@@ -159,7 +146,6 @@ void MainWindow::change_size_noise()
     landscape.clear();
     landscape.change_size(width, height);
     zbuffer.clear();
-
 
     init_landscape();
 }
@@ -180,9 +166,16 @@ void MainWindow::change_light_position()
 
 void MainWindow::scale_landscape()
 {
-    int width = ui->spinbox_width_landscape->value(), height = ui->spinbox_height_landscape->value();
-    landscape.clear();
-    landscape.change_size(width, height);
     zbuffer.clear();
-    init_landscape();
+
+    double new_scale = ui->spinbox_scale->value();
+    //масштабирование относительно начального положения - делаем через вычитание, а не деление и умножение - дорага
+
+    landscape.set_scale_landscape(new_scale);
+    landscape.scale_landscape();
+
+    //landscape.scale_landscape();
+    landscape.transform_points_to_screen();
+    landscape.remove_invisible_lines(zbuffer, scene, light.get_position());
+    landscape.draw_landscape(zbuffer, scene, view);
 }

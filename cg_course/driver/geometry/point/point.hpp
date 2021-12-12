@@ -41,25 +41,48 @@ T Point<T>::get_z() const{
 template <typename T>
 void Point<T>::set_x(T x){
     _x = x;
-    return;
 }
 
 template <typename T>
 void Point<T>::set_y(T y){
     _y = y;
-    return;
 }
 
 template <typename T>
 void Point<T>::set_z(T z){
     _z = z;
-    return;
 }
 
 template <typename T>
-void Point<T>::output_point()
-{
+void Point<T>::output_point(){
     std::cout << "(" << _x << ", " << _y << ", " << _z << ")";// << std::endl;
+}
+
+template <typename T>
+Point<T> &Point<T>::operator *= (double scale)
+{
+    _x *= scale;
+    _y *= scale;
+    _z *= scale;
+    return *this;
+}
+
+template <typename T>
+Point<T> &Point<T>::operator += (double scale)
+{
+    _x += scale;
+    _y += scale;
+    _z += scale;
+    return *this;
+}
+
+template <typename T>
+Point<T> &Point<T>::operator -= (double scale)
+{
+    _x -= scale;
+    _y -= scale;
+    _z -= scale;
+    return *this;
 }
 
 #endif

@@ -115,7 +115,8 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
             //qDebug() << "x_left_intensity = " <<
             double x_left_value = x_left.point.X(), x_right_value = x_right.point.X();
             double I_left = x_left.intensity, I_right = x_right.intensity;
-            for (int y = edge_1[i][0].point.Y(), x = x_left_value; x <= x_right_value && x < SCREEN_WIDTH && y < SCREEN_HEIGHT; x++)
+            for (int y = edge_1[i][0].point.Y(), x = x_left_value;
+                  x <= x_right_value && x < SCREEN_WIDTH && y < SCREEN_HEIGHT; x++)
             {
                 //qDebug() << "x_left_value - x = " << x_left_value - x;
                 if (fabs(x_left_value - x) == 0){
@@ -148,7 +149,8 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
 
             double x_left_value = x_left.point.X(), x_right_value = x_right.point.X();
             double I_left = x_left.intensity, I_right = x_right.intensity;
-            for (int y = edge_3[i][0].point.Y(), x = x_left_value; x <= x_right_value && x < SCREEN_WIDTH && y < SCREEN_HEIGHT; x++)
+            for (int y = edge_3[i][0].point.Y(), x = x_left_value;
+                  x <= x_right_value && x < SCREEN_WIDTH && y < SCREEN_HEIGHT; x++)
             {
                 //qDebug() << "x_left_value - x = " << x_left_value - x;
                 if (fabs(x_left_value - x) == 0){
@@ -184,7 +186,8 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
             }
             double x_left_value = x_left.point.X(), x_right_value = x_right.point.X();
             double I_left = x_left.intensity, I_right = x_right.intensity;
-            for (int x = x_left_value, y = edge_2[i][0].point.Y(); x <= x_right_value && x < SCREEN_WIDTH && y < SCREEN_HEIGHT; x++)
+            for (int x = x_left_value, y = edge_2[i][0].point.Y();
+                   x <= x_right_value && x < SCREEN_WIDTH && y < SCREEN_HEIGHT; x++)
             {
                 //qDebug() << "x_left_value - x = " << x_left_value - x;
                 if (fabs(x_left_value - x) == 0){
@@ -208,7 +211,7 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
 
         for (int i = edge_3_size - 1, j = 0; i >=0; i--, j++)
         {
-            edge_3_i_size = edge_3[i].size();
+            //edge_3_i_size = edge_3[i].size();
             edge_2_i_size = edge_2[edge_2_size - 1 - j].size();
 
             rasterised_points_t x_left = edge_2[edge_2_size - 1 - j][edge_2_i_size - 1], x_right = edge_3[i][0];
@@ -219,7 +222,8 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
             double x_left_value = x_left.point.X(), x_right_value = x_right.point.X();
             double I_left = x_left.intensity, I_right = x_right.intensity;
             //qDebug() << "x_left_value = " << x_left_value << " x_right_value = " << x_right_value;
-            for (int x = x_left_value, y = edge_3[i][0].point.Y(); x <= x_right_value && x < SCREEN_WIDTH && y < SCREEN_HEIGHT; x++)
+            for (int x = x_left_value, y = edge_3[i][0].point.Y();
+                  x <= x_right_value && x < SCREEN_WIDTH && y < SCREEN_HEIGHT; x++)
             {
                 //qDebug() << "x_left_value - x = " << x_left_value - x;
                 if (fabs(x_left_value - x) == 0){
@@ -242,7 +246,6 @@ Point<int> rasterize_triangle(std::vector<std::vector<rasterised_points_t>> &ras
         }
     }
 
-    //qDebug() << "rasterize_points.size =  " << rasterized_points.size();
     return middle_point;
 }
 
@@ -266,6 +269,7 @@ void create_line_by_int_brezenhem(std::vector<std::vector<rasterised_points_t>> 
                                                         Vector3D<double> normal_start, Vector3D<double> normal_end,
                                                             Vector3D<int> &light_position, plane_koeffs_t &plane_koeffs)
 {
+    //qDebug() << "CREATE_LIN_BY_BRESENHEM\n";
     Vector3D<double> light_direction;
     //QPen *pen = new QPen(Qt::red);
     int flag_exchange = 0;
@@ -586,7 +590,6 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
     rasterised_points_t rasterize_point;
     int rasterize_x_value = 0, rasterize_y_value = 0;
 
-
     //исходный цвет
     int r = 119, g =221, b = 119;
     //выходной цвет
@@ -603,6 +606,7 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
         //qDebug() << "size_column_buffer = " << size_column;
         for (int j = 0; j < size_column; j++)
         {
+            //qDebug() << "rasterize_points";
             rasterize_point = rasterized_points[i][j];
             rasterize_x_value = rasterize_point.point.X();
             rasterize_y_value = rasterize_point.point.Y();
@@ -621,6 +625,8 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
 
                 color_matrix[rasterize_x_value][rasterize_y_value].setRgb(r_in, g_in, b_in);
             }
+
+
         }
     }
 
@@ -682,14 +688,15 @@ void calculate_depth_pixels(std::vector<std::vector<double>> &zbuffer_matrix,
 
 double calculate_depth(int rasterize_x, int rasterize_y, plane_koeffs_t &plane_koeffs, double zbuffer_value)
 {
+    //qDebug() << "CALCULATE_DEPTH";
     double z = zbuffer_value;
     if (plane_koeffs.c != 0){
         z = -(plane_koeffs.a * rasterize_x + plane_koeffs.b * rasterize_y + plane_koeffs.d) / plane_koeffs.c;
         //qDebug() << "output_z = " << z;
     }
     else{
-        qDebug() << "Деление на ноль.\n";
-        qDebug() << "rasterize_x = " << rasterize_x << " rasterize_y = " << rasterize_y;
+        //qDebug() << "Деление на ноль.\n";
+        //qDebug() << "rasterize_x = " << rasterize_x << " rasterize_y = " << rasterize_y;
     }
     return z;
 }
