@@ -21,30 +21,12 @@ Landscape::Landscape()
     _width = HEIGHT_LANDSCAPE + 1, _height = WIDTH_LANDSCAPE + 1;
     //qDebug() << "Landscape_constructor.";
     std::vector<Point<double>> temp;
-    for (int i = 0; i < _width; i++)
-    {
-
+    for (int i = 0; i < _width; i++){
         for (int j = 0; j < _height; j++){
             temp.push_back(Point<double>(0, 0, 0));
         }
         _points.push_back(temp);
-        temp.clear();
-    }
-
-    for (int i = 0; i < _width; i++)
-    {
-        for (int j = 0; j < _height; j++){
-            temp.push_back(Point<double>(0, 0, 0));
-        }
         _start_points.push_back(temp);
-        temp.clear();
-    }
-
-    for (int i = 0; i < _width; i++)
-    {
-        for (int j = 0; j < _height; j++){
-            temp.push_back(Point<double>(0, 0, 0));
-        }
         _screen_points.push_back(temp);
         temp.clear();
     }
@@ -58,7 +40,6 @@ Landscape::Landscape()
 Landscape::Landscape(int width, int height)
 {
     _width = height + 1, _height = width + 1;
-    //qDebug() << "Landscape_constructor.";
     std::vector<Point<double>> temp;
     for (int i = 0; i < _width; i++)
     {
@@ -66,23 +47,7 @@ Landscape::Landscape(int width, int height)
             temp.push_back(Point<double>(0, 0, 0));
         }
         _points.push_back(temp);
-        temp.clear();
-    }
-
-    for (int i = 0; i < _width; i++)
-    {
-        for (int j = 0; j < _height; j++){
-            temp.push_back(Point<double>(0, 0, 0));
-        }
         _start_points.push_back(temp);
-        temp.clear();
-    }
-
-    for (int i = 0; i < _width; i++)
-    {
-        for (int j = 0; j < _height; j++){
-            temp.push_back(Point<double>(0, 0, 0));
-        }
         _screen_points.push_back(temp);
         temp.clear();
     }
@@ -105,8 +70,8 @@ void Landscape::form_landscape()
 
     for (int x = 0; x < _width; x++){
         for (int y = 0; y < _height; y++){
-            _points[x][y].set_point((x+1) * 10, (y+1) * 10, map.accumulatedNoise2D(x / fx, y / fy, _meta_config)*1000);
-            _start_points[x][y] = _points[x][y];// .set_point(_points[x][y].get_x(), _points[x][y].get_y(), _points[x][y].get_z());
+            _points[x][y].set_point((x+1) * 10, (y+1) * 10, map.accumulatedNoise2D(x / fx, y / fy, _meta_config)* _meta_config.exponent * 1000);
+            _start_points[x][y] = _points[x][y];
         }
     }
 }
@@ -146,11 +111,6 @@ void Landscape::transform_points_to_screen()
 
 void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QGraphicsView *view)
 {
-    qDebug() << "DRAW\n";
-    //scene->addLine(0,0,0,0);
-    //qDebug() << "width = " << width;
-    //zbuffer.output();
-
     // обычный вывод сетки
 
     /*scene->clear();
@@ -180,6 +140,7 @@ void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QGraphic
         }
     }*/
 
+
     QPixmap pixmap(SCREEN_WIDTH, SCREEN_HEIGHT);
     pixmap.fill(Qt::white);
     //pixmap.scaled(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -193,7 +154,6 @@ void Landscape::draw_landscape(ZBuffer &zbuffer, QGraphicsScene *scene, QGraphic
         for (int j = 0; j < SCREEN_HEIGHT; j++)
         {
             colors[i][j].getRgb(&r, &g, &b);
-
             painter.setPen(QColor(r, g, b));
             painter.drawLine(i, j, i, j);
         }
@@ -582,40 +542,30 @@ void Landscape::clear()
 {
     for (int i = 0; i < _width; i++){
          _points[i].clear();
-    }
-    _points.clear();
-
-    for (int i = 0; i < _width; i++){
          _start_points[i].clear();
+         _screen_points[i].clear();
+         _shading_normals[i].clear();
     }
+    _shading_normals.clear();
+    _points.clear();
     _start_points.clear();
-
-    for (int i = 0; i < _width; i++){
-        _screen_points[i].clear();
-    }
     _screen_points.clear();
 
     _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
     _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
     _meta_config.lacunarity = 0, _meta_config.octaves = 0;
 
-    int width_landscape = (*this).get_width(), height_landscape = (*this).get_height();
-    for (int i = 0; i < width_landscape - 1; i++)
+    for (int i = 0; i < _width - 1; i++)
     {
         _normals_up_triangles[i].clear();
         _normals_down_triangles[i].clear();
-        _shading_normals[i].clear();
     }
     _normals_up_triangles.clear();
     _normals_down_triangles.clear();
-    _shading_normals.clear();
 }
 
 void Landscape::change_size(int width, int height)
 {
-    //qDebug() << "change_size";
-    //qDebug() << "width = " << width << " height = " << height;
-    //qDebug() << "_points.size() = " << _points.size();
     std::vector<Point<double>> temp;
     _width = height + 1; _height = width + 1;
     for (int i = 0; i < _width; i++)
@@ -624,23 +574,7 @@ void Landscape::change_size(int width, int height)
             temp.push_back(Point<double>(0, 0, 0));
         }
         _points.push_back(temp);
-        temp.clear();
-    }
-
-    for (int i = 0; i < _width; i++)
-    {
-        for (int j = 0; j < _height; j++){
-            temp.push_back(Point<double>(0, 0, 0));
-        }
         _start_points.push_back(temp);
-        temp.clear();
-    }
-
-    for (int i = 0; i < _width; i++)
-    {
-        for (int j = 0; j < _height; j++){
-            temp.push_back(Point<double>(0, 0, 0));
-        }
         _screen_points.push_back(temp);
         temp.clear();
     }

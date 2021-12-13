@@ -1,3 +1,6 @@
+#include <cstdlib> // для функций rand() и srand()
+#include <ctime>
+
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "driver/geometry/point/point.hpp"
@@ -8,7 +11,7 @@
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    qDebug() << "Manwindow constructor.";
+    srand(static_cast<unsigned int>(time(0)));
     ui->setupUi(this);
 
     view = ui->graphicsView;
@@ -17,8 +20,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     view->setScene(scene);
     view->show();
 
-    init_landscape();
     init_light();
+    init_landscape();
 
     QObject::connect(ui->spinbox_rotate_x, SIGNAL(valueChanged(int)), this, SLOT(rotate_landscape()));
     QObject::connect(ui->spinbox_rotate_y, SIGNAL(valueChanged(int)), this, SLOT(rotate_landscape()));
@@ -56,17 +59,12 @@ void MainWindow::init_landscape()
 
     //qDebug() << "form_landscape.";
     landscape.form_landscape();
-    //landscape.output_landscape();
 
     //qDebug() << "find_all_landscapes.";
     landscape.find_all_landscape_normals();
-    //std::cout << "Нормали ландшафта.\n";
-    //landscape.output_normals();
-    //qDebug() << "end_find_all_landscapes.";
+
     //qDebug() << "find_average_normals_of_each_node().";
     landscape.find_average_normals_of_each_node();
-    //std::cout << "Усредненные нормали ландшафта.\n";
-    //landscape.output_shading_normals();
 
     rotate_t rotate_angles;
     rotate_angles.angle_x = ui->spinbox_rotate_x->value();
@@ -85,8 +83,6 @@ void MainWindow::init_landscape()
 
     //qDebug() << "remove_invisible_lines.";
     landscape.remove_invisible_lines(zbuffer, scene, light.get_position());
-
-    //landscape.make_base(zbuffer, scene);
 
     //qDebug() << "draw_landscape.";
     landscape.draw_landscape(zbuffer, scene, view);
@@ -122,20 +118,12 @@ void MainWindow::rotate_landscape()
 void MainWindow::change_noise_parametrs()
 {
     int width = ui->spinbox_width_landscape->value(), height = ui->spinbox_height_landscape->value();
-    meta_data_t meta_data;
-    meta_data.octaves = ui->spinbox_octaves->value();
-    meta_data.amplitude = ui->spinbox_amplitude->value();
-    meta_data.exponent = ui->spinbox_exp->value();
-    meta_data.frequency = ui->spinbox_frequency->value();
-    meta_data.frequency_x = ui->spinbox_frequency_x->value();
-    meta_data.frequency_y = ui->spinbox_frequency_y->value();
-    meta_data.gain = ui->spinbox_gain->value();
-    meta_data.lacunarity = ui->spinbox_lacunarity->value();
 
     zbuffer.clear();
     landscape.clear();
     landscape.change_size(width, height);
 
+    init_light();
     init_landscape();
 }
 

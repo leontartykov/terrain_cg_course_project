@@ -10,22 +10,17 @@ ZBuffer::ZBuffer(int width, int height)
     _width = width;
     _height = height;
 
-    for (int i = 0; i < width; i++)
-    {
-        std::vector<double> temp;
+    std::vector<double> temp;
+    std::vector<QColor> temp_color;
+    for (int i = 0; i < width; i++){
         for (int j = 0; j < height; j++){
             temp.push_back(std::numeric_limits<int>::min());
+            temp_color.push_back(QColor(255, 255, 255));
         }
         _zbuffer_matrix.push_back(temp);
-    }
-
-    for (int i = 0; i < width; i++)
-    {
-        std::vector<QColor> temp;
-        for (int j = 0; j < height; j++){
-            temp.push_back(QColor(255, 255, 255));
-        }
-        _color_matrix.push_back(temp);
+        _color_matrix.push_back(temp_color);
+        temp.clear();
+        temp_color.clear();
     }
 }
 
@@ -106,11 +101,6 @@ void ZBuffer::clear()
     for (int i = 0; i < _width; i++){
         for (int j = 0; j < _height; j++){
             _zbuffer_matrix[i][j] = std::numeric_limits<int>::min();
-        }
-    }
-
-    for (int i = 0; i < _width; i++){
-        for (int j = 0; j < _height; j++){
             _color_matrix[i][j] = QColor(255, 255, 255);
         }
     }
