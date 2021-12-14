@@ -137,7 +137,10 @@
                    <number>360</number>
                   </property>
                   <property name="value">
-                   <number>60</number>
+                   <number>50</number>
+                  </property>
+                  <property name="displayIntegerBase">
+                   <number>10</number>
                   </property>
                  </widget>
                 </item>
@@ -201,7 +204,7 @@
                    <number>360</number>
                   </property>
                   <property name="value">
-                   <number>10</number>
+                   <number>0</number>
                   </property>
                  </widget>
                 </item>
@@ -289,6 +292,12 @@
             <property name="topMargin">
              <number>12</number>
             </property>
+            <property name="rightMargin">
+             <number>1</number>
+            </property>
+            <property name="bottomMargin">
+             <number>27</number>
+            </property>
             <item row="0" column="0">
              <widget class="QLabel" name="label_6">
               <property name="text">
@@ -316,48 +325,13 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>Амплитуда</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QDoubleSpinBox" name="spinbox_amplitude">
-              <property name="minimumSize">
-               <size>
-                <width>60</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="minimum">
-               <double>0.100000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>10.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>0.100000000000000</double>
-              </property>
-              <property name="value">
-               <double>1.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
              <widget class="QLabel" name="label_8">
               <property name="text">
                <string>Частота</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="1" column="1">
              <widget class="QDoubleSpinBox" name="spinbox_frequency">
               <property name="minimumSize">
                <size>
@@ -385,14 +359,14 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
+            <item row="2" column="0">
              <widget class="QLabel" name="label_9">
               <property name="text">
                <string>Экспонента</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="2" column="1">
              <widget class="QDoubleSpinBox" name="spinbox_exp">
               <property name="minimumSize">
                <size>
@@ -420,79 +394,14 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_12">
               <property name="text">
                <string>Частота (х)</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_13">
-              <property name="text">
-               <string>Частота (у)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>Постоянство</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QDoubleSpinBox" name="spinbox_gain">
-              <property name="minimumSize">
-               <size>
-                <width>60</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="maximum">
-               <double>5.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>0.100000000000000</double>
-              </property>
-              <property name="value">
-               <double>2.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string>Лакунарность</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="1">
-             <widget class="QDoubleSpinBox" name="spinbox_lacunarity">
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="maximum">
-               <double>10.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>0.100000000000000</double>
-              </property>
-              <property name="value">
-               <double>1.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
+            <item row="3" column="1">
              <widget class="QDoubleSpinBox" name="spinbox_frequency_x">
               <property name="maximumSize">
                <size>
@@ -514,7 +423,72 @@
               </property>
              </widget>
             </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>Постоянство</string>
+              </property>
+             </widget>
+            </item>
             <item row="5" column="1">
+             <widget class="QDoubleSpinBox" name="spinbox_gain">
+              <property name="minimumSize">
+               <size>
+                <width>60</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="maximum">
+               <double>5.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
+              </property>
+              <property name="value">
+               <double>0.250000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>Лакунарность</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QDoubleSpinBox" name="spinbox_lacunarity">
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="maximum">
+               <double>10.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
+              </property>
+              <property name="value">
+               <double>2.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_13">
+              <property name="text">
+               <string>Частота (у)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
              <widget class="QDoubleSpinBox" name="spinbox_frequency_y">
               <property name="maximumSize">
                <size>
@@ -584,7 +558,7 @@
                <number>100</number>
               </property>
               <property name="value">
-               <number>40</number>
+               <number>100</number>
               </property>
              </widget>
             </item>
@@ -603,7 +577,7 @@
                <number>100</number>
               </property>
               <property name="value">
-               <number>40</number>
+               <number>100</number>
               </property>
              </widget>
             </item>

@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QObject::connect(ui->spinbox_rotate_z, SIGNAL(valueChanged(int)), this, SLOT(rotate_landscape()));
 
     QObject::connect(ui->spinbox_octaves, SIGNAL(valueChanged(int)), this, SLOT(change_noise_parametrs()));
-    QObject::connect(ui->spinbox_amplitude, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
     QObject::connect(ui->spinbox_exp, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
     QObject::connect(ui->spinbox_frequency, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
     QObject::connect(ui->spinbox_frequency_x, SIGNAL(valueChanged(double)), this, SLOT(change_noise_parametrs()));
@@ -52,7 +51,7 @@ MainWindow::~MainWindow(){
 
 void MainWindow::init_landscape()
 {
-    landscape.set_meta_config(ui->spinbox_octaves->value(), ui->spinbox_amplitude->value(), ui->spinbox_frequency->value(),
+    landscape.set_meta_config(ui->spinbox_octaves->value(), ui->spinbox_frequency->value(),
                                                 ui->spinbox_exp->value(), ui->spinbox_frequency_x->value(), ui->spinbox_frequency_y->value(),
                                                 ui->spinbox_gain->value(), ui->spinbox_lacunarity->value());
     landscape.set_rotate_angles(ui->spinbox_rotate_x->value(), ui->spinbox_rotate_y->value(), ui->spinbox_rotate_z->value());
@@ -120,8 +119,8 @@ void MainWindow::change_noise_parametrs()
     int width = ui->spinbox_width_landscape->value(), height = ui->spinbox_height_landscape->value();
 
     zbuffer.clear();
-    landscape.clear();
-    landscape.change_size(width, height);
+    landscape = Landscape(width, height);
+    //landscape.change_size(width, height);
 
     init_light();
     init_landscape();

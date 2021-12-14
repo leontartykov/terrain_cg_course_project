@@ -12,12 +12,12 @@
 #include "driver/geometry/vector/vector_3.hpp"
 #include "driver/geometry/figure/figure.h"
 
-#define WIDTH_LANDSCAPE 40
-#define HEIGHT_LANDSCAPE 40
+#define WIDTH_LANDSCAPE 100
+#define HEIGHT_LANDSCAPE 100
 
 Landscape::Landscape()
 {
-    //считаем размер ландшафта - количество тругольников в рядах и столбцах
+    //считаем размер ландшафта - количество треугольников в рядах и столбцах
     _width = HEIGHT_LANDSCAPE + 1, _height = WIDTH_LANDSCAPE + 1;
     //qDebug() << "Landscape_constructor.";
     std::vector<Point<double>> temp;
@@ -31,7 +31,7 @@ Landscape::Landscape()
         temp.clear();
     }
 
-    _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
+    _meta_config.exponent = 0, _meta_config.frequency = 0;
     _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
     _meta_config.lacunarity = 0, _meta_config.octaves = 0;
 
@@ -52,7 +52,7 @@ Landscape::Landscape(int width, int height)
         temp.clear();
     }
 
-    _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
+    _meta_config.exponent = 0, _meta_config.frequency = 0;
     _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
     _meta_config.lacunarity = 0, _meta_config.octaves = 0;
 }
@@ -65,12 +65,12 @@ void Landscape::form_landscape()
     perlin::Perlin map(1532512342);
     double frequency = _meta_config.frequency;
     double frequency_x = _meta_config.frequency_x, frequency_y = _meta_config.frequency_y;
-    double fx = _width / frequency;
-    double fy = _height / frequency;
+    double fx = _width / frequency_x;
+    double fy = _height / frequency_x;
 
     for (int x = 0; x < _width; x++){
         for (int y = 0; y < _height; y++){
-            _points[x][y].set_point((x+1) * 10, (y+1) * 10, map.accumulatedNoise2D(x / fx, y / fy, _meta_config)* _meta_config.exponent * 1000);
+            _points[x][y].set_point((x+1) * 5, (y+1) * 5, map.accumulatedNoise2D(x / fx, y / fy, _meta_config) * _meta_config.exponent * 1000);
             _start_points[x][y] = _points[x][y];
         }
     }
@@ -501,12 +501,11 @@ void Landscape::set_rotate_angles(int angle_x, int angle_y, int angle_z)
     _rotate_landscape_angles.angle_z = angle_z;
 }
 
-void Landscape::set_meta_config(int octaves, double amplitude, double frequency,
+void Landscape::set_meta_config(int octaves, double frequency,
                                   double exponent, int frequency_x, int frequency_y,
                                   double gain, double lacunarity)
 {
     _meta_config.octaves = octaves;
-    _meta_config.amplitude = amplitude;
     _meta_config.frequency = frequency;
     _meta_config.exponent = exponent;
     _meta_config.frequency_x = frequency_x;
@@ -551,7 +550,7 @@ void Landscape::clear()
     _start_points.clear();
     _screen_points.clear();
 
-    _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
+    _meta_config.exponent = 0, _meta_config.frequency = 0;
     _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
     _meta_config.lacunarity = 0, _meta_config.octaves = 0;
 
@@ -571,7 +570,7 @@ void Landscape::change_size(int width, int height)
     for (int i = 0; i < _width; i++)
     {
         for (int j = 0; j < _height; j++){
-            temp.push_back(Point<double>(0, 0, 0));
+            temp.push_back(Point<double>(255, 255, 255));
         }
         _points.push_back(temp);
         _start_points.push_back(temp);
@@ -579,7 +578,7 @@ void Landscape::change_size(int width, int height)
         temp.clear();
     }
 
-    _meta_config.amplitude = 0, _meta_config.exponent = 0, _meta_config.frequency = 0;
+    _meta_config.exponent = 0, _meta_config.frequency = 0;
     _meta_config.frequency_x = 0, _meta_config.frequency_y = 0, _meta_config.gain = 0;
     _meta_config.lacunarity = 0, _meta_config.octaves = 0;
 }

@@ -70,7 +70,7 @@ namespace perlin
 
                 std::shuffle(std::begin(p), std::begin(p) + 256, std::default_random_engine(seed));
 
-                //дублировать массив для переполнения
+                //дублировать массив для избежания переполнения
                 for (unsigned int i = 0; i < 256; i++)
                     p[256 + i] = p[i];
             }
@@ -103,7 +103,7 @@ namespace perlin
             {
                 //нахождение наименьшей точки из квадрата
                 int xi = (int)(std::floor(x)) & 255;
-                int yi = (int)(std::floor(x)) & 255;
+                int yi = (int)(std::floor(y)) & 255;
 
                 x -= std::floor(x);
                 y -= std::floor(y);
@@ -112,63 +112,55 @@ namespace perlin
                 double sy = fade(y);
 
                 unsigned char aa, ab, ba, bb;
-                aa = p[p[xi      ] + yi      ];
-                ab = p[p[xi      ] + yi + 1];
-                ba = p[p[xi + 1] + yi      ];
+                aa = p[p[xi    ] + yi    ];
+                ab = p[p[xi    ] + yi + 1];
+                ba = p[p[xi + 1] + yi    ];
                 bb = p[p[xi + 1] + yi + 1];
 
                 //нахождение взвешенного среднего
-                double average = lerp(sy, lerp(sx, gradient(aa, x, y, 0), gradient(ab, x - 1, y, 0)),
-                                                      lerp(sx, gradient(ba, x, y - 1, 0), gradient(bb, x - 1, y - 1, 0)));
+                double average = lerp(
+                            sy,
+                            lerp(
+                                sx,
+                                gradient(aa, x    , y    , 0),
+                                gradient(ba, x - 1, y    , 0)
+                            ),
+                            lerp(
+                                sx,
+                                gradient(ab, x    , y - 1, 0),
+                                gradient(bb, x - 1, y - 1, 0)
+                            )
+                        );
 
                 return map(average, -1, 1, 0, 1);
             }
 
             double accumulatedNoise2D(double x, double y, meta_data_t &meta_data)
             {
-                 double frequency_x = meta_data.frequency_x, frequency_y = meta_data.frequency_y;
-                 double amplitude = meta_data.amplitude;
-                // qDebug() << "amplitude = " << amplitude;
-
-                 //qDebug() << "frequency_x = " << frequency_x;
+                 //double frequency_x = meta_data.frequency_x, frequency_y = meta_data.frequency_y;
+                 double lacunarity = meta_data.lacunarity;
+                 double gain = meta_data.gain;
                  int octaves = meta_data.octaves;
-                 //qDebug() << "octaves = " << octaves;
+                 //double frequency_x = meta_data.frequency_x, frequency_y = meta_data.frequency_y;
 
-
+                 double amplitude = 1;
+                 double frequency = 1;
                  double result = 0.0;
-                 double maxVal = 0.0; // used to normalize result
-
-                 //double start_offset_x = 5.3, start_offset_y = 9.1;
-                 //double offset_x = 5.3, offset_y = 9.1;
-                 //qDebug() << "count_octaves = " << meta_data.octaves;
-                 reseed(1532512342);
+                 double maxVal = 0.0;
 
                  for (; octaves > 0; octaves--)
                  {
-                     result += noise2D(x * frequency_x, y * frequency_y) * amplitude;
+                     result += noise2D(x * frequency, y * frequency) * amplitude;
                      maxVal += amplitude;
-                     //qDebug() << "amplitude = " << amplitude;
-                     //qDebug() << "frequency_x = " << frequency_x;
-                     //qDebug() << "frequency_y = " << frequency_y;
-                     //amplitude *= meta_data.gain;
 
-                     amplitude /= 2;
-
-                                          //frequency *= 2;
-                      frequency_x *= 2;
-                      frequency_y *= 2;
-                     //frequency_x *= meta_data.lacunarity;
-                     //frequency_y *= meta_data.lacunarity;
-                     //offset_x = start_offset_x * i;
-                     //offset_y = start_offset_y * i;
-                     //reseed(391821973);
+                     amplitude *= gain;
+                     //frequency_x *= lacunarity;
+                     //frequency_y *= lacunarity;
+                     frequency *= lacunarity;
                  }
 
-                 // return normalized result
-                 //qDebug() << "maxVal = " << maxVal;
                  double e = result / maxVal;
-                 //qDebug() << "exponent = " << meta_data.exponent;
-                 return std::pow(e, meta_data.exponent);
+                 return e;
             }
     };
 }
