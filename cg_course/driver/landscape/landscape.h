@@ -19,12 +19,11 @@ typedef struct meta_data meta_data_t;
 struct meta_data
 {
     int octaves;
-    double frequency;
-    double exponent;
-    double frequency_x;
-    double frequency_y;
     double gain;
     double lacunarity;
+
+    int seed;
+    double frequency;
 };
 
 class Landscape
@@ -76,9 +75,7 @@ public:
 
     rotate_t get_rotate_angles();
     void set_rotate_angles(int angle_x, int angle_y, int angle_z);
-    void set_meta_config(int octaves, double frequency,
-                                      double exponent, int frequency_x, int frequency_y,
-                                      double gain, double lacunarity);
+    void set_meta_config(int octaves, double gain, double lacunarity, int seed, double frequency);
 
     void output_rotate_angles();
     int get_rotate_x();
