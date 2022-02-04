@@ -37,6 +37,8 @@ public:
     ~MainWindow();
     void init_landscape();
     void init_light();
+    void measure_draw_landscape_time();
+    void measure_form_landscape_time();
 
 public slots:
     void rotate_landscape();
